@@ -727,6 +727,145 @@
             white-space: nowrap;
         }
 
+        /* Pronto Socorro Expandível */
+        .pronto-socorro {
+            margin: 1.5rem 0;
+            margin-left: 42px;
+            padding-left: 1rem;
+        }
+
+        .pronto-socorro__trigger {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            width: 100%;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 0;
+        }
+
+        .pronto-socorro__trigger:hover .pronto-socorro__icon {
+            background: var(--primary);
+            color: var(--primary-foreground);
+            transform: scale(1.1);
+        }
+
+        .pronto-socorro__line {
+            flex: 1;
+            height: 1px;
+            background: var(--border);
+        }
+
+        .pronto-socorro__icon {
+            width: 36px;
+            height: 36px;
+            background: var(--card);
+            border: 2px solid var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            color: var(--primary);
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .pronto-socorro__label {
+            font-size: 0.75rem;
+            color: var(--foreground-subtle);
+            white-space: nowrap;
+            transition: color 0.3s ease;
+        }
+
+        .pronto-socorro__trigger:hover .pronto-socorro__label {
+            color: var(--primary);
+        }
+
+        .pronto-socorro__expand {
+            font-size: 0.625rem;
+            color: var(--foreground-subtle);
+            margin-left: 0.25rem;
+            transition: transform 0.3s ease;
+        }
+
+        .pronto-socorro.active .pronto-socorro__expand {
+            transform: rotate(180deg);
+        }
+
+        .pronto-socorro__salas {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.75rem;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            opacity: 0;
+            margin-top: 0;
+        }
+
+        .pronto-socorro.active .pronto-socorro__salas {
+            max-height: 400px;
+            opacity: 1;
+            margin-top: 1rem;
+        }
+
+        .pronto-socorro__sala {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .pronto-socorro__sala:hover {
+            border-color: var(--primary);
+            background: var(--primary-subtle);
+        }
+
+        .pronto-socorro__sala-icon {
+            width: 32px;
+            height: 32px;
+            background: var(--primary);
+            color: var(--primary-foreground);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.875rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .pronto-socorro__sala-title {
+            font-size: 0.8125rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+            color: var(--foreground);
+        }
+
+        .pronto-socorro__sala-desc {
+            font-size: 0.6875rem;
+            color: var(--foreground-muted);
+            line-height: 1.4;
+        }
+
+        @media (max-width: 640px) {
+            .pronto-socorro {
+                margin-left: 34px;
+            }
+
+            .pronto-socorro__salas {
+                grid-template-columns: 1fr;
+            }
+
+            .pronto-socorro__icon {
+                width: 32px;
+                height: 32px;
+                font-size: 0.875rem;
+            }
+        }
+
         @media (max-width: 640px) {
             .journey-timeline__line {
                 left: 16px;
@@ -1975,10 +2114,35 @@
                     </div>
 
                     <!-- Pronto Socorro -->
-                    <div class="journey-break">
-                        <div class="journey-break__line"></div>
-                        <div class="journey-break__text">19h - Pronto Socorro</div>
-                        <div class="journey-break__line"></div>
+                    <div class="pronto-socorro" id="prontoSocorroSabado">
+                        <button class="pronto-socorro__trigger" onclick="toggleProntoSocorro('prontoSocorroSabado')">
+                            <div class="pronto-socorro__line"></div>
+                            <div class="pronto-socorro__icon">+</div>
+                            <span class="pronto-socorro__label">19h - Pronto Socorro <span class="pronto-socorro__expand">▼</span></span>
+                            <div class="pronto-socorro__line"></div>
+                        </button>
+                        <div class="pronto-socorro__salas">
+                            <div class="pronto-socorro__sala">
+                                <div class="pronto-socorro__sala-icon">D</div>
+                                <div class="pronto-socorro__sala-title">Organizacao de Informacoes</div>
+                                <div class="pronto-socorro__sala-desc">Documentacao e dados - estruture seu conhecimento</div>
+                            </div>
+                            <div class="pronto-socorro__sala">
+                                <div class="pronto-socorro__sala-icon">UX</div>
+                                <div class="pronto-socorro__sala-title">Interface e Experiencia</div>
+                                <div class="pronto-socorro__sala-desc">Design - crie interfaces que seus usuarios amam</div>
+                            </div>
+                            <div class="pronto-socorro__sala">
+                                <div class="pronto-socorro__sala-icon">A</div>
+                                <div class="pronto-socorro__sala-title">Conexao entre Sistemas</div>
+                                <div class="pronto-socorro__sala-desc">Automacao e integracoes - faca tudo funcionar junto</div>
+                            </div>
+                            <div class="pronto-socorro__sala">
+                                <div class="pronto-socorro__sala-icon">P</div>
+                                <div class="pronto-socorro__sala-title">Comunicacao com IA</div>
+                                <div class="pronto-socorro__sala-desc">Engenharia de prompt - extraia o maximo da IA</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -2842,6 +3006,13 @@
         function toggleFaq(element) {
             const item = element.parentElement;
             item.classList.toggle('active');
+        }
+
+        function toggleProntoSocorro(id) {
+            const element = document.getElementById(id);
+            const icon = element.querySelector('.pronto-socorro__icon');
+            element.classList.toggle('active');
+            icon.textContent = element.classList.contains('active') ? '-' : '+';
         }
 
         let activePanel = null;
