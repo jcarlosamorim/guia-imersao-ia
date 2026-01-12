@@ -630,6 +630,46 @@
             box-shadow: 0 0 20px var(--primary-glow);
         }
 
+        /* Estados coloridos da jornada */
+        .journey-node__dot--caos {
+            background: #DC2626;
+            border-color: #DC2626;
+            color: #FFFFFF;
+            box-shadow: 0 0 15px rgba(220, 38, 38, 0.4);
+        }
+
+        .journey-node__terminal--caos {
+            background: rgba(220, 38, 38, 0.1);
+            border-color: rgba(220, 38, 38, 0.3);
+            color: #FCA5A5;
+        }
+
+        .journey-node__dot--primeiro {
+            background: #2563EB;
+            border-color: #2563EB;
+            color: #FFFFFF;
+            box-shadow: 0 0 15px rgba(37, 99, 235, 0.4);
+        }
+
+        .journey-node__terminal--primeiro {
+            background: rgba(37, 99, 235, 0.1);
+            border-color: rgba(37, 99, 235, 0.3);
+            color: #93C5FD;
+        }
+
+        .journey-node__dot--clareza {
+            background: #16A34A;
+            border-color: #16A34A;
+            color: #FFFFFF;
+            box-shadow: 0 0 15px rgba(22, 163, 74, 0.4);
+        }
+
+        .journey-node__terminal--clareza {
+            background: rgba(22, 163, 74, 0.1);
+            border-color: rgba(22, 163, 74, 0.3);
+            color: #86EFAC;
+        }
+
         .journey-node__card {
             flex: 1;
             background: var(--card);
@@ -2060,8 +2100,8 @@
 
                     <!-- Estado Inicial -->
                     <div class="journey-node">
-                        <div class="journey-node__dot journey-node__dot--terminal">CAOS</div>
-                        <div class="journey-node__terminal">Você chega com ideias soltas e confusão sobre IA</div>
+                        <div class="journey-node__dot journey-node__dot--caos">CAOS</div>
+                        <div class="journey-node__terminal journey-node__terminal--caos">Você chega com ideias soltas e confusão sobre IA</div>
                     </div>
 
                     <!-- Alan Nicolas -->
@@ -2109,8 +2149,8 @@
 
                     <!-- Estado Intermediário -->
                     <div class="journey-node">
-                        <div class="journey-node__dot journey-node__dot--terminal">1o</div>
-                        <div class="journey-node__terminal">Primeiro sistema criado</div>
+                        <div class="journey-node__dot journey-node__dot--primeiro">1º</div>
+                        <div class="journey-node__terminal journey-node__terminal--primeiro">Primeiro sistema criado</div>
                     </div>
 
                     <!-- Pronto Socorro -->
@@ -2205,8 +2245,8 @@
 
                     <!-- Estado Final -->
                     <div class="journey-node">
-                        <div class="journey-node__dot journey-node__dot--end">FIM</div>
-                        <div class="journey-node__terminal journey-node__terminal--end">CLAREZA PRÁTICA - Sistema funcionando</div>
+                        <div class="journey-node__dot journey-node__dot--clareza">FIM</div>
+                        <div class="journey-node__terminal journey-node__terminal--clareza">CLAREZA PRÁTICA - Sistema funcionando</div>
                     </div>
 
                     <!-- Pronto Socorro Final -->
