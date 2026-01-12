@@ -1,0 +1,1471 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema Hub - Imersao IA para Negocios</title>
+    <style>
+        :root {
+            /* Brand Colors */
+            --brand-primary: #6366f1;
+            --brand-secondary: #8b5cf6;
+            --brand-accent: #00d4aa;
+            --brand-gradient: linear-gradient(135deg, #6366f1, #8b5cf6);
+
+            /* Backgrounds */
+            --bg-dark: #0a0a0f;
+            --bg-elevated: #111118;
+            --bg-surface: #1a1a24;
+            --bg-card: #222230;
+            --bg-hover: #2a2a3a;
+
+            /* Text */
+            --text-primary: #ffffff;
+            --text-secondary: #a1a1aa;
+            --text-muted: #71717a;
+
+            /* Status */
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --info: #3b82f6;
+
+            /* Border */
+            --border: #27272a;
+            --border-focus: #6366f1;
+
+            /* Spacing */
+            --space-xs: 4px;
+            --space-sm: 8px;
+            --space-md: 16px;
+            --space-lg: 24px;
+            --space-xl: 32px;
+            --space-2xl: 48px;
+
+            /* Radius */
+            --radius-sm: 6px;
+            --radius-md: 10px;
+            --radius-lg: 16px;
+            --radius-xl: 24px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            line-height: 1.5;
+        }
+
+        /* ============================================
+           LANDING PAGE SECTION
+           ============================================ */
+
+        .landing {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Hero */
+        .hero {
+            padding: 120px 40px 80px;
+            text-align: center;
+            background: linear-gradient(180deg, var(--bg-dark) 0%, var(--bg-elevated) 100%);
+        }
+
+        .hero__badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: rgba(99, 102, 241, 0.1);
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            border-radius: 100px;
+            font-size: 0.875rem;
+            color: var(--brand-primary);
+            margin-bottom: 32px;
+        }
+
+        .hero__title {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 24px;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero__title span {
+            background: var(--brand-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero__subtitle {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto 40px;
+        }
+
+        /* Section Header */
+        .section-header {
+            text-align: center;
+            padding: 80px 40px 40px;
+        }
+
+        .section-header__label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: var(--brand-accent);
+            margin-bottom: 16px;
+        }
+
+        .section-header__title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .section-header__desc {
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* ============================================
+           HUB PREVIEW - BROWSER MOCKUP
+           ============================================ */
+
+        .hub-preview {
+            padding: 0 40px 80px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .browser-mockup {
+            background: var(--bg-surface);
+            border-radius: var(--radius-xl);
+            overflow: hidden;
+            box-shadow: 0 25px 80px rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--border);
+        }
+
+        .browser-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px 20px;
+            background: var(--bg-elevated);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .browser-dots {
+            display: flex;
+            gap: 8px;
+        }
+
+        .browser-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .browser-dot--red { background: #ef4444; }
+        .browser-dot--yellow { background: #f59e0b; }
+        .browser-dot--green { background: #10b981; }
+
+        .browser-url {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: var(--bg-dark);
+            border-radius: var(--radius-md);
+            font-size: 0.875rem;
+            color: var(--text-muted);
+        }
+
+        .browser-url__lock {
+            color: var(--success);
+        }
+
+        .browser-content {
+            display: flex;
+            min-height: 600px;
+        }
+
+        /* ============================================
+           HUB SIDEBAR
+           ============================================ */
+
+        .hub-sidebar {
+            width: 260px;
+            background: var(--bg-elevated);
+            border-right: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            flex-shrink: 0;
+        }
+
+        .hub-logo {
+            padding: 24px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .hub-logo__brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .hub-logo__icon {
+            width: 40px;
+            height: 40px;
+            background: var(--brand-gradient);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.25rem;
+        }
+
+        .hub-logo__text {
+            font-size: 1.125rem;
+            font-weight: 700;
+        }
+
+        .hub-logo__sub {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .hub-nav {
+            flex: 1;
+            padding: 16px 12px;
+            overflow-y: auto;
+        }
+
+        .hub-nav__section {
+            margin-bottom: 24px;
+        }
+
+        .hub-nav__label {
+            font-size: 0.625rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--text-muted);
+            padding: 0 12px;
+            margin-bottom: 8px;
+        }
+
+        .hub-nav__item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 12px;
+            border-radius: var(--radius-md);
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .hub-nav__item:hover {
+            background: var(--bg-hover);
+            color: var(--text-primary);
+        }
+
+        .hub-nav__item--active {
+            background: rgba(99, 102, 241, 0.15);
+            color: var(--brand-primary);
+        }
+
+        .hub-nav__icon {
+            width: 20px;
+            height: 20px;
+            opacity: 0.7;
+        }
+
+        .hub-nav__badge {
+            margin-left: auto;
+            padding: 2px 8px;
+            background: var(--brand-primary);
+            border-radius: 100px;
+            font-size: 0.625rem;
+            font-weight: 600;
+        }
+
+        .hub-user {
+            padding: 16px;
+            border-top: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .hub-user__avatar {
+            width: 36px;
+            height: 36px;
+            background: var(--brand-gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 0.875rem;
+        }
+
+        .hub-user__info {
+            flex: 1;
+        }
+
+        .hub-user__name {
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .hub-user__role {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        /* ============================================
+           HUB MAIN CONTENT
+           ============================================ */
+
+        .hub-main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .hub-topbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 24px;
+            border-bottom: 1px solid var(--border);
+            background: var(--bg-surface);
+        }
+
+        .hub-topbar__title {
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        .hub-topbar__actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        .hub-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            border-radius: var(--radius-md);
+            font-size: 0.875rem;
+            font-weight: 500;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .hub-btn--primary {
+            background: var(--brand-gradient);
+            color: white;
+        }
+
+        .hub-btn--primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
+        }
+
+        .hub-btn--secondary {
+            background: var(--bg-card);
+            color: var(--text-primary);
+            border: 1px solid var(--border);
+        }
+
+        .hub-btn--secondary:hover {
+            background: var(--bg-hover);
+            border-color: var(--brand-primary);
+        }
+
+        .hub-content {
+            flex: 1;
+            padding: 24px;
+            overflow-y: auto;
+            background: var(--bg-dark);
+        }
+
+        /* Dashboard Grid */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .stat-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 20px;
+        }
+
+        .stat-card__header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 12px;
+        }
+
+        .stat-card__icon {
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+        }
+
+        .stat-card__icon--blue { background: rgba(59, 130, 246, 0.15); color: var(--info); }
+        .stat-card__icon--green { background: rgba(16, 185, 129, 0.15); color: var(--success); }
+        .stat-card__icon--yellow { background: rgba(245, 158, 11, 0.15); color: var(--warning); }
+        .stat-card__icon--purple { background: rgba(139, 92, 246, 0.15); color: var(--brand-secondary); }
+
+        .stat-card__trend {
+            font-size: 0.75rem;
+            padding: 4px 8px;
+            border-radius: 100px;
+        }
+
+        .stat-card__trend--up {
+            background: rgba(16, 185, 129, 0.15);
+            color: var(--success);
+        }
+
+        .stat-card__value {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .stat-card__label {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+        }
+
+        /* Apps Section */
+        .apps-section {
+            margin-bottom: 24px;
+        }
+
+        .apps-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+        }
+
+        .apps-header__title {
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        .apps-header__link {
+            font-size: 0.875rem;
+            color: var(--brand-primary);
+            cursor: pointer;
+        }
+
+        .apps-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+
+        .app-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.2s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .app-card:hover {
+            border-color: var(--brand-primary);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+        }
+
+        .app-card--featured {
+            border-color: var(--brand-accent);
+            background: linear-gradient(135deg, rgba(0, 212, 170, 0.05), transparent);
+        }
+
+        .app-card--featured::before {
+            content: 'NOVO';
+            position: absolute;
+            top: 12px;
+            right: -24px;
+            background: var(--brand-accent);
+            color: var(--bg-dark);
+            font-size: 0.625rem;
+            font-weight: 700;
+            padding: 4px 32px;
+            transform: rotate(45deg);
+        }
+
+        .app-card__icon {
+            width: 48px;
+            height: 48px;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 16px;
+        }
+
+        .app-card__icon--prospector {
+            background: linear-gradient(135deg, #3b82f6, #06b6d4);
+        }
+
+        .app-card__icon--qualifier {
+            background: linear-gradient(135deg, #8b5cf6, #ec4899);
+        }
+
+        .app-card__icon--analyzer {
+            background: linear-gradient(135deg, #f59e0b, #ef4444);
+        }
+
+        .app-card__title {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .app-card__desc {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+        }
+
+        .app-card__meta {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .app-card__status {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .app-card__status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+
+        .app-card__status-dot--active {
+            background: var(--success);
+            box-shadow: 0 0 8px var(--success);
+        }
+
+        .app-card__status-dot--draft {
+            background: var(--warning);
+        }
+
+        /* ============================================
+           APP DETAIL VIEW (EMBEDDED)
+           ============================================ */
+
+        .app-embed {
+            background: var(--bg-surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+        }
+
+        .app-embed__header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 20px;
+            background: var(--bg-elevated);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .app-embed__title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .app-embed__icon {
+            width: 32px;
+            height: 32px;
+            border-radius: var(--radius-sm);
+            background: linear-gradient(135deg, #3b82f6, #06b6d4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .app-embed__name {
+            font-weight: 600;
+        }
+
+        .app-embed__badge {
+            padding: 4px 10px;
+            background: rgba(16, 185, 129, 0.15);
+            color: var(--success);
+            border-radius: 100px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .app-embed__actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .app-embed__content {
+            padding: 24px;
+        }
+
+        /* Chat Interface Inside App */
+        .chat-app {
+            display: flex;
+            flex-direction: column;
+            height: 350px;
+        }
+
+        .chat-app__messages {
+            flex: 1;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            padding-bottom: 16px;
+        }
+
+        .chat-msg {
+            display: flex;
+            gap: 12px;
+            max-width: 80%;
+        }
+
+        .chat-msg--bot {
+            align-self: flex-start;
+        }
+
+        .chat-msg--user {
+            align-self: flex-end;
+            flex-direction: row-reverse;
+        }
+
+        .chat-msg__avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.875rem;
+            flex-shrink: 0;
+        }
+
+        .chat-msg--bot .chat-msg__avatar {
+            background: var(--brand-gradient);
+        }
+
+        .chat-msg--user .chat-msg__avatar {
+            background: var(--bg-card);
+        }
+
+        .chat-msg__bubble {
+            padding: 12px 16px;
+            border-radius: var(--radius-lg);
+            font-size: 0.875rem;
+            line-height: 1.5;
+        }
+
+        .chat-msg--bot .chat-msg__bubble {
+            background: var(--bg-card);
+            border-bottom-left-radius: var(--radius-sm);
+        }
+
+        .chat-msg--user .chat-msg__bubble {
+            background: var(--brand-primary);
+            border-bottom-right-radius: var(--radius-sm);
+        }
+
+        .chat-app__input {
+            display: flex;
+            gap: 12px;
+            padding-top: 16px;
+            border-top: 1px solid var(--border);
+        }
+
+        .chat-app__input input {
+            flex: 1;
+            padding: 12px 16px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            color: var(--text-primary);
+            font-size: 0.875rem;
+        }
+
+        .chat-app__input input:focus {
+            outline: none;
+            border-color: var(--brand-primary);
+        }
+
+        .chat-app__input input::placeholder {
+            color: var(--text-muted);
+        }
+
+        /* ============================================
+           DESIGN SYSTEM COMPONENTS SHOWCASE
+           ============================================ */
+
+        .ds-showcase {
+            padding: 80px 40px;
+            background: var(--bg-elevated);
+        }
+
+        .ds-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .ds-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-top: 48px;
+        }
+
+        .ds-component {
+            background: var(--bg-surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+        }
+
+        .ds-component__header {
+            padding: 16px 20px;
+            background: var(--bg-dark);
+            border-bottom: 1px solid var(--border);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-muted);
+        }
+
+        .ds-component__body {
+            padding: 24px;
+        }
+
+        /* Buttons Component */
+        .ds-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .ds-btn {
+            padding: 10px 20px;
+            border-radius: var(--radius-md);
+            font-size: 0.875rem;
+            font-weight: 500;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .ds-btn--primary {
+            background: var(--brand-gradient);
+            color: white;
+        }
+
+        .ds-btn--secondary {
+            background: var(--bg-card);
+            color: var(--text-primary);
+            border: 1px solid var(--border);
+        }
+
+        .ds-btn--ghost {
+            background: transparent;
+            color: var(--brand-primary);
+        }
+
+        .ds-btn--success {
+            background: var(--success);
+            color: white;
+        }
+
+        .ds-btn--danger {
+            background: var(--danger);
+            color: white;
+        }
+
+        .ds-btn--sm {
+            padding: 6px 12px;
+            font-size: 0.75rem;
+        }
+
+        .ds-btn--lg {
+            padding: 14px 28px;
+            font-size: 1rem;
+        }
+
+        /* Inputs Component */
+        .ds-inputs {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .ds-input {
+            padding: 12px 16px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            color: var(--text-primary);
+            font-size: 0.875rem;
+            width: 100%;
+        }
+
+        .ds-input:focus {
+            outline: none;
+            border-color: var(--brand-primary);
+        }
+
+        .ds-input--error {
+            border-color: var(--danger);
+        }
+
+        .ds-input--success {
+            border-color: var(--success);
+        }
+
+        /* Cards Component */
+        .ds-cards {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .ds-card {
+            padding: 16px;
+            background: var(--bg-card);
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border);
+        }
+
+        .ds-card--elevated {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .ds-card__title {
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .ds-card__text {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+        }
+
+        /* Badges Component */
+        .ds-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .ds-badge {
+            padding: 4px 12px;
+            border-radius: 100px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .ds-badge--default {
+            background: var(--bg-card);
+            color: var(--text-secondary);
+        }
+
+        .ds-badge--primary {
+            background: rgba(99, 102, 241, 0.15);
+            color: var(--brand-primary);
+        }
+
+        .ds-badge--success {
+            background: rgba(16, 185, 129, 0.15);
+            color: var(--success);
+        }
+
+        .ds-badge--warning {
+            background: rgba(245, 158, 11, 0.15);
+            color: var(--warning);
+        }
+
+        .ds-badge--danger {
+            background: rgba(239, 68, 68, 0.15);
+            color: var(--danger);
+        }
+
+        /* Progress Component */
+        .ds-progress {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .ds-progress-bar {
+            height: 8px;
+            background: var(--bg-card);
+            border-radius: 100px;
+            overflow: hidden;
+        }
+
+        .ds-progress-bar__fill {
+            height: 100%;
+            border-radius: 100px;
+            transition: width 0.3s;
+        }
+
+        .ds-progress-bar__fill--primary {
+            background: var(--brand-gradient);
+        }
+
+        .ds-progress-bar__fill--success {
+            background: var(--success);
+        }
+
+        /* Avatar Component */
+        .ds-avatars {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .ds-avatar {
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            background: var(--brand-gradient);
+        }
+
+        .ds-avatar--sm { width: 32px; height: 32px; font-size: 0.75rem; }
+        .ds-avatar--md { width: 40px; height: 40px; font-size: 0.875rem; }
+        .ds-avatar--lg { width: 48px; height: 48px; font-size: 1rem; }
+        .ds-avatar--xl { width: 64px; height: 64px; font-size: 1.25rem; }
+
+        .ds-avatar-group {
+            display: flex;
+        }
+
+        .ds-avatar-group .ds-avatar {
+            margin-left: -8px;
+            border: 2px solid var(--bg-surface);
+        }
+
+        .ds-avatar-group .ds-avatar:first-child {
+            margin-left: 0;
+        }
+
+        /* ============================================
+           CTA SECTION
+           ============================================ */
+
+        .cta-section {
+            padding: 80px 40px;
+            text-align: center;
+            background: linear-gradient(180deg, var(--bg-elevated), var(--bg-dark));
+        }
+
+        .cta-box {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 48px;
+            background: var(--bg-surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-xl);
+        }
+
+        .cta-box__title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .cta-box__desc {
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+            margin-bottom: 32px;
+        }
+
+        .cta-box__btn {
+            padding: 16px 32px;
+            background: var(--brand-gradient);
+            color: white;
+            border: none;
+            border-radius: var(--radius-md);
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .cta-box__btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(99, 102, 241, 0.4);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .dashboard-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .apps-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .ds-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .browser-content {
+                flex-direction: column;
+            }
+
+            .hub-sidebar {
+                width: 100%;
+                border-right: none;
+                border-bottom: 1px solid var(--border);
+            }
+
+            .hub-nav {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 8px;
+                padding: 12px;
+            }
+
+            .hub-nav__section {
+                display: contents;
+            }
+
+            .hub-nav__label {
+                display: none;
+            }
+
+            .dashboard-grid,
+            .apps-grid,
+            .ds-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Landing Hero -->
+    <section class="hero">
+        <div class="hero__badge">
+            <span>Sistema da Imersao</span>
+        </div>
+        <h1 class="hero__title">
+            Seu <span>Hub Pessoal</span> de IA para Negocios
+        </h1>
+        <p class="hero__subtitle">
+            Nao e so teoria. Voce sai com um sistema completo: dashboard,
+            aplicacoes e tudo documentado em um unico lugar.
+        </p>
+    </section>
+
+    <!-- Hub Preview -->
+    <section class="hub-preview">
+        <div class="browser-mockup">
+            <div class="browser-header">
+                <div class="browser-dots">
+                    <div class="browser-dot browser-dot--red"></div>
+                    <div class="browser-dot browser-dot--yellow"></div>
+                    <div class="browser-dot browser-dot--green"></div>
+                </div>
+                <div class="browser-url">
+                    <span class="browser-url__lock">🔒</span>
+                    hub.suaempresa.com.br
+                </div>
+            </div>
+            <div class="browser-content">
+                <!-- Sidebar -->
+                <aside class="hub-sidebar">
+                    <div class="hub-logo">
+                        <div class="hub-logo__brand">
+                            <div class="hub-logo__icon">H</div>
+                            <div>
+                                <div class="hub-logo__text">Meu Hub</div>
+                                <div class="hub-logo__sub">IA para Negocios</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <nav class="hub-nav">
+                        <div class="hub-nav__section">
+                            <div class="hub-nav__label">Principal</div>
+                            <div class="hub-nav__item hub-nav__item--active">
+                                <span>📊</span>
+                                Dashboard
+                            </div>
+                            <div class="hub-nav__item">
+                                <span>🚀</span>
+                                Minhas Apps
+                                <span class="hub-nav__badge">3</span>
+                            </div>
+                            <div class="hub-nav__item">
+                                <span>📁</span>
+                                Documentos
+                            </div>
+                        </div>
+
+                        <div class="hub-nav__section">
+                            <div class="hub-nav__label">Imersao</div>
+                            <div class="hub-nav__item">
+                                <span>🗺️</span>
+                                Mapa de Processos
+                            </div>
+                            <div class="hub-nav__item">
+                                <span>📈</span>
+                                Analise Triple P
+                            </div>
+                            <div class="hub-nav__item">
+                                <span>🎯</span>
+                                Roadmap 90 Dias
+                            </div>
+                        </div>
+
+                        <div class="hub-nav__section">
+                            <div class="hub-nav__label">Recursos</div>
+                            <div class="hub-nav__item">
+                                <span>📚</span>
+                                Base de Conhecimento
+                            </div>
+                            <div class="hub-nav__item">
+                                <span>⚙️</span>
+                                Configuracoes
+                            </div>
+                        </div>
+                    </nav>
+
+                    <div class="hub-user">
+                        <div class="hub-user__avatar">JC</div>
+                        <div class="hub-user__info">
+                            <div class="hub-user__name">Joao Carlos</div>
+                            <div class="hub-user__role">Imerso Turma 01</div>
+                        </div>
+                    </div>
+                </aside>
+
+                <!-- Main Content -->
+                <main class="hub-main">
+                    <header class="hub-topbar">
+                        <h1 class="hub-topbar__title">Dashboard</h1>
+                        <div class="hub-topbar__actions">
+                            <button class="hub-btn hub-btn--secondary">Exportar</button>
+                            <button class="hub-btn hub-btn--primary">+ Nova App</button>
+                        </div>
+                    </header>
+
+                    <div class="hub-content">
+                        <!-- Stats Grid -->
+                        <div class="dashboard-grid">
+                            <div class="stat-card">
+                                <div class="stat-card__header">
+                                    <div class="stat-card__icon stat-card__icon--blue">🤖</div>
+                                    <span class="stat-card__trend stat-card__trend--up">+12%</span>
+                                </div>
+                                <div class="stat-card__value">847</div>
+                                <div class="stat-card__label">Interacoes IA</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-card__header">
+                                    <div class="stat-card__icon stat-card__icon--green">📊</div>
+                                    <span class="stat-card__trend stat-card__trend--up">+8%</span>
+                                </div>
+                                <div class="stat-card__value">156</div>
+                                <div class="stat-card__label">Leads Qualificados</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-card__header">
+                                    <div class="stat-card__icon stat-card__icon--yellow">⏱️</div>
+                                    <span class="stat-card__trend stat-card__trend--up">-32%</span>
+                                </div>
+                                <div class="stat-card__value">4.2h</div>
+                                <div class="stat-card__label">Tempo Economizado/Dia</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-card__header">
+                                    <div class="stat-card__icon stat-card__icon--purple">🎯</div>
+                                </div>
+                                <div class="stat-card__value">3</div>
+                                <div class="stat-card__label">Apps Ativos</div>
+                            </div>
+                        </div>
+
+                        <!-- Apps Section -->
+                        <div class="apps-section">
+                            <div class="apps-header">
+                                <h2 class="apps-header__title">Minhas Aplicacoes</h2>
+                                <span class="apps-header__link">Ver todas →</span>
+                            </div>
+                            <div class="apps-grid">
+                                <div class="app-card app-card--featured">
+                                    <div class="app-card__icon app-card__icon--prospector">🎯</div>
+                                    <div class="app-card__title">Prospector IA</div>
+                                    <div class="app-card__desc">
+                                        Qualifica leads automaticamente via WhatsApp
+                                    </div>
+                                    <div class="app-card__meta">
+                                        <div class="app-card__status">
+                                            <div class="app-card__status-dot app-card__status-dot--active"></div>
+                                            Ativo
+                                        </div>
+                                        <span>847 interacoes</span>
+                                    </div>
+                                </div>
+                                <div class="app-card">
+                                    <div class="app-card__icon app-card__icon--qualifier">📋</div>
+                                    <div class="app-card__title">Gerador de Propostas</div>
+                                    <div class="app-card__desc">
+                                        Cria propostas personalizadas em segundos
+                                    </div>
+                                    <div class="app-card__meta">
+                                        <div class="app-card__status">
+                                            <div class="app-card__status-dot app-card__status-dot--active"></div>
+                                            Ativo
+                                        </div>
+                                        <span>34 propostas</span>
+                                    </div>
+                                </div>
+                                <div class="app-card">
+                                    <div class="app-card__icon app-card__icon--analyzer">📊</div>
+                                    <div class="app-card__title">Analisador de Reunioes</div>
+                                    <div class="app-card__desc">
+                                        Resume e extrai acoes de reunioes
+                                    </div>
+                                    <div class="app-card__meta">
+                                        <div class="app-card__status">
+                                            <div class="app-card__status-dot app-card__status-dot--draft"></div>
+                                            Rascunho
+                                        </div>
+                                        <span>Em construcao</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Embedded App -->
+                        <div class="app-embed">
+                            <div class="app-embed__header">
+                                <div class="app-embed__title">
+                                    <div class="app-embed__icon">🎯</div>
+                                    <span class="app-embed__name">Prospector IA</span>
+                                    <span class="app-embed__badge">Online</span>
+                                </div>
+                                <div class="app-embed__actions">
+                                    <button class="hub-btn hub-btn--secondary">Configurar</button>
+                                    <button class="hub-btn hub-btn--primary">Abrir</button>
+                                </div>
+                            </div>
+                            <div class="app-embed__content">
+                                <div class="chat-app">
+                                    <div class="chat-app__messages">
+                                        <div class="chat-msg chat-msg--bot">
+                                            <div class="chat-msg__avatar">🤖</div>
+                                            <div class="chat-msg__bubble">
+                                                Ola! Sou o Prospector IA. Me conte sobre seu negocio para que eu possa qualificar melhor os leads.
+                                            </div>
+                                        </div>
+                                        <div class="chat-msg chat-msg--user">
+                                            <div class="chat-msg__avatar">JC</div>
+                                            <div class="chat-msg__bubble">
+                                                Tenho uma agencia de automacao comercial. Nosso foco sao PMEs que ainda usam planilhas.
+                                            </div>
+                                        </div>
+                                        <div class="chat-msg chat-msg--bot">
+                                            <div class="chat-msg__avatar">🤖</div>
+                                            <div class="chat-msg__bubble">
+                                                Perfeito! Identifiquei 3 novos leads hoje:<br><br>
+                                                <strong>• Comercial Silva LTDA</strong> - Score 8.5/10<br>
+                                                <strong>• Tech Solutions ME</strong> - Score 7.2/10<br>
+                                                <strong>• Distribuidora Norte</strong> - Score 9.1/10<br><br>
+                                                Quer que eu inicie a sequencia de qualificacao?
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="chat-app__input">
+                                        <input type="text" placeholder="Digite sua mensagem...">
+                                        <button class="hub-btn hub-btn--primary">Enviar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+            </div>
+        </div>
+    </section>
+
+    <!-- Design System Components -->
+    <section class="ds-showcase">
+        <div class="ds-container">
+            <div class="section-header" style="padding: 0 0 40px;">
+                <div class="section-header__label">Design System</div>
+                <div class="section-header__title">Componentes Inclusos</div>
+                <div class="section-header__desc">
+                    Seu hub vem com um design system completo. Crie novas aplicacoes
+                    mantendo consistencia visual.
+                </div>
+            </div>
+
+            <div class="ds-grid">
+                <!-- Buttons -->
+                <div class="ds-component">
+                    <div class="ds-component__header">Buttons</div>
+                    <div class="ds-component__body">
+                        <div class="ds-buttons">
+                            <button class="ds-btn ds-btn--primary">Primary</button>
+                            <button class="ds-btn ds-btn--secondary">Secondary</button>
+                            <button class="ds-btn ds-btn--ghost">Ghost</button>
+                            <button class="ds-btn ds-btn--success ds-btn--sm">Success</button>
+                            <button class="ds-btn ds-btn--danger ds-btn--sm">Danger</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Inputs -->
+                <div class="ds-component">
+                    <div class="ds-component__header">Inputs</div>
+                    <div class="ds-component__body">
+                        <div class="ds-inputs">
+                            <input class="ds-input" placeholder="Input padrao">
+                            <input class="ds-input ds-input--success" value="Input sucesso">
+                            <input class="ds-input ds-input--error" value="Input erro">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Badges -->
+                <div class="ds-component">
+                    <div class="ds-component__header">Badges</div>
+                    <div class="ds-component__body">
+                        <div class="ds-badges">
+                            <span class="ds-badge ds-badge--default">Default</span>
+                            <span class="ds-badge ds-badge--primary">Primary</span>
+                            <span class="ds-badge ds-badge--success">Success</span>
+                            <span class="ds-badge ds-badge--warning">Warning</span>
+                            <span class="ds-badge ds-badge--danger">Danger</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cards -->
+                <div class="ds-component">
+                    <div class="ds-component__header">Cards</div>
+                    <div class="ds-component__body">
+                        <div class="ds-cards">
+                            <div class="ds-card">
+                                <div class="ds-card__title">Card Padrao</div>
+                                <div class="ds-card__text">Descricao do card</div>
+                            </div>
+                            <div class="ds-card ds-card--elevated">
+                                <div class="ds-card__title">Card Elevado</div>
+                                <div class="ds-card__text">Com sombra</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Progress -->
+                <div class="ds-component">
+                    <div class="ds-component__header">Progress</div>
+                    <div class="ds-component__body">
+                        <div class="ds-progress">
+                            <div class="ds-progress-bar">
+                                <div class="ds-progress-bar__fill ds-progress-bar__fill--primary" style="width: 75%"></div>
+                            </div>
+                            <div class="ds-progress-bar">
+                                <div class="ds-progress-bar__fill ds-progress-bar__fill--success" style="width: 45%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Avatars -->
+                <div class="ds-component">
+                    <div class="ds-component__header">Avatars</div>
+                    <div class="ds-component__body">
+                        <div class="ds-avatars">
+                            <div class="ds-avatar ds-avatar--sm">A</div>
+                            <div class="ds-avatar ds-avatar--md">B</div>
+                            <div class="ds-avatar ds-avatar--lg">C</div>
+                            <div class="ds-avatar-group">
+                                <div class="ds-avatar ds-avatar--md">1</div>
+                                <div class="ds-avatar ds-avatar--md">2</div>
+                                <div class="ds-avatar ds-avatar--md">3</div>
+                                <div class="ds-avatar ds-avatar--md">+5</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section">
+        <div class="cta-box">
+            <h2 class="cta-box__title">Saia com seu Hub Pronto</h2>
+            <p class="cta-box__desc">
+                Dashboard configurado, primeira aplicacao funcionando,
+                design system completo. Tudo seu, para sempre.
+            </p>
+            <button class="cta-box__btn">Garantir Minha Vaga</button>
+        </div>
+    </section>
+</body>
+</html>

@@ -1,0 +1,1984 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Imersao PPT - IA para Negocios</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <style>
+        /* ============================================
+           DESIGN SYSTEM - IA para Negocios Landing
+           3 CORES APENAS: Preto, Branco, Amarelo
+           ============================================ */
+        :root {
+            /* Background Colors - PRETO */
+            --background: #0a0a0a;
+            --background-secondary: #0f0f0f;
+            --card: #141414;
+            --card-hover: #1a1a1a;
+            --muted: #1f1f1f;
+
+            /* Primary Brand - AMARELO (CTA) */
+            --primary: #F5C842;
+            --primary-foreground: #0a0a0a;
+            --primary-glow: rgba(245, 200, 66, 0.25);
+            --primary-subtle: rgba(245, 200, 66, 0.1);
+
+            /* Text Colors - BRANCO */
+            --foreground: #FFFFFF;
+            --foreground-muted: #9CA3AF;
+            --foreground-subtle: #6B7280;
+
+            /* Borders */
+            --border: #262626;
+            --border-subtle: rgba(255, 255, 255, 0.08);
+
+            /* Spacing */
+            --container-max: 1280px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--background);
+            color: var(--foreground);
+            min-height: 100vh;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .font-serif {
+            font-family: 'Playfair Display', Georgia, serif;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes shimmer {
+            0% { background-position: 200% center; }
+            100% { background-position: -200% center; }
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        @keyframes flowPulse {
+            0% { left: -40px; opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { left: calc(100% + 40px); opacity: 0; }
+        }
+
+        .animate-fade-in {
+            animation: fadeIn 0.6s ease-out forwards;
+        }
+
+        .animate-shimmer {
+            background: linear-gradient(110deg, var(--foreground), var(--primary), var(--foreground));
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: shimmer 4s linear infinite;
+        }
+
+        .animate-pulse {
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        /* ============================================
+           HEADER - Sticky with Backdrop Blur
+           ============================================ */
+        .header {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            width: 100%;
+            border-bottom: 1px solid var(--border-subtle);
+            background: rgba(9, 9, 11, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+
+        .header__container {
+            max-width: var(--container-max);
+            margin: 0 auto;
+            padding: 0 1.5rem;
+            height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .header__brand {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .header__logo {
+            font-size: 1.25rem;
+            font-weight: 700;
+            letter-spacing: -0.025em;
+        }
+
+        .header__logo span {
+            color: var(--primary);
+        }
+
+        .header__subtitle {
+            color: var(--foreground-muted);
+            font-size: 0.875rem;
+        }
+
+        .header__nav {
+            display: none;
+            align-items: center;
+            gap: 1.5rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--foreground-muted);
+        }
+
+        @media (min-width: 768px) {
+            .header__nav { display: flex; }
+        }
+
+        .header__nav a {
+            text-decoration: none;
+            color: inherit;
+            transition: color 0.2s;
+        }
+
+        .header__nav a:hover {
+            color: var(--foreground);
+        }
+
+        .header__cta {
+            padding: 0.625rem 1.25rem;
+            background: var(--primary);
+            color: var(--primary-foreground);
+            border: none;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .header__cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px var(--primary-glow);
+        }
+
+        /* ============================================
+           FLOWCHART SECTION
+           ============================================ */
+        .flowchart {
+            padding: 3rem 1.5rem 4rem;
+            background: var(--background);
+            min-height: calc(100vh - 64px);
+        }
+
+        .flowchart__container {
+            max-width: var(--container-max);
+            margin: 0 auto;
+        }
+
+        .flowchart__header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .flowchart__badge {
+            display: inline-block;
+            padding: 0.375rem 0.75rem;
+            background: var(--muted);
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--foreground-muted);
+            margin-bottom: 1rem;
+        }
+
+        .flowchart__title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .flowchart__title span {
+            color: var(--primary);
+        }
+
+        .flowchart__desc {
+            font-family: 'Playfair Display', Georgia, serif;
+            color: var(--foreground-muted);
+            font-size: 1.125rem;
+        }
+
+        /* Canvas */
+        .canvas {
+            display: flex;
+            flex-direction: column;
+            gap: 4rem;
+            overflow-x: auto;
+            padding: 2rem 0;
+        }
+
+        /* Day Row */
+        .day-row {
+            display: flex;
+            align-items: center;
+            gap: 0;
+            position: relative;
+            min-width: max-content;
+            padding-left: 60px;
+            padding-top: 16px;
+        }
+
+        .day-label {
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%) rotate(-90deg);
+            font-size: 0.625rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            white-space: nowrap;
+            color: var(--foreground-subtle);
+        }
+
+        .day-label--saturday { color: var(--foreground); }
+        .day-label--sunday { color: var(--foreground); }
+
+        /* Terminal Nodes */
+        .node-terminal {
+            width: 130px;
+            height: 65px;
+            border-radius: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.65rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            flex-shrink: 0;
+            text-align: center;
+            line-height: 1.3;
+            transition: all 0.3s;
+        }
+
+        .node-terminal--start {
+            background: var(--muted);
+            border: 1px solid var(--border);
+            color: var(--foreground-muted);
+        }
+
+        .node-terminal--mid {
+            background: var(--muted);
+            border: 1px solid var(--border);
+            color: var(--foreground);
+        }
+
+        .node-terminal--end {
+            background: var(--primary);
+            color: var(--primary-foreground);
+            box-shadow: 0 8px 30px var(--primary-glow);
+        }
+
+        /* Connector */
+        .connector {
+            height: 3px;
+            background: var(--border);
+            position: relative;
+            flex-shrink: 0;
+            width: 50px;
+        }
+
+        .connector::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -40px;
+            height: 100%;
+            width: 40px;
+            background: linear-gradient(90deg, transparent, var(--primary), transparent);
+            animation: flowPulse 2.5s ease-in-out infinite;
+        }
+
+        /* Process Node */
+        .node {
+            background: var(--background);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            width: 220px;
+            min-width: 220px;
+            flex-shrink: 0;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            overflow: visible;
+        }
+
+        .node:hover {
+            transform: translateY(-6px);
+            border-color: var(--primary);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 30px var(--primary-glow);
+        }
+
+        .node__header {
+            padding: 1rem 1.25rem;
+            padding-top: 1.25rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .node__icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.875rem;
+            font-weight: 700;
+        }
+
+        .node__icon {
+            background: var(--primary-subtle);
+            color: var(--primary);
+        }
+
+        .node__info {
+            flex: 1;
+        }
+
+        .node__title {
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 0.125rem;
+            line-height: 1.2;
+        }
+
+        .node__role {
+            font-size: 0.625rem;
+            color: var(--foreground-subtle);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            line-height: 1.3;
+        }
+
+        .node__time {
+            position: absolute;
+            top: -12px;
+            right: 12px;
+            background: var(--primary);
+            color: var(--primary-foreground);
+            font-size: 0.6875rem;
+            font-weight: 700;
+            padding: 0.25rem 0.625rem;
+            border-radius: 6px;
+            letter-spacing: 0.02em;
+            z-index: 10;
+            white-space: nowrap;
+        }
+
+        .node__body {
+            padding: 1rem 1.25rem;
+        }
+
+        .node__method {
+            font-size: 0.8125rem;
+            color: var(--foreground-muted);
+            margin-bottom: 0.75rem;
+            font-family: 'Playfair Display', Georgia, serif;
+            font-style: italic;
+        }
+
+        .node__steps {
+            display: flex;
+            gap: 0.375rem;
+        }
+
+        .node__step {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--muted);
+            transition: all 0.2s;
+        }
+
+        .node__step--active {
+            background: var(--primary);
+            box-shadow: 0 0 8px var(--primary-glow);
+        }
+
+        .node__cta {
+            font-size: 0.5625rem;
+            color: var(--primary);
+            margin-top: 0.5rem;
+            text-align: center;
+            opacity: 0.8;
+        }
+
+        /* Day Divider */
+        .day-divider {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            padding: 1rem 60px;
+            margin: 1rem 0;
+        }
+
+        .day-divider__line {
+            flex: 1;
+            height: 1px;
+            background: var(--border);
+        }
+
+        .day-divider__badge {
+            padding: 0.5rem 1.25rem;
+            background: var(--background);
+            border: 1px solid var(--border);
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            color: var(--foreground-muted);
+            font-weight: 500;
+        }
+
+        /* Legend */
+        .legend {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .legend__item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.8125rem;
+            color: var(--foreground-muted);
+        }
+
+        .legend__dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--primary);
+        }
+
+        /* ============================================
+           PANEL - Slide-in System
+           ============================================ */
+        .panel-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(4px);
+            z-index: 100;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .panel-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .panel {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 480px;
+            max-width: 100vw;
+            height: 100vh;
+            background: var(--background);
+            border-left: 1px solid var(--border);
+            z-index: 101;
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .panel.active {
+            transform: translateX(0);
+        }
+
+        .panel__header {
+            padding: 1.25rem 1.5rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--card);
+        }
+
+        .panel__title {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 1.125rem;
+            font-weight: 600;
+        }
+
+        .panel__title-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1rem;
+        }
+
+        .panel__close {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--foreground-muted);
+            cursor: pointer;
+            font-size: 1.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        .panel__close:hover {
+            background: var(--muted);
+            color: var(--foreground);
+        }
+
+        .panel__body {
+            flex: 1;
+            padding: 1.5rem;
+            overflow-y: auto;
+        }
+
+        .panel__footer {
+            padding: 1rem 1.5rem;
+            border-top: 1px solid var(--border);
+            background: var(--card);
+        }
+
+        .panel__btn {
+            width: 100%;
+            padding: 0.875rem;
+            background: var(--primary);
+            color: var(--primary-foreground);
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 0.9375rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .panel__btn:hover {
+            box-shadow: 0 10px 20px var(--primary-glow);
+            transform: translateY(-2px);
+        }
+
+        /* Form Elements */
+        .form-section {
+            margin-bottom: 2rem;
+        }
+
+        .form-section__title {
+            font-size: 0.6875rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--foreground-subtle);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .form-section__title::before {
+            content: '';
+            width: 3px;
+            height: 12px;
+            background: var(--primary);
+            border-radius: 2px;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 0.8125rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            color: var(--foreground-muted);
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            color: var(--foreground);
+            font-size: 0.875rem;
+            font-family: inherit;
+            transition: all 0.2s;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px var(--primary-subtle);
+        }
+
+        .form-input::placeholder {
+            color: var(--foreground-subtle);
+        }
+
+        textarea.form-input {
+            min-height: 100px;
+            resize: vertical;
+            line-height: 1.6;
+        }
+
+        /* Color Swatches */
+        .color-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 0.5rem;
+        }
+
+        .color-swatch {
+            aspect-ratio: 1;
+            border-radius: 10px;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.2s;
+        }
+
+        .color-swatch:hover {
+            transform: scale(1.1);
+        }
+
+        .color-swatch.selected {
+            border-color: var(--foreground);
+            box-shadow: 0 0 0 3px var(--primary-glow);
+        }
+
+        /* Font Options */
+        .font-option {
+            padding: 1rem;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            margin-bottom: 0.5rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .font-option:hover {
+            border-color: var(--primary);
+        }
+
+        .font-option.selected {
+            border-color: var(--primary);
+            background: var(--primary-subtle);
+        }
+
+        .font-option__name {
+            font-size: 0.6875rem;
+            color: var(--foreground-subtle);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.25rem;
+        }
+
+        .font-option__preview {
+            font-size: 1.375rem;
+            color: var(--foreground);
+        }
+
+        /* Slider */
+        .slider-group {
+            margin-bottom: 1.25rem;
+        }
+
+        .slider-header {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8125rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .slider-header span:first-child {
+            color: var(--foreground-muted);
+        }
+
+        .slider-value {
+            color: var(--primary);
+            font-weight: 600;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .slider {
+            width: 100%;
+            height: 6px;
+            border-radius: 3px;
+            background: var(--muted);
+            -webkit-appearance: none;
+            cursor: pointer;
+        }
+
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--primary);
+            box-shadow: 0 2px 8px var(--primary-glow);
+            cursor: pointer;
+        }
+
+        /* Triple P Cards */
+        .triple-p-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.25rem;
+            margin-bottom: 1rem;
+            transition: all 0.2s;
+        }
+
+        .triple-p-card:hover {
+            border-color: var(--border-subtle);
+        }
+
+        .triple-p-card__header {
+            display: flex;
+            align-items: center;
+            gap: 0.625rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+            font-size: 0.9375rem;
+        }
+
+        .triple-p-icon {
+            width: 28px;
+            height: 28px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8125rem;
+            font-weight: 700;
+        }
+
+        .triple-p-icon {
+            background: var(--primary-subtle);
+            color: var(--primary);
+        }
+
+        /* Phase List */
+        .phase-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.625rem;
+        }
+
+        .phase-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: var(--card);
+            border-radius: 10px;
+            border-left: 3px solid var(--border);
+            transition: all 0.2s;
+        }
+
+        .phase-item--done {
+            border-left-color: var(--foreground-muted);
+            opacity: 0.6;
+        }
+
+        .phase-item--current {
+            border-left-color: var(--primary);
+            background: var(--primary-subtle);
+        }
+
+        .phase-item__number {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: var(--muted);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .phase-item--done .phase-item__number {
+            background: var(--foreground-muted);
+            color: var(--background);
+        }
+
+        .phase-item__text {
+            font-size: 0.875rem;
+            color: var(--foreground-muted);
+        }
+
+        /* Chat */
+        .chat-messages {
+            display: flex;
+            flex-direction: column;
+            gap: 0.875rem;
+            margin-bottom: 1rem;
+        }
+
+        .chat-msg {
+            display: flex;
+            gap: 0.75rem;
+            max-width: 90%;
+        }
+
+        .chat-msg--bot { align-self: flex-start; }
+        .chat-msg--user {
+            align-self: flex-end;
+            flex-direction: row-reverse;
+        }
+
+        .chat-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.6875rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .chat-msg--bot .chat-avatar {
+            background: var(--primary);
+            color: var(--background);
+        }
+        .chat-msg--user .chat-avatar {
+            background: var(--muted);
+            color: var(--foreground-muted);
+        }
+
+        .chat-bubble {
+            padding: 0.75rem 1rem;
+            border-radius: 14px;
+            font-size: 0.875rem;
+            line-height: 1.5;
+        }
+
+        .chat-msg--bot .chat-bubble {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-bottom-left-radius: 4px;
+            color: var(--foreground-muted);
+        }
+
+        .chat-msg--user .chat-bubble {
+            background: var(--primary);
+            color: var(--primary-foreground);
+            border-bottom-right-radius: 4px;
+        }
+
+        /* Roadmap */
+        .roadmap-item {
+            padding: 1rem;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            margin-bottom: 0.625rem;
+            border-left: 3px solid var(--border);
+        }
+
+        .roadmap-item--week1,
+        .roadmap-item--week2,
+        .roadmap-item--month2,
+        .roadmap-item--month3 { border-left-color: var(--primary); }
+
+        .roadmap-item__title {
+            font-size: 0.6875rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--foreground-subtle);
+            margin-bottom: 0.25rem;
+        }
+
+        .roadmap-item__text {
+            font-size: 0.875rem;
+            color: var(--foreground-muted);
+        }
+
+        /* Score Box */
+        .score-box {
+            background: var(--primary-subtle);
+            border: 1px solid rgba(245, 200, 66, 0.2);
+            padding: 1.25rem;
+            border-radius: 12px;
+            margin-top: 1.5rem;
+        }
+
+        .score-box__label {
+            font-size: 0.6875rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--foreground-subtle);
+            margin-bottom: 0.25rem;
+        }
+
+        .score-box__value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+
+        .score-box__desc {
+            font-size: 0.875rem;
+            color: var(--foreground-muted);
+        }
+
+        /* System Preview */
+        .system-preview {
+            background: var(--primary-subtle);
+            border: 1px solid rgba(245, 200, 66, 0.2);
+            padding: 1.25rem;
+            border-radius: 12px;
+            margin-top: 1rem;
+        }
+
+        .system-preview__label {
+            font-size: 0.6875rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--foreground-subtle);
+            margin-bottom: 0.5rem;
+        }
+
+        .system-preview__name {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--foreground);
+            margin-bottom: 0.375rem;
+        }
+
+        .system-preview__desc {
+            font-size: 0.875rem;
+            color: var(--foreground-muted);
+        }
+
+        /* ============================================
+           RESPONSIVE
+           ============================================ */
+        @media (max-width: 1024px) {
+            .flowchart {
+                padding: 2rem 1rem 3rem;
+            }
+
+            .flowchart__title {
+                font-size: 1.5rem;
+            }
+
+            .node {
+                width: 200px;
+                min-width: 200px;
+            }
+
+            .connector {
+                width: 35px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header__container {
+                padding: 0 1rem;
+            }
+
+            .header__logo {
+                font-size: 1rem;
+            }
+
+            .header__subtitle {
+                display: none;
+            }
+
+            .header__cta {
+                padding: 0.5rem 1rem;
+                font-size: 0.75rem;
+            }
+
+            .flowchart {
+                padding: 1.5rem 0.75rem 2rem;
+                min-height: auto;
+            }
+
+            .flowchart__header {
+                margin-bottom: 2rem;
+            }
+
+            .flowchart__title {
+                font-size: 1.25rem;
+            }
+
+            .flowchart__desc {
+                font-size: 0.875rem;
+            }
+
+            .canvas {
+                gap: 2.5rem;
+                padding: 1rem 0;
+            }
+
+            .day-row {
+                padding-left: 50px;
+                padding-top: 14px;
+                gap: 0;
+            }
+
+            .day-label {
+                font-size: 0.5rem;
+                left: 5px;
+            }
+
+            .node-terminal {
+                width: 80px;
+                height: 50px;
+                font-size: 0.5rem;
+                border-radius: 25px;
+            }
+
+            .node {
+                width: 150px;
+                min-width: 150px;
+            }
+
+            .node__header {
+                padding: 0.75rem;
+                padding-top: 1rem;
+                gap: 0.5rem;
+            }
+
+            .node__icon {
+                width: 28px;
+                height: 28px;
+                font-size: 0.5625rem;
+                border-radius: 8px;
+            }
+
+            .node__title {
+                font-size: 0.6875rem;
+            }
+
+            .node__role {
+                font-size: 0.5rem;
+            }
+
+            .node__body {
+                padding: 0.625rem 0.75rem;
+            }
+
+            .node__method {
+                font-size: 0.625rem;
+                margin-bottom: 0.5rem;
+            }
+
+            .node__step {
+                width: 5px;
+                height: 5px;
+            }
+
+            .node__time {
+                top: -10px;
+                right: 8px;
+                font-size: 0.5rem;
+                padding: 0.1875rem 0.375rem;
+            }
+
+            .connector {
+                width: 20px;
+                height: 2px;
+            }
+
+            .day-divider {
+                padding: 0.5rem 50px;
+                margin: 0.5rem 0;
+            }
+
+            .day-divider__badge {
+                font-size: 0.625rem;
+                padding: 0.375rem 0.75rem;
+            }
+
+            .legend {
+                flex-direction: row;
+                flex-wrap: wrap;
+                gap: 1rem;
+                justify-content: center;
+                margin-top: 1.5rem;
+                padding-top: 1.5rem;
+            }
+
+            .legend__item {
+                font-size: 0.6875rem;
+            }
+
+            .legend__dot {
+                width: 8px;
+                height: 8px;
+            }
+
+            .panel {
+                width: 100%;
+            }
+
+            .panel__header {
+                padding: 1rem;
+            }
+
+            .panel__title {
+                font-size: 1rem;
+            }
+
+            .panel__title-icon {
+                width: 32px;
+                height: 32px;
+                font-size: 0.75rem;
+            }
+
+            .panel__body {
+                padding: 1rem;
+            }
+
+            .panel__footer {
+                padding: 0.75rem 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .flowchart {
+                padding: 1rem 0.5rem 1.5rem;
+            }
+
+            .flowchart__badge {
+                font-size: 0.625rem;
+                padding: 0.25rem 0.5rem;
+            }
+
+            .flowchart__title {
+                font-size: 1.125rem;
+            }
+
+            .day-row {
+                padding-left: 40px;
+                padding-top: 12px;
+            }
+
+            .day-label {
+                font-size: 0.4375rem;
+                left: 2px;
+            }
+
+            .node-terminal {
+                width: 65px;
+                height: 45px;
+                font-size: 0.4375rem;
+            }
+
+            .node {
+                width: 120px;
+                min-width: 120px;
+            }
+
+            .node__header {
+                padding: 0.5rem;
+                padding-top: 0.75rem;
+                gap: 0.375rem;
+            }
+
+            .node__icon {
+                width: 22px;
+                height: 22px;
+                font-size: 0.4375rem;
+            }
+
+            .node__title {
+                font-size: 0.5625rem;
+            }
+
+            .node__role {
+                font-size: 0.375rem;
+            }
+
+            .node__body {
+                padding: 0.5rem;
+            }
+
+            .node__method {
+                font-size: 0.5rem;
+            }
+
+            .node__step {
+                width: 4px;
+                height: 4px;
+            }
+
+            .node__time {
+                top: -8px;
+                right: 6px;
+                font-size: 0.4375rem;
+                padding: 0.125rem 0.25rem;
+                border-radius: 4px;
+            }
+
+            .connector {
+                width: 12px;
+            }
+
+            .day-divider {
+                padding: 0.375rem 40px;
+            }
+
+            .day-divider__badge {
+                font-size: 0.5rem;
+                padding: 0.25rem 0.5rem;
+            }
+
+            .legend {
+                gap: 0.75rem;
+            }
+
+            .legend__item {
+                font-size: 0.5625rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header__container">
+            <div class="header__brand">
+                <div class="header__logo"><span>[IA]</span> para Negocios</div>
+                <div class="header__subtitle">Imersao Pratica</div>
+            </div>
+            <nav class="header__nav">
+                <a href="#jornada">Jornada</a>
+                <a href="#metodos">Metodos</a>
+                <a href="#facilitadores">Facilitadores</a>
+            </nav>
+            <button class="header__cta">Garantir vaga</button>
+        </div>
+    </header>
+
+    <!-- Flowchart Section -->
+    <section class="flowchart" id="jornada">
+        <div class="flowchart__container">
+            <div class="flowchart__header">
+                <div class="flowchart__badge">A Jornada</div>
+                <h2 class="flowchart__title">Sua jornada do caos a <span>clareza pratica</span></h2>
+                <p class="flowchart__desc">Clique em cada etapa para ver o que voce vai construir</p>
+            </div>
+
+            <div class="canvas">
+                <!-- Saturday Row -->
+                <div class="day-row">
+                    <span class="day-label day-label--saturday">Sabado - 24 Jan</span>
+
+                    <div class="node-terminal node-terminal--start">CAOS<br>CONFUSAO</div>
+                    <div class="connector"></div>
+
+                    <!-- Node 1: Alan Nicolas -->
+                    <div class="node node--alan" onclick="openPanel('design-system')">
+                        <div class="node__time">09h</div>
+                        <div class="node__header">
+                            <div class="node__icon">AN</div>
+                            <div class="node__info">
+                                <div class="node__title">Alan Nicolas</div>
+                                <div class="node__role">CEO Academia Lendaria</div>
+                            </div>
+                        </div>
+                        <div class="node__body">
+                            <div class="node__method">Design System</div>
+                            <div class="node__steps">
+                                <div class="node__step node__step--active"></div>
+                                <div class="node__step node__step--active"></div>
+                                <div class="node__step"></div>
+                            </div>
+                            <div class="node__cta">Clique para ver detalhes</div>
+                        </div>
+                    </div>
+
+                    <div class="connector"></div>
+
+                    <!-- Node 2: Gabriel Marcondes -->
+                    <div class="node node--marcondes" onclick="openPanel('triple-p')">
+                        <div class="node__time">11h</div>
+                        <div class="node__header">
+                            <div class="node__icon">GM</div>
+                            <div class="node__info">
+                                <div class="node__title">Gabriel Marcondes</div>
+                                <div class="node__role">CEO Agencia Lendaria</div>
+                            </div>
+                        </div>
+                        <div class="node__body">
+                            <div class="node__method">Metodo 0,8 / Triple P</div>
+                            <div class="node__steps">
+                                <div class="node__step node__step--active"></div>
+                                <div class="node__step node__step--active"></div>
+                                <div class="node__step node__step--active"></div>
+                            </div>
+                            <div class="node__cta">Clique para ver detalhes</div>
+                        </div>
+                    </div>
+
+                    <div class="connector"></div>
+
+                    <!-- Node 3: José Amorim E2O -->
+                    <div class="node node--jose" onclick="openPanel('e2o')">
+                        <div class="node__time">14h</div>
+                        <div class="node__header">
+                            <div class="node__icon">JA</div>
+                            <div class="node__info">
+                                <div class="node__title">Jose Amorim</div>
+                                <div class="node__role">Nexialista</div>
+                            </div>
+                        </div>
+                        <div class="node__body">
+                            <div class="node__method">Metodo E2O</div>
+                            <div class="node__steps">
+                                <div class="node__step node__step--active"></div>
+                                <div class="node__step node__step--active"></div>
+                                <div class="node__step node__step--active"></div>
+                                <div class="node__step node__step--active"></div>
+                            </div>
+                            <div class="node__cta">Clique para ver detalhes</div>
+                        </div>
+                    </div>
+
+                    <div class="connector"></div>
+                    <div class="node-terminal node-terminal--mid">PRIMEIRO<br>SISTEMA</div>
+                </div>
+
+                <!-- Pronto Socorro Sábado -->
+                <div class="day-divider">
+                    <div class="day-divider__line"></div>
+                    <div class="day-divider__badge">19h - Pronto Socorro + Networking</div>
+                    <div class="day-divider__line"></div>
+                </div>
+
+                <!-- Sunday Row -->
+                <div class="day-row">
+                    <span class="day-label day-label--sunday">Domingo - 25 Jan</span>
+
+                    <div class="node-terminal node-terminal--mid">APP<br>EMBRIONARIO</div>
+                    <div class="connector"></div>
+
+                    <!-- Node 4: José Amorim Nexorama -->
+                    <div class="node node--jose" onclick="openPanel('nexorama')">
+                        <div class="node__time">09h</div>
+                        <div class="node__header">
+                            <div class="node__icon">JA</div>
+                            <div class="node__info">
+                                <div class="node__title">Jose Amorim</div>
+                                <div class="node__role">Nexialista</div>
+                            </div>
+                        </div>
+                        <div class="node__body">
+                            <div class="node__method">Metodo Nexorama</div>
+                            <div class="node__steps">
+                                <div class="node__step node__step--active"></div>
+                                <div class="node__step node__step--active"></div>
+                                <div class="node__step node__step--active"></div>
+                                <div class="node__step node__step--active"></div>
+                            </div>
+                            <div class="node__cta">Clique para ver detalhes</div>
+                        </div>
+                    </div>
+
+                    <div class="connector"></div>
+
+                    <!-- Node 5: Gabriel Marcondes Continuidade -->
+                    <div class="node node--marcondes" onclick="openPanel('continuidade')">
+                        <div class="node__time">13h</div>
+                        <div class="node__header">
+                            <div class="node__icon">GM</div>
+                            <div class="node__info">
+                                <div class="node__title">Gabriel Marcondes</div>
+                                <div class="node__role">CEO Agencia Lendaria</div>
+                            </div>
+                        </div>
+                        <div class="node__body">
+                            <div class="node__method">Continuidade</div>
+                            <div class="node__steps">
+                                <div class="node__step node__step--active"></div>
+                                <div class="node__step node__step--active"></div>
+                            </div>
+                            <div class="node__cta">Clique para ver detalhes</div>
+                        </div>
+                    </div>
+
+                    <div class="connector"></div>
+
+                    <!-- Node 6: Alan Nicolas Encerramento -->
+                    <div class="node node--alan" onclick="openPanel('encerramento')">
+                        <div class="node__time">16h30</div>
+                        <div class="node__header">
+                            <div class="node__icon">AN</div>
+                            <div class="node__info">
+                                <div class="node__title">Alan Nicolas</div>
+                                <div class="node__role">CEO Academia Lendaria</div>
+                            </div>
+                        </div>
+                        <div class="node__body">
+                            <div class="node__method">Encerramento</div>
+                            <div class="node__steps">
+                                <div class="node__step node__step--active"></div>
+                                <div class="node__step node__step--active"></div>
+                            </div>
+                            <div class="node__cta">Clique para ver detalhes</div>
+                        </div>
+                    </div>
+
+                    <div class="connector"></div>
+                    <div class="node-terminal node-terminal--end">CLAREZA<br>PRAGMATICA</div>
+                </div>
+
+                <!-- Pronto Socorro Domingo -->
+                <div class="day-divider">
+                    <div class="day-divider__line"></div>
+                    <div class="day-divider__badge">19h - Pronto Socorro + Networking</div>
+                    <div class="day-divider__line"></div>
+                </div>
+            </div>
+
+            <!-- Legend -->
+            <div class="legend" id="facilitadores">
+                <div class="legend__item">
+                    <div class="legend__dot"></div>
+                    <span>Alan Nicolas</span>
+                </div>
+                <div class="legend__item">
+                    <div class="legend__dot"></div>
+                    <span>Gabriel Marcondes</span>
+                </div>
+                <div class="legend__item">
+                    <div class="legend__dot"></div>
+                    <span>Jose Amorim</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Panel Overlay -->
+    <div class="panel-overlay" onclick="closePanel()"></div>
+
+    <!-- Panel: Design System -->
+    <div class="panel" id="panel-design-system">
+        <div class="panel__header">
+            <div class="panel__title">
+                <div class="panel__title-icon" style="background: rgba(245, 200, 66, 0.1); color: #F5C842;">AN</div>
+                Design System
+            </div>
+            <button class="panel__close" onclick="closePanel()">&times;</button>
+        </div>
+        <div class="panel__body">
+            <div class="form-section">
+                <div class="form-section__title">Sobre esta etapa</div>
+                <p style="color: var(--foreground-muted); font-size: 0.875rem; line-height: 1.7; margin-bottom: 1rem;">
+                    <strong style="color: var(--foreground);">Alan Nicolas</strong> vai mostrar como criar a identidade visual da sua marca de forma que a IA consiga replicar perfeitamente seu estilo em qualquer material.
+                </p>
+                <p style="color: var(--foreground-muted); font-size: 0.875rem; line-height: 1.7;">
+                    Ao final, voce tera sua marca documentada e pronta para a IA usar em qualquer criacao.
+                </p>
+            </div>
+
+            <div class="form-section">
+                <div class="form-section__title">Cores da Marca</div>
+                <div class="form-group">
+                    <div class="form-label">Cor Primaria</div>
+                    <div class="color-grid">
+                        <div class="color-swatch selected" style="background: #3b82f6;" onclick="selectColor(this)"></div>
+                        <div class="color-swatch" style="background: #8b5cf6;" onclick="selectColor(this)"></div>
+                        <div class="color-swatch" style="background: #ec4899;" onclick="selectColor(this)"></div>
+                        <div class="color-swatch" style="background: #10b981;" onclick="selectColor(this)"></div>
+                        <div class="color-swatch" style="background: #f59e0b;" onclick="selectColor(this)"></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="form-label">Cor Secundaria</div>
+                    <div class="color-grid">
+                        <div class="color-swatch" style="background: #06b6d4;" onclick="selectColor(this)"></div>
+                        <div class="color-swatch selected" style="background: #14b8a6;" onclick="selectColor(this)"></div>
+                        <div class="color-swatch" style="background: #84cc16;" onclick="selectColor(this)"></div>
+                        <div class="color-swatch" style="background: #f97316;" onclick="selectColor(this)"></div>
+                        <div class="color-swatch" style="background: #ef4444;" onclick="selectColor(this)"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <div class="form-section__title">Tipografia</div>
+                <div class="font-option selected" onclick="selectFont(this)">
+                    <div class="font-option__name">Inter</div>
+                    <div class="font-option__preview" style="font-family: 'Inter', sans-serif;">Sua Empresa</div>
+                </div>
+                <div class="font-option" onclick="selectFont(this)">
+                    <div class="font-option__name">Poppins</div>
+                    <div class="font-option__preview" style="font-family: 'Poppins', sans-serif;">Sua Empresa</div>
+                </div>
+                <div class="font-option" onclick="selectFont(this)">
+                    <div class="font-option__name">Space Grotesk</div>
+                    <div class="font-option__preview" style="font-family: 'Space Grotesk', sans-serif;">Sua Empresa</div>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <div class="form-section__title">Identidade</div>
+                <div class="form-group">
+                    <div class="form-label">Nome da Empresa</div>
+                    <input type="text" class="form-input" value="Automatize Ja" placeholder="Nome da empresa">
+                </div>
+                <div class="form-group">
+                    <div class="form-label">Slogan</div>
+                    <input type="text" class="form-input" value="Automacao que funciona" placeholder="Slogan">
+                </div>
+                <div class="form-group">
+                    <div class="form-label">Tom de Voz</div>
+                    <textarea class="form-input" placeholder="Descreva o tom de comunicacao...">Profissional mas acessivel. Direto ao ponto. Focado em resultados.</textarea>
+                </div>
+            </div>
+        </div>
+        <div class="panel__footer">
+            <button class="panel__btn">Salvar Design System</button>
+        </div>
+    </div>
+
+    <!-- Panel: Triple P -->
+    <div class="panel" id="panel-triple-p">
+        <div class="panel__header">
+            <div class="panel__title">
+                <div class="panel__title-icon" style="background: rgba(245, 200, 66, 0.1); color: #F5C842;">GM</div>
+                Triple P / Metodo 0,8
+            </div>
+            <button class="panel__close" onclick="closePanel()">&times;</button>
+        </div>
+        <div class="panel__body">
+            <div class="form-section">
+                <div class="form-section__title">Sobre esta etapa</div>
+                <p style="color: var(--foreground-muted); font-size: 0.875rem; line-height: 1.7; margin-bottom: 1rem;">
+                    <strong style="color: var(--foreground);">Gabriel Marcondes</strong> vai ensinar a priorizar ONDE usar IA no seu negocio usando o metodo Triple P.
+                </p>
+                <p style="color: var(--foreground-muted); font-size: 0.875rem; line-height: 1.7;">
+                    Ao final, voce vai saber exatamente qual problema resolver primeiro com IA para ter o maior impacto.
+                </p>
+            </div>
+
+            <div class="triple-p-card">
+                <div class="triple-p-card__header">
+                    <span class="triple-p-icon triple-p-icon--pain">!</span>
+                    Pain (Dor)
+                </div>
+                <div class="slider-group">
+                    <div class="slider-header">
+                        <span>Intensidade da dor</span>
+                        <span class="slider-value">8/10</span>
+                    </div>
+                    <input type="range" class="slider" min="0" max="10" value="8">
+                </div>
+                <textarea class="form-input" placeholder="Descreva a dor...">Prospeccao manual consome 4h/dia e gera poucos leads qualificados</textarea>
+            </div>
+
+            <div class="triple-p-card">
+                <div class="triple-p-card__header">
+                    <span class="triple-p-icon triple-p-icon--pocket">$</span>
+                    Pocket (Bolso)
+                </div>
+                <div class="slider-group">
+                    <div class="slider-header">
+                        <span>Orcamento mensal</span>
+                        <span class="slider-value">R$ 2.500</span>
+                    </div>
+                    <input type="range" class="slider" min="0" max="10" value="5">
+                </div>
+                <textarea class="form-input" placeholder="Quanto pode investir...">Margem permite investimento de ate R$ 3k/mes em ferramentas</textarea>
+            </div>
+
+            <div class="triple-p-card">
+                <div class="triple-p-card__header">
+                    <span class="triple-p-icon triple-p-icon--priority">&#9733;</span>
+                    Priority (Prioridade)
+                </div>
+                <div class="slider-group">
+                    <div class="slider-header">
+                        <span>Urgencia</span>
+                        <span class="slider-value">9/10</span>
+                    </div>
+                    <input type="range" class="slider" min="0" max="10" value="9">
+                </div>
+                <textarea class="form-input" placeholder="Prazo...">Preciso resolver em 30 dias para bater meta do trimestre</textarea>
+            </div>
+
+            <div class="score-box">
+                <div class="score-box__label">Score Total</div>
+                <div class="score-box__value">22/30</div>
+                <div class="score-box__desc">Recomendacao: Implementar IA na Prospeccao</div>
+            </div>
+        </div>
+        <div class="panel__footer">
+            <button class="panel__btn">Salvar Analise</button>
+        </div>
+    </div>
+
+    <!-- Panel: E2O -->
+    <div class="panel" id="panel-e2o">
+        <div class="panel__header">
+            <div class="panel__title">
+                <div class="panel__title-icon" style="background: rgba(245, 200, 66, 0.1); color: #F5C842;">JA</div>
+                Metodo E2O
+            </div>
+            <button class="panel__close" onclick="closePanel()">&times;</button>
+        </div>
+        <div class="panel__body">
+            <div class="form-section">
+                <div class="form-section__title">Sobre esta etapa</div>
+                <p style="color: var(--foreground-muted); font-size: 0.875rem; line-height: 1.7; margin-bottom: 1rem;">
+                    <strong style="color: var(--foreground);">Jose Amorim</strong> vai ensinar a transformar caos em sistema usando o metodo E2O: do Especialista para Orquestracao.
+                </p>
+                <p style="color: var(--foreground-muted); font-size: 0.875rem; line-height: 1.7;">
+                    Voce vai aprender a decompor qualquer processo complexo em acoes simples que a IA consegue executar.
+                </p>
+            </div>
+
+            <div class="form-section">
+                <div class="form-section__title">6 Fases do E2O</div>
+                <div class="phase-list">
+                    <div class="phase-item phase-item--done">
+                        <div class="phase-item__number">1</div>
+                        <div class="phase-item__text">Ingestao - Capturar conteudo bruto</div>
+                    </div>
+                    <div class="phase-item phase-item--done">
+                        <div class="phase-item__number">2</div>
+                        <div class="phase-item__text">Decomposicao - Acao + Objeto + Condicao</div>
+                    </div>
+                    <div class="phase-item phase-item--current">
+                        <div class="phase-item__number">3</div>
+                        <div class="phase-item__text">Arquitetura - Definir fluxo logico</div>
+                    </div>
+                    <div class="phase-item">
+                        <div class="phase-item__number">4</div>
+                        <div class="phase-item__text">Friccao - Simplificar</div>
+                    </div>
+                    <div class="phase-item">
+                        <div class="phase-item__number">5</div>
+                        <div class="phase-item__text">Orquestracao - IA constroi</div>
+                    </div>
+                    <div class="phase-item">
+                        <div class="phase-item__number">6</div>
+                        <div class="phase-item__text">Construcao - Sistema pronto</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <div class="form-section__title">Decomposicao AOC</div>
+                <div class="form-group">
+                    <div class="form-label">Acao 1</div>
+                    <input type="text" class="form-input" value="QUANDO receber lead -> ENVIAR msg personalizada -> PARA agendar">
+                </div>
+                <div class="form-group">
+                    <div class="form-label">Acao 2</div>
+                    <input type="text" class="form-input" value="SE responder -> QUALIFICAR com 3 perguntas -> PARA priorizar">
+                </div>
+                <div class="form-group">
+                    <div class="form-label">Acao 3</div>
+                    <input type="text" class="form-input" value="APOS qualificacao -> AGENDAR call -> PARA proposta">
+                </div>
+            </div>
+        </div>
+        <div class="panel__footer">
+            <button class="panel__btn">Salvar E2O</button>
+        </div>
+    </div>
+
+    <!-- Panel: Nexorama -->
+    <div class="panel" id="panel-nexorama">
+        <div class="panel__header">
+            <div class="panel__title">
+                <div class="panel__title-icon" style="background: rgba(245, 200, 66, 0.1); color: #F5C842;">JA</div>
+                Metodo Nexorama
+            </div>
+            <button class="panel__close" onclick="closePanel()">&times;</button>
+        </div>
+        <div class="panel__body">
+            <div class="form-section">
+                <div class="form-section__title">Sobre esta etapa</div>
+                <p style="color: var(--foreground-muted); font-size: 0.875rem; line-height: 1.7; margin-bottom: 1rem;">
+                    <strong style="color: var(--foreground);">Jose Amorim</strong> vai mostrar como a IA constroi seu sistema em tempo real atraves de uma conversa guiada.
+                </p>
+                <p style="color: var(--foreground-muted); font-size: 0.875rem; line-height: 1.7;">
+                    Voce vai sair com seu sistema de IA personalizado funcionando, pronto para usar no seu negocio.
+                </p>
+            </div>
+
+            <div class="form-section">
+                <div class="form-section__title">Construtor de Sistema</div>
+                <div class="chat-messages">
+                    <div class="chat-msg chat-msg--bot">
+                        <div class="chat-avatar">IA</div>
+                        <div class="chat-bubble">Qual o perfil ideal do seu cliente?</div>
+                    </div>
+                    <div class="chat-msg chat-msg--user">
+                        <div class="chat-avatar">VC</div>
+                        <div class="chat-bubble">PMEs com 10-50 funcionarios que usam planilhas</div>
+                    </div>
+                    <div class="chat-msg chat-msg--bot">
+                        <div class="chat-avatar">IA</div>
+                        <div class="chat-bubble">Qual a principal objecao que recebe?</div>
+                    </div>
+                    <div class="chat-msg chat-msg--user">
+                        <div class="chat-avatar">VC</div>
+                        <div class="chat-bubble">"Ja tentamos sistemas antes e nao funcionou"</div>
+                    </div>
+                    <div class="chat-msg chat-msg--bot">
+                        <div class="chat-avatar">IA</div>
+                        <div class="chat-bubble">Perfeito! Sistema montado: Prospector IA com 3 fluxos de qualificacao.</div>
+                    </div>
+                </div>
+                <input type="text" class="form-input" placeholder="Digite sua resposta...">
+            </div>
+
+            <div class="system-preview">
+                <div class="system-preview__label">Sistema Gerado</div>
+                <div class="system-preview__name">Prospector IA</div>
+                <div class="system-preview__desc">Chatbot de qualificacao + WhatsApp + CRM</div>
+            </div>
+        </div>
+        <div class="panel__footer">
+            <button class="panel__btn">Salvar Sistema</button>
+        </div>
+    </div>
+
+    <!-- Panel: Encerramento -->
+    <div class="panel" id="panel-encerramento">
+        <div class="panel__header">
+            <div class="panel__title">
+                <div class="panel__title-icon" style="background: rgba(245, 200, 66, 0.1); color: #F5C842;">AN</div>
+                Encerramento
+            </div>
+            <button class="panel__close" onclick="closePanel()">&times;</button>
+        </div>
+        <div class="panel__body">
+            <div class="form-section">
+                <div class="form-section__title">Sobre esta etapa</div>
+                <p style="color: var(--foreground-muted); font-size: 0.875rem; line-height: 1.7; margin-bottom: 1rem;">
+                    <strong style="color: var(--foreground);">Alan Nicolas</strong> fecha a imersao consolidando sua jornada e preparando voce para os proximos passos.
+                </p>
+                <p style="color: var(--foreground-muted); font-size: 0.875rem; line-height: 1.7;">
+                    Voce sai com clareza total sobre como continuar evoluindo seu sistema de IA.
+                </p>
+            </div>
+
+            <div class="form-section">
+                <div class="form-section__title">Voce sai com</div>
+                <div class="phase-list" style="margin-bottom: 1.5rem;">
+                    <div class="phase-item phase-item--current">
+                        <div class="phase-item__number">1</div>
+                        <div class="phase-item__text">Sistema de IA funcionando</div>
+                    </div>
+                    <div class="phase-item phase-item--current">
+                        <div class="phase-item__number">2</div>
+                        <div class="phase-item__text">Roadmap de 90 dias</div>
+                    </div>
+                    <div class="phase-item phase-item--current">
+                        <div class="phase-item__number">3</div>
+                        <div class="phase-item__text">Certificado de conclusao</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <div class="form-section__title">Proximos Passos</div>
+                <div class="form-group">
+                    <div class="form-label">Sua maior conquista da imersao</div>
+                    <textarea class="form-input" placeholder="O que voce conquistou...">Agora tenho um sistema de IA funcionando na minha empresa</textarea>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <div class="form-section__title">Compromisso</div>
+                <div class="form-group">
+                    <div class="form-label">Primeira acao na segunda-feira</div>
+                    <input type="text" class="form-input" value="Ativar meu sistema e fazer os primeiros testes">
+                </div>
+            </div>
+
+            <div class="system-preview">
+                <div class="system-preview__label">Certificado</div>
+                <div class="system-preview__name">Imersao PPT Concluida</div>
+                <div class="system-preview__desc">IA para Negocios - Janeiro 2025</div>
+            </div>
+        </div>
+        <div class="panel__footer">
+            <button class="panel__btn">Baixar Certificado</button>
+        </div>
+    </div>
+
+    <!-- Panel: Continuidade -->
+    <div class="panel" id="panel-continuidade">
+        <div class="panel__header">
+            <div class="panel__title">
+                <div class="panel__title-icon" style="background: rgba(245, 200, 66, 0.1); color: #F5C842;">GM</div>
+                Continuidade
+            </div>
+            <button class="panel__close" onclick="closePanel()">&times;</button>
+        </div>
+        <div class="panel__body">
+            <div class="form-section">
+                <div class="form-section__title">Sobre esta etapa</div>
+                <p style="color: var(--foreground-muted); font-size: 0.875rem; line-height: 1.7; margin-bottom: 1rem;">
+                    <strong style="color: var(--foreground);">Gabriel Marcondes</strong> vai mostrar como garantir que seu sistema evolua e gere resultados consistentes apos a imersao.
+                </p>
+                <p style="color: var(--foreground-muted); font-size: 0.875rem; line-height: 1.7;">
+                    Voce vai criar um plano de acao claro para os proximos 90 dias.
+                </p>
+            </div>
+
+            <div class="form-section">
+                <div class="form-section__title">Aprendizados</div>
+                <div class="form-group">
+                    <textarea class="form-input" style="min-height: 120px;">- Como mapear processos com visao sistemica
+- Metodo Triple P para priorizar onde usar IA
+- E2O para transformar caos em sistema
+- Nexorama para construir apps rapidamente</textarea>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <div class="form-section__title">Primeiro Passo (Segunda-feira)</div>
+                <div class="form-group">
+                    <input type="text" class="form-input" value="Ativar Prospector IA e fazer 10 contatos automatizados">
+                </div>
+            </div>
+
+            <div class="form-section">
+                <div class="form-section__title">Roadmap 90 Dias</div>
+                <div class="roadmap-item roadmap-item--week1">
+                    <div class="roadmap-item__title">Semana 1-2</div>
+                    <div class="roadmap-item__text">Deploy do Prospector IA + primeiros ajustes</div>
+                </div>
+                <div class="roadmap-item roadmap-item--week2">
+                    <div class="roadmap-item__title">Semana 3-4</div>
+                    <div class="roadmap-item__text">Otimizar mensagens baseado em dados</div>
+                </div>
+                <div class="roadmap-item roadmap-item--month2">
+                    <div class="roadmap-item__title">Mes 2</div>
+                    <div class="roadmap-item__text">Escalar para 100 contatos/dia</div>
+                </div>
+                <div class="roadmap-item roadmap-item--month3">
+                    <div class="roadmap-item__title">Mes 3</div>
+                    <div class="roadmap-item__text">Integrar com vendas e suporte</div>
+                </div>
+            </div>
+        </div>
+        <div class="panel__footer">
+            <button class="panel__btn">Salvar Roadmap</button>
+        </div>
+    </div>
+
+    <script>
+        let activePanel = null;
+
+        function openPanel(id) {
+            closePanel();
+            const panel = document.getElementById('panel-' + id);
+            const overlay = document.querySelector('.panel-overlay');
+            if (panel) {
+                panel.classList.add('active');
+                overlay.classList.add('active');
+                activePanel = id;
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        function closePanel() {
+            document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+            document.querySelector('.panel-overlay').classList.remove('active');
+            activePanel = null;
+            document.body.style.overflow = '';
+        }
+
+        function selectColor(el) {
+            el.parentElement.querySelectorAll('.color-swatch').forEach(s => s.classList.remove('selected'));
+            el.classList.add('selected');
+        }
+
+        function selectFont(el) {
+            document.querySelectorAll('.font-option').forEach(f => f.classList.remove('selected'));
+            el.classList.add('selected');
+        }
+
+        // Close on escape
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closePanel();
+        });
+
+        // Update slider values
+        document.querySelectorAll('.slider').forEach(slider => {
+            slider.addEventListener('input', function() {
+                const value = this.value;
+                const label = this.previousElementSibling.querySelector('.slider-value');
+                if (label) {
+                    if (label.textContent.includes('R$')) {
+                        label.textContent = 'R$ ' + (value * 500).toLocaleString('pt-BR');
+                    } else {
+                        label.textContent = value + '/10';
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

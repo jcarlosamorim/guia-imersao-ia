@@ -1,0 +1,1513 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Imersao PPT - IA para Negocios</title>
+    <style>
+        :root {
+            --bg-primary: #0a0a0f;
+            --bg-secondary: #12121a;
+            --bg-card: #1a1a24;
+            --accent-blue: #3b82f6;
+            --accent-cyan: #06b6d4;
+            --accent-green: #10b981;
+            --accent-yellow: #f59e0b;
+            --accent-pink: #ec4899;
+            --accent-purple: #8b5cf6;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            --border: #2d2d3a;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(10, 10, 15, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            z-index: 1000;
+            padding: 1rem 2rem;
+        }
+
+        .nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .nav-logo span {
+            color: var(--accent-cyan);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .nav-link {
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            transition: all 0.2s;
+        }
+
+        .nav-link:hover {
+            background: var(--bg-card);
+            color: var(--text-primary);
+        }
+
+        .nav-link.active {
+            background: var(--accent-blue);
+            color: white;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 6rem 2rem 4rem;
+            background: linear-gradient(180deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: 100px;
+            font-size: 0.875rem;
+            color: var(--accent-blue);
+            margin-bottom: 2rem;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            max-width: 900px;
+        }
+
+        .hero h1 .highlight {
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin-bottom: 3rem;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-cyan));
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 40px rgba(59, 130, 246, 0.3);
+        }
+
+        .btn-secondary {
+            background: var(--bg-card);
+            color: var(--text-primary);
+            border: 1px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            background: var(--bg-secondary);
+            border-color: var(--accent-blue);
+        }
+
+        /* Section Styles */
+        section {
+            padding: 6rem 2rem;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .section-header p {
+            color: var(--text-secondary);
+            font-size: 1.125rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Journey Flow Section */
+        #journey {
+            background: var(--bg-secondary);
+        }
+
+        .journey-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .journey-day {
+            margin-bottom: 4rem;
+        }
+
+        .day-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .day-badge {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 60px;
+            height: 60px;
+            border-radius: 16px;
+            font-weight: 700;
+            font-size: 0.875rem;
+        }
+
+        .day-badge.saturday {
+            background: linear-gradient(135deg, var(--accent-green), var(--accent-cyan));
+        }
+
+        .day-badge.sunday {
+            background: linear-gradient(135deg, var(--accent-pink), var(--accent-purple));
+        }
+
+        .day-info h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .day-info span {
+            color: var(--text-muted);
+            font-size: 0.875rem;
+        }
+
+        /* Flow Steps */
+        .flow-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            position: relative;
+        }
+
+        .flow-step {
+            display: grid;
+            grid-template-columns: 1fr auto 200px auto 1fr;
+            align-items: center;
+            gap: 1.5rem;
+            padding: 1.5rem;
+            background: var(--bg-card);
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .flow-step:hover {
+            border-color: var(--accent-blue);
+            transform: translateX(4px);
+        }
+
+        .flow-input, .flow-output {
+            padding: 1rem;
+            border-radius: 12px;
+            font-size: 0.875rem;
+        }
+
+        .flow-input {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.2);
+            color: #fca5a5;
+            text-align: right;
+        }
+
+        .flow-input-label, .flow-output-label {
+            font-size: 0.625rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-muted);
+            margin-bottom: 0.25rem;
+        }
+
+        .flow-output {
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            color: #6ee7b7;
+        }
+
+        .flow-arrow {
+            color: var(--text-muted);
+            font-size: 1.5rem;
+        }
+
+        .flow-center {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .flow-facilitator {
+            padding: 0.75rem 1.5rem;
+            border-radius: 100px;
+            font-weight: 600;
+            font-size: 0.875rem;
+        }
+
+        .facilitator-alan { background: rgba(59, 130, 246, 0.2); color: #93c5fd; border: 1px solid rgba(59, 130, 246, 0.3); }
+        .facilitator-marcondes { background: rgba(236, 72, 153, 0.2); color: #f9a8d4; border: 1px solid rgba(236, 72, 153, 0.3); }
+        .facilitator-jose { background: rgba(245, 158, 11, 0.2); color: #fcd34d; border: 1px solid rgba(245, 158, 11, 0.3); }
+
+        .flow-method {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .flow-steps-indicator {
+            display: flex;
+            gap: 0.25rem;
+            margin-top: 0.25rem;
+        }
+
+        .step-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--accent-cyan);
+            opacity: 0.5;
+        }
+
+        .step-dot.active {
+            opacity: 1;
+        }
+
+        /* Connector Line */
+        .flow-connector {
+            display: flex;
+            justify-content: center;
+            padding: 0.5rem 0;
+        }
+
+        .connector-line {
+            width: 2px;
+            height: 30px;
+            background: linear-gradient(180deg, var(--accent-cyan), transparent);
+        }
+
+        /* System Mockup Section */
+        #system {
+            background: var(--bg-primary);
+        }
+
+        .system-preview {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .system-window {
+            background: var(--bg-card);
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            overflow: hidden;
+        }
+
+        .window-header {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 1.5rem;
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .window-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .window-dot.red { background: #ef4444; }
+        .window-dot.yellow { background: #f59e0b; }
+        .window-dot.green { background: #10b981; }
+
+        .window-title {
+            margin-left: 1rem;
+            color: var(--text-muted);
+            font-size: 0.875rem;
+        }
+
+        .window-content {
+            padding: 2rem;
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .tab {
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-secondary);
+        }
+
+        .tab:hover {
+            background: var(--bg-secondary);
+            border-color: var(--accent-blue);
+        }
+
+        .tab.active {
+            background: var(--accent-blue);
+            border-color: var(--accent-blue);
+            color: white;
+        }
+
+        /* Tab Content */
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Form Elements */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            font-size: 0.875rem;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 1rem;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-size: 1rem;
+            transition: all 0.2s;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--accent-blue);
+        }
+
+        .form-input::placeholder {
+            color: var(--text-muted);
+        }
+
+        textarea.form-input {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        /* Cards Grid */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .selection-card {
+            padding: 1.5rem;
+            background: var(--bg-secondary);
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .selection-card:hover {
+            border-color: var(--accent-blue);
+        }
+
+        .selection-card.selected {
+            border-color: var(--accent-cyan);
+            background: rgba(6, 182, 212, 0.1);
+        }
+
+        .selection-card h4 {
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .selection-card p {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+        }
+
+        /* Progress Bar */
+        .progress-section {
+            margin-bottom: 2rem;
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            font-size: 0.875rem;
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: var(--bg-secondary);
+            border-radius: 100px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-blue), var(--accent-cyan));
+            border-radius: 100px;
+            transition: width 0.3s;
+        }
+
+        /* Triple P Section */
+        .triple-p-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .triple-p-card {
+            padding: 1.5rem;
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            border: 1px solid var(--border);
+        }
+
+        .triple-p-card h4 {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+            font-size: 1rem;
+        }
+
+        .triple-p-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+        }
+
+        .icon-pain { background: rgba(239, 68, 68, 0.2); }
+        .icon-pocket { background: rgba(16, 185, 129, 0.2); }
+        .icon-priority { background: rgba(245, 158, 11, 0.2); }
+
+        /* Slider */
+        .slider-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .slider-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+        }
+
+        .slider {
+            width: 100%;
+            height: 8px;
+            border-radius: 100px;
+            background: var(--bg-primary);
+            -webkit-appearance: none;
+            cursor: pointer;
+        }
+
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--accent-cyan);
+            cursor: pointer;
+        }
+
+        /* E2O Flow */
+        .e2o-flow {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .e2o-phase {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 1.5rem;
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            border-left: 4px solid var(--accent-blue);
+        }
+
+        .e2o-phase.completed {
+            border-left-color: var(--accent-green);
+            opacity: 0.7;
+        }
+
+        .e2o-phase.current {
+            border-left-color: var(--accent-cyan);
+            background: rgba(6, 182, 212, 0.1);
+        }
+
+        .phase-number {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: var(--bg-card);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.875rem;
+        }
+
+        .phase-info {
+            flex: 1;
+        }
+
+        .phase-name {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .phase-desc {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .phase-status {
+            font-size: 0.75rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 100px;
+            background: var(--bg-card);
+        }
+
+        /* Nexorama Canvas */
+        .nexorama-canvas {
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            padding: 2rem;
+            min-height: 300px;
+            position: relative;
+        }
+
+        .canvas-node {
+            position: absolute;
+            padding: 1rem 1.5rem;
+            background: var(--bg-card);
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            font-size: 0.875rem;
+            cursor: move;
+        }
+
+        .canvas-node.start {
+            left: 50%;
+            top: 20px;
+            transform: translateX(-50%);
+            border-color: var(--accent-green);
+        }
+
+        .canvas-node.process {
+            border-color: var(--accent-blue);
+        }
+
+        .canvas-node.decision {
+            border-color: var(--accent-yellow);
+            transform: rotate(0deg);
+        }
+
+        .canvas-node.end {
+            border-color: var(--accent-pink);
+        }
+
+        /* Chat Interface */
+        .chat-container {
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .chat-messages {
+            padding: 1.5rem;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .chat-message {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .chat-message.bot {
+            flex-direction: row;
+        }
+
+        .chat-message.user {
+            flex-direction: row-reverse;
+        }
+
+        .chat-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--accent-blue);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.875rem;
+            flex-shrink: 0;
+        }
+
+        .chat-message.user .chat-avatar {
+            background: var(--accent-purple);
+        }
+
+        .chat-bubble {
+            padding: 1rem;
+            border-radius: 12px;
+            max-width: 70%;
+            font-size: 0.875rem;
+        }
+
+        .chat-message.bot .chat-bubble {
+            background: var(--bg-card);
+        }
+
+        .chat-message.user .chat-bubble {
+            background: var(--accent-blue);
+        }
+
+        .chat-input-area {
+            display: flex;
+            gap: 0.5rem;
+            padding: 1rem;
+            background: var(--bg-card);
+            border-top: 1px solid var(--border);
+        }
+
+        .chat-input-area input {
+            flex: 1;
+            padding: 0.75rem 1rem;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-size: 0.875rem;
+        }
+
+        .chat-send {
+            padding: 0.75rem 1.5rem;
+            background: var(--accent-blue);
+            border: none;
+            border-radius: 8px;
+            color: white;
+            cursor: pointer;
+        }
+
+        /* Output Preview */
+        .output-preview {
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .output-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .output-header h4 {
+            font-size: 1rem;
+        }
+
+        .output-badge {
+            padding: 0.25rem 0.75rem;
+            background: rgba(16, 185, 129, 0.2);
+            color: var(--accent-green);
+            border-radius: 100px;
+            font-size: 0.75rem;
+        }
+
+        /* Summary Cards */
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+
+        .summary-item {
+            padding: 1rem;
+            background: var(--bg-card);
+            border-radius: 8px;
+        }
+
+        .summary-label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-bottom: 0.25rem;
+        }
+
+        .summary-value {
+            font-weight: 600;
+        }
+
+        /* CTA Section */
+        #cta {
+            background: linear-gradient(180deg, var(--bg-secondary) 0%, var(--bg-primary) 100%);
+            text-align: center;
+        }
+
+        .cta-box {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 4rem;
+            background: var(--bg-card);
+            border-radius: 24px;
+            border: 1px solid var(--border);
+        }
+
+        .cta-box h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .cta-box p {
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .flow-step {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .flow-input, .flow-output {
+                text-align: center;
+            }
+
+            .triple-p-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .summary-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-content">
+            <div class="nav-logo">Imersao <span>PPT</span></div>
+            <div class="nav-links">
+                <a href="#journey" class="nav-link">Jornada</a>
+                <a href="#system" class="nav-link">Sistema</a>
+                <a href="#cta" class="nav-link active">Inscrever</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-badge">
+            <span>24-25 Janeiro</span>
+            <span>|</span>
+            <span>Presencial</span>
+        </div>
+        <h1>De Caos a <span class="highlight">Clareza Pragmatica</span> em 2 Dias</h1>
+        <p class="hero-subtitle">
+            Nao vai sair com ideias. Vai sair com um <strong>sistema preenchido</strong>,
+            uma <strong>aplicacao funcionando</strong> e os <strong>proximos passos claros</strong>.
+        </p>
+        <div class="hero-cta">
+            <a href="#journey" class="btn btn-primary">Ver a Jornada</a>
+            <a href="#system" class="btn btn-secondary">Conhecer o Sistema</a>
+        </div>
+    </section>
+
+    <!-- Journey Section -->
+    <section id="journey">
+        <div class="journey-container">
+            <div class="section-header">
+                <h2>A Jornada de Transformacao</h2>
+                <p>Metodo PPT: Pessoas, Processos e Tecnologia. IA e o ultimo passo, nao o primeiro.</p>
+            </div>
+
+            <!-- Saturday -->
+            <div class="journey-day">
+                <div class="day-header">
+                    <div class="day-badge saturday">SAB</div>
+                    <div class="day-info">
+                        <h3>Sabado - 24 de Janeiro</h3>
+                        <span>Do Caos a Primeira Aplicacao</span>
+                    </div>
+                </div>
+
+                <div class="flow-steps">
+                    <!-- Step 1: Alan -->
+                    <div class="flow-step" onclick="showTab('design-system')">
+                        <div class="flow-input">
+                            <div class="flow-input-label">INPUT</div>
+                            Caos de ideias, problemas, confusao
+                        </div>
+                        <div class="flow-arrow">-></div>
+                        <div class="flow-center">
+                            <div class="flow-facilitator facilitator-alan">Alan</div>
+                            <div class="flow-method">Metodo Design System</div>
+                            <div class="flow-steps-indicator">
+                                <div class="step-dot active"></div>
+                                <div class="step-dot active"></div>
+                                <div class="step-dot"></div>
+                                <div class="step-dot"></div>
+                            </div>
+                        </div>
+                        <div class="flow-arrow">-></div>
+                        <div class="flow-output">
+                            <div class="flow-output-label">OUTPUT</div>
+                            Organizacao em processos e etapas
+                        </div>
+                    </div>
+
+                    <div class="flow-connector"><div class="connector-line"></div></div>
+
+                    <!-- Step 2: Marcondes -->
+                    <div class="flow-step" onclick="showTab('triple-p')">
+                        <div class="flow-input">
+                            <div class="flow-input-label">INPUT</div>
+                            Organizacao em processos e etapas
+                        </div>
+                        <div class="flow-arrow">-></div>
+                        <div class="flow-center">
+                            <div class="flow-facilitator facilitator-marcondes">Marcondes</div>
+                            <div class="flow-method">Metodo 0,8 da IA em negocios</div>
+                            <div class="flow-steps-indicator">
+                                <div class="step-dot active"></div>
+                                <div class="step-dot active"></div>
+                                <div class="step-dot active"></div>
+                                <div class="step-dot"></div>
+                            </div>
+                        </div>
+                        <div class="flow-arrow">-></div>
+                        <div class="flow-output">
+                            <div class="flow-output-label">OUTPUT</div>
+                            Identificacao de area onde IA gera resultado
+                        </div>
+                    </div>
+
+                    <div class="flow-connector"><div class="connector-line"></div></div>
+
+                    <!-- Step 3: Jose -->
+                    <div class="flow-step" onclick="showTab('e2o')">
+                        <div class="flow-input">
+                            <div class="flow-input-label">INPUT</div>
+                            Identificacao de area onde IA gera resultado
+                        </div>
+                        <div class="flow-arrow">-></div>
+                        <div class="flow-center">
+                            <div class="flow-facilitator facilitator-jose">Jose</div>
+                            <div class="flow-method">Metodo E2O</div>
+                            <div class="flow-steps-indicator">
+                                <div class="step-dot active"></div>
+                                <div class="step-dot active"></div>
+                                <div class="step-dot active"></div>
+                                <div class="step-dot active"></div>
+                            </div>
+                        </div>
+                        <div class="flow-arrow">-></div>
+                        <div class="flow-output">
+                            <div class="flow-output-label">OUTPUT</div>
+                            Aplicacao com IA funcional (nivel embrionario)
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sunday -->
+            <div class="journey-day">
+                <div class="day-header">
+                    <div class="day-badge sunday">DOM</div>
+                    <div class="day-info">
+                        <h3>Domingo - 25 de Janeiro</h3>
+                        <span>Da Aplicacao ao Sistema Completo</span>
+                    </div>
+                </div>
+
+                <div class="flow-steps">
+                    <!-- Step 4: Jose Nexorama -->
+                    <div class="flow-step" onclick="showTab('nexorama')">
+                        <div class="flow-input">
+                            <div class="flow-input-label">INPUT</div>
+                            Aplicacao com IA (nivel embrionario)
+                        </div>
+                        <div class="flow-arrow">-></div>
+                        <div class="flow-center">
+                            <div class="flow-facilitator facilitator-jose">Jose</div>
+                            <div class="flow-method">Metodo Nexorama</div>
+                            <div class="flow-steps-indicator">
+                                <div class="step-dot active"></div>
+                                <div class="step-dot active"></div>
+                                <div class="step-dot active"></div>
+                                <div class="step-dot active"></div>
+                            </div>
+                        </div>
+                        <div class="flow-arrow">-></div>
+                        <div class="flow-output">
+                            <div class="flow-output-label">OUTPUT</div>
+                            Sistema completo + guia de implementacao
+                        </div>
+                    </div>
+
+                    <div class="flow-connector"><div class="connector-line"></div></div>
+
+                    <!-- Step 5: Marcondes Continuidade -->
+                    <div class="flow-step" onclick="showTab('continuidade')">
+                        <div class="flow-input">
+                            <div class="flow-input-label">INPUT</div>
+                            Sistema completo com guia
+                        </div>
+                        <div class="flow-arrow">-></div>
+                        <div class="flow-center">
+                            <div class="flow-facilitator facilitator-marcondes">Marcondes</div>
+                            <div class="flow-method">Mapeamento de Continuidade</div>
+                            <div class="flow-steps-indicator">
+                                <div class="step-dot active"></div>
+                                <div class="step-dot active"></div>
+                                <div class="step-dot"></div>
+                            </div>
+                        </div>
+                        <div class="flow-arrow">-></div>
+                        <div class="flow-output">
+                            <div class="flow-output-label">OUTPUT</div>
+                            Proximos passos e roadmap de 90 dias
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- System Section -->
+    <section id="system">
+        <div class="section-header">
+            <h2>O Sistema Que Voce Vai Preencher</h2>
+            <p>Nao vai depender de lembrar, escrever ou ter criatividade. Tudo fica registrado.</p>
+        </div>
+
+        <div class="system-preview">
+            <div class="system-window">
+                <div class="window-header">
+                    <div class="window-dot red"></div>
+                    <div class="window-dot yellow"></div>
+                    <div class="window-dot green"></div>
+                    <span class="window-title">Sistema Imersao PPT - Seu Painel</span>
+                </div>
+                <div class="window-content">
+                    <!-- Progress -->
+                    <div class="progress-section">
+                        <div class="progress-header">
+                            <span>Progresso da Imersao</span>
+                            <span>3 de 5 etapas</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 60%"></div>
+                        </div>
+                    </div>
+
+                    <!-- Tabs -->
+                    <div class="tabs">
+                        <button class="tab active" onclick="showTab('design-system')">Design System</button>
+                        <button class="tab" onclick="showTab('triple-p')">Triple P</button>
+                        <button class="tab" onclick="showTab('e2o')">E2O</button>
+                        <button class="tab" onclick="showTab('nexorama')">Nexorama</button>
+                        <button class="tab" onclick="showTab('continuidade')">Continuidade</button>
+                    </div>
+
+                    <!-- Tab: Design System -->
+                    <div id="design-system" class="tab-content active">
+                        <h3 style="margin-bottom: 1.5rem;">Mapeamento do Negocio</h3>
+
+                        <div class="form-group">
+                            <label class="form-label">Descreva seu negocio em uma frase</label>
+                            <input type="text" class="form-input" placeholder="Ex: Consultoria de marketing digital para pequenas empresas" value="Agencia de automacao comercial para PMEs">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Quais sao os principais processos do seu negocio?</label>
+                            <textarea class="form-input" placeholder="Liste os processos que acontecem no dia-a-dia...">1. Prospeccao de clientes (ligacoes, emails, LinkedIn)
+2. Reuniao de diagnostico
+3. Proposta comercial
+4. Implementacao do sistema
+5. Suporte pos-venda</textarea>
+                        </div>
+
+                        <h4 style="margin: 1.5rem 0 1rem;">Selecione as areas com maior gargalo:</h4>
+                        <div class="cards-grid">
+                            <div class="selection-card selected">
+                                <h4>Prospeccao</h4>
+                                <p>Encontrar e qualificar leads</p>
+                            </div>
+                            <div class="selection-card">
+                                <h4>Vendas</h4>
+                                <p>Conversao de leads em clientes</p>
+                            </div>
+                            <div class="selection-card selected">
+                                <h4>Operacao</h4>
+                                <p>Entrega do servico/produto</p>
+                            </div>
+                            <div class="selection-card">
+                                <h4>Suporte</h4>
+                                <p>Atendimento pos-venda</p>
+                            </div>
+                        </div>
+
+                        <div class="output-preview">
+                            <div class="output-header">
+                                <h4>Diagnostico Gerado</h4>
+                                <span class="output-badge">Pronto</span>
+                            </div>
+                            <p style="color: var(--text-secondary); font-size: 0.875rem;">
+                                Seu negocio tem <strong>5 processos principais</strong> com gargalos identificados em
+                                <strong>Prospeccao</strong> e <strong>Operacao</strong>. A proxima etapa vai analisar
+                                onde IA pode gerar maior impacto.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Tab: Triple P -->
+                    <div id="triple-p" class="tab-content">
+                        <h3 style="margin-bottom: 1.5rem;">Analise Triple P</h3>
+
+                        <div class="triple-p-grid">
+                            <div class="triple-p-card">
+                                <h4>
+                                    <span class="triple-p-icon icon-pain">!</span>
+                                    Pain (Dor)
+                                </h4>
+                                <div class="slider-group">
+                                    <div class="slider-header">
+                                        <span>Intensidade</span>
+                                        <span>8/10</span>
+                                    </div>
+                                    <input type="range" class="slider" min="0" max="10" value="8">
+                                </div>
+                                <textarea class="form-input" style="min-height: 80px;">Prospeccao manual consome 4h/dia e gera poucos leads qualificados</textarea>
+                            </div>
+
+                            <div class="triple-p-card">
+                                <h4>
+                                    <span class="triple-p-icon icon-pocket">$</span>
+                                    Pocket (Bolso)
+                                </h4>
+                                <div class="slider-group">
+                                    <div class="slider-header">
+                                        <span>Orcamento Disponivel</span>
+                                        <span>R$ 2.500/mes</span>
+                                    </div>
+                                    <input type="range" class="slider" min="0" max="10" value="5">
+                                </div>
+                                <textarea class="form-input" style="min-height: 80px;">Margem permite investimento de ate R$ 3k/mes em ferramentas</textarea>
+                            </div>
+
+                            <div class="triple-p-card">
+                                <h4>
+                                    <span class="triple-p-icon icon-priority">*</span>
+                                    Priority (Prioridade)
+                                </h4>
+                                <div class="slider-group">
+                                    <div class="slider-header">
+                                        <span>Urgencia</span>
+                                        <span>9/10</span>
+                                    </div>
+                                    <input type="range" class="slider" min="0" max="10" value="9">
+                                </div>
+                                <textarea class="form-input" style="min-height: 80px;">Preciso resolver em 30 dias para bater meta do trimestre</textarea>
+                            </div>
+                        </div>
+
+                        <div class="output-preview">
+                            <div class="output-header">
+                                <h4>Veredicto Triple P</h4>
+                                <span class="output-badge">Alta Prioridade</span>
+                            </div>
+                            <div class="summary-grid">
+                                <div class="summary-item">
+                                    <div class="summary-label">Score Total</div>
+                                    <div class="summary-value">22/30 pontos</div>
+                                </div>
+                                <div class="summary-item">
+                                    <div class="summary-label">Recomendacao</div>
+                                    <div class="summary-value">Implementar IA na Prospeccao</div>
+                                </div>
+                                <div class="summary-item">
+                                    <div class="summary-label">ROI Estimado</div>
+                                    <div class="summary-value">3.2x em 90 dias</div>
+                                </div>
+                                <div class="summary-item">
+                                    <div class="summary-label">Proxima Etapa</div>
+                                    <div class="summary-value">Metodo E2O</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tab: E2O -->
+                    <div id="e2o" class="tab-content">
+                        <h3 style="margin-bottom: 1.5rem;">Entropy-to-Order: 6 Fases</h3>
+
+                        <div class="e2o-flow">
+                            <div class="e2o-phase completed">
+                                <div class="phase-number">1</div>
+                                <div class="phase-info">
+                                    <div class="phase-name">Ingestao</div>
+                                    <div class="phase-desc">Capturar o conteudo bruto do processo</div>
+                                </div>
+                                <span class="phase-status" style="color: var(--accent-green);">Completo</span>
+                            </div>
+                            <div class="e2o-phase completed">
+                                <div class="phase-number">2</div>
+                                <div class="phase-info">
+                                    <div class="phase-name">Decomposicao</div>
+                                    <div class="phase-desc">Separar em Acao + Objeto + Condicao</div>
+                                </div>
+                                <span class="phase-status" style="color: var(--accent-green);">Completo</span>
+                            </div>
+                            <div class="e2o-phase current">
+                                <div class="phase-number">3</div>
+                                <div class="phase-info">
+                                    <div class="phase-name">Arquitetura</div>
+                                    <div class="phase-desc">Definir sequencia e fluxo logico</div>
+                                </div>
+                                <span class="phase-status" style="color: var(--accent-cyan);">Em progresso</span>
+                            </div>
+                            <div class="e2o-phase">
+                                <div class="phase-number">4</div>
+                                <div class="phase-info">
+                                    <div class="phase-name">Friccao</div>
+                                    <div class="phase-desc">Simplificar e remover complexidade</div>
+                                </div>
+                                <span class="phase-status">Pendente</span>
+                            </div>
+                            <div class="e2o-phase">
+                                <div class="phase-number">5</div>
+                                <div class="phase-info">
+                                    <div class="phase-name">Orquestracao</div>
+                                    <div class="phase-desc">IA constroi a estrutura do sistema</div>
+                                </div>
+                                <span class="phase-status">Pendente</span>
+                            </div>
+                            <div class="e2o-phase">
+                                <div class="phase-number">6</div>
+                                <div class="phase-info">
+                                    <div class="phase-name">Construcao</div>
+                                    <div class="phase-desc">Sistema funcionando</div>
+                                </div>
+                                <span class="phase-status">Pendente</span>
+                            </div>
+                        </div>
+
+                        <div class="output-preview">
+                            <div class="output-header">
+                                <h4>Decomposicao AOC - Prospeccao</h4>
+                                <span class="output-badge">3 acoes mapeadas</span>
+                            </div>
+                            <div style="font-size: 0.875rem; color: var(--text-secondary);">
+                                <p style="margin-bottom: 0.5rem;"><strong>Acao 1:</strong> QUANDO receber lista de leads -> ENVIAR mensagem personalizada -> PARA agendar reuniao</p>
+                                <p style="margin-bottom: 0.5rem;"><strong>Acao 2:</strong> SE lead responder -> QUALIFICAR com 3 perguntas -> PARA priorizar follow-up</p>
+                                <p><strong>Acao 3:</strong> APOS qualificacao positiva -> AGENDAR call -> PARA apresentar proposta</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tab: Nexorama -->
+                    <div id="nexorama" class="tab-content">
+                        <h3 style="margin-bottom: 1.5rem;">Construtor Nexorama</h3>
+
+                        <div class="chat-container">
+                            <div class="chat-messages">
+                                <div class="chat-message bot">
+                                    <div class="chat-avatar">IA</div>
+                                    <div class="chat-bubble">
+                                        Vou te ajudar a transformar sua prospeccao em um sistema automatizado.
+                                        Primeiro: qual e o perfil ideal do seu cliente?
+                                    </div>
+                                </div>
+                                <div class="chat-message user">
+                                    <div class="chat-avatar">VC</div>
+                                    <div class="chat-bubble">
+                                        PMEs com 10-50 funcionarios que usam planilhas para gestao comercial
+                                    </div>
+                                </div>
+                                <div class="chat-message bot">
+                                    <div class="chat-avatar">IA</div>
+                                    <div class="chat-bubble">
+                                        Perfeito! Agora me conta: quando voce entra em contato, qual a principal objecao que recebe?
+                                    </div>
+                                </div>
+                                <div class="chat-message user">
+                                    <div class="chat-avatar">VC</div>
+                                    <div class="chat-bubble">
+                                        "Ja tentamos sistemas antes e nao funcionou" ou "Nao temos tempo pra implementar"
+                                    </div>
+                                </div>
+                                <div class="chat-message bot">
+                                    <div class="chat-avatar">IA</div>
+                                    <div class="chat-bubble">
+                                        Entendi! Vou criar um fluxo que antecipa essas objecoes. Veja o sistema que montei...
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="chat-input-area">
+                                <input type="text" placeholder="Digite sua resposta...">
+                                <button class="chat-send">Enviar</button>
+                            </div>
+                        </div>
+
+                        <div class="output-preview">
+                            <div class="output-header">
+                                <h4>Sistema Gerado: Prospector IA</h4>
+                                <span class="output-badge">Funcional</span>
+                            </div>
+                            <div class="summary-grid">
+                                <div class="summary-item">
+                                    <div class="summary-label">Tipo</div>
+                                    <div class="summary-value">Chatbot de Qualificacao</div>
+                                </div>
+                                <div class="summary-item">
+                                    <div class="summary-label">Integracao</div>
+                                    <div class="summary-value">WhatsApp + CRM</div>
+                                </div>
+                                <div class="summary-item">
+                                    <div class="summary-label">Automacoes</div>
+                                    <div class="summary-value">3 fluxos ativos</div>
+                                </div>
+                                <div class="summary-item">
+                                    <div class="summary-label">Status</div>
+                                    <div class="summary-value" style="color: var(--accent-green);">Pronto para deploy</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tab: Continuidade -->
+                    <div id="continuidade" class="tab-content">
+                        <h3 style="margin-bottom: 1.5rem;">Mapeamento de Continuidade</h3>
+
+                        <div class="form-group">
+                            <label class="form-label">O que voce aprendeu nesta imersao?</label>
+                            <textarea class="form-input">- Como mapear processos com visao sistemica
+- Metodo Triple P para priorizar onde usar IA
+- E2O para transformar caos em sistema
+- Nexorama para construir aplicacoes rapidamente</textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Qual o primeiro passo que voce vai dar na segunda-feira?</label>
+                            <input type="text" class="form-input" value="Ativar o Prospector IA e fazer os primeiros 10 contatos automatizados">
+                        </div>
+
+                        <h4 style="margin: 1.5rem 0 1rem;">Roadmap 90 Dias:</h4>
+                        <div class="cards-grid">
+                            <div class="selection-card selected">
+                                <h4>Semana 1-2</h4>
+                                <p>Deploy do Prospector IA + primeiros ajustes</p>
+                            </div>
+                            <div class="selection-card">
+                                <h4>Semana 3-4</h4>
+                                <p>Otimizar mensagens baseado em dados</p>
+                            </div>
+                            <div class="selection-card">
+                                <h4>Mes 2</h4>
+                                <p>Escalar para 100 contatos/dia</p>
+                            </div>
+                            <div class="selection-card">
+                                <h4>Mes 3</h4>
+                                <p>Integrar com vendas e suporte</p>
+                            </div>
+                        </div>
+
+                        <div class="output-preview">
+                            <div class="output-header">
+                                <h4>Seu Entregavel Final</h4>
+                                <span class="output-badge">Completo</span>
+                            </div>
+                            <div class="summary-grid">
+                                <div class="summary-item">
+                                    <div class="summary-label">Mapeamento</div>
+                                    <div class="summary-value">5 processos documentados</div>
+                                </div>
+                                <div class="summary-item">
+                                    <div class="summary-label">Analise Triple P</div>
+                                    <div class="summary-value">22/30 pontos</div>
+                                </div>
+                                <div class="summary-item">
+                                    <div class="summary-label">Sistema Criado</div>
+                                    <div class="summary-value">Prospector IA</div>
+                                </div>
+                                <div class="summary-item">
+                                    <div class="summary-label">Roadmap</div>
+                                    <div class="summary-value">90 dias planejados</div>
+                                </div>
+                            </div>
+                            <div style="margin-top: 1rem; text-align: center;">
+                                <button class="btn btn-primary" style="width: 100%;">Baixar Relatorio Completo (PDF)</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section id="cta">
+        <div class="cta-box">
+            <h2>Nao vou sair com ideias.<br>Vou sair com algo preenchido.</h2>
+            <p>
+                Sistema completo + Aplicacao funcionando + Roadmap de 90 dias.
+                Tudo registrado, tudo documentado, pronto para executar.
+            </p>
+            <a href="#" class="btn btn-primary">Garantir Minha Vaga</a>
+        </div>
+    </section>
+
+    <script>
+        function showTab(tabId) {
+            // Remove active from all tabs and contents
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+
+            // Add active to selected tab and content
+            document.getElementById(tabId).classList.add('active');
+            document.querySelectorAll('.tab').forEach(t => {
+                if (t.textContent.toLowerCase().includes(tabId.replace('-', ' ').split(' ')[0])) {
+                    t.classList.add('active');
+                }
+            });
+
+            // Scroll to system section
+            document.getElementById('system').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Selection cards toggle
+        document.querySelectorAll('.selection-card').forEach(card => {
+            card.addEventListener('click', () => {
+                card.classList.toggle('selected');
+            });
+        });
+
+        // Smooth scroll for nav links
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const target = document.querySelector(link.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

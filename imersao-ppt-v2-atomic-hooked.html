@@ -1,0 +1,1870 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Imersao PPT - Sistema de Transformacao</title>
+    <style>
+        /* ============================================
+           DESIGN TOKENS (Brad Frost: "Magic numbers should be variables")
+           ============================================ */
+        :root {
+            /* Spacing Scale (8px base) */
+            --space-xs: 0.25rem;   /* 4px */
+            --space-sm: 0.5rem;    /* 8px */
+            --space-md: 1rem;      /* 16px */
+            --space-lg: 1.5rem;    /* 24px */
+            --space-xl: 2rem;      /* 32px */
+            --space-2xl: 3rem;     /* 48px */
+            --space-3xl: 4rem;     /* 64px */
+
+            /* Border Radius Scale */
+            --radius-sm: 4px;
+            --radius-md: 8px;
+            --radius-lg: 12px;
+            --radius-xl: 16px;
+            --radius-full: 100px;
+
+            /* Colors - Semantic */
+            --color-bg-base: #0a0a0f;
+            --color-bg-elevated: #12121a;
+            --color-bg-surface: #1a1a24;
+            --color-bg-interactive: #242432;
+
+            --color-text-primary: #f8fafc;
+            --color-text-secondary: #94a3b8;
+            --color-text-muted: #64748b;
+
+            --color-border-default: #2d2d3a;
+            --color-border-focus: #3b82f6;
+
+            /* Colors - Feedback */
+            --color-accent-primary: #3b82f6;
+            --color-accent-secondary: #06b6d4;
+            --color-success: #10b981;
+            --color-warning: #f59e0b;
+            --color-danger: #ef4444;
+            --color-info: #8b5cf6;
+
+            /* Colors - Facilitators (context-agnostic) */
+            --color-facilitator-1: #3b82f6;  /* Blue */
+            --color-facilitator-2: #ec4899;  /* Pink */
+            --color-facilitator-3: #f59e0b;  /* Yellow */
+
+            /* Typography */
+            --font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-size-xs: 0.75rem;
+            --font-size-sm: 0.875rem;
+            --font-size-md: 1rem;
+            --font-size-lg: 1.125rem;
+            --font-size-xl: 1.25rem;
+            --font-size-2xl: 1.5rem;
+            --font-size-3xl: 2rem;
+            --font-size-4xl: 2.5rem;
+
+            --font-weight-normal: 400;
+            --font-weight-medium: 500;
+            --font-weight-semibold: 600;
+            --font-weight-bold: 700;
+
+            /* Transitions (Hooked: reduce friction) */
+            --transition-fast: 150ms ease;
+            --transition-normal: 250ms ease;
+            --transition-slow: 350ms ease;
+
+            /* Shadows */
+            --shadow-sm: 0 1px 2px rgba(0,0,0,0.2);
+            --shadow-md: 0 4px 12px rgba(0,0,0,0.3);
+            --shadow-lg: 0 10px 40px rgba(0,0,0,0.4);
+            --shadow-glow: 0 0 20px rgba(59, 130, 246, 0.3);
+        }
+
+        /* ============================================
+           RESET & BASE
+           ============================================ */
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-family);
+            font-size: var(--font-size-md);
+            line-height: 1.6;
+            background: var(--color-bg-base);
+            color: var(--color-text-primary);
+        }
+
+        /* ============================================
+           ATOMS - Smallest building blocks
+           ============================================ */
+
+        /* ATOM: Button */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-sm);
+            padding: var(--space-md) var(--space-xl);
+            border-radius: var(--radius-lg);
+            font-size: var(--font-size-md);
+            font-weight: var(--font-weight-semibold);
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: all var(--transition-normal);
+        }
+
+        .btn--primary {
+            background: linear-gradient(135deg, var(--color-accent-primary), var(--color-accent-secondary));
+            color: white;
+        }
+
+        .btn--primary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-glow);
+        }
+
+        .btn--secondary {
+            background: var(--color-bg-surface);
+            color: var(--color-text-primary);
+            border: 1px solid var(--color-border-default);
+        }
+
+        .btn--secondary:hover {
+            border-color: var(--color-accent-primary);
+            background: var(--color-bg-interactive);
+        }
+
+        .btn--ghost {
+            background: transparent;
+            color: var(--color-text-secondary);
+        }
+
+        .btn--ghost:hover {
+            color: var(--color-text-primary);
+            background: var(--color-bg-surface);
+        }
+
+        .btn--block {
+            width: 100%;
+        }
+
+        /* ATOM: Badge */
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-xs);
+            padding: var(--space-xs) var(--space-sm);
+            border-radius: var(--radius-full);
+            font-size: var(--font-size-xs);
+            font-weight: var(--font-weight-medium);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .badge--default {
+            background: var(--color-bg-interactive);
+            color: var(--color-text-secondary);
+        }
+
+        .badge--success {
+            background: rgba(16, 185, 129, 0.15);
+            color: var(--color-success);
+        }
+
+        .badge--warning {
+            background: rgba(245, 158, 11, 0.15);
+            color: var(--color-warning);
+        }
+
+        .badge--info {
+            background: rgba(6, 182, 212, 0.15);
+            color: var(--color-accent-secondary);
+        }
+
+        .badge--primary {
+            background: rgba(59, 130, 246, 0.15);
+            color: var(--color-accent-primary);
+        }
+
+        /* ATOM: Input */
+        .input {
+            width: 100%;
+            padding: var(--space-md);
+            background: var(--color-bg-elevated);
+            border: 1px solid var(--color-border-default);
+            border-radius: var(--radius-md);
+            color: var(--color-text-primary);
+            font-size: var(--font-size-md);
+            font-family: inherit;
+            transition: border-color var(--transition-fast);
+        }
+
+        .input:focus {
+            outline: none;
+            border-color: var(--color-accent-primary);
+        }
+
+        .input::placeholder {
+            color: var(--color-text-muted);
+        }
+
+        .input--textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        /* ATOM: Slider */
+        .slider {
+            width: 100%;
+            height: 8px;
+            border-radius: var(--radius-full);
+            background: var(--color-bg-base);
+            -webkit-appearance: none;
+            cursor: pointer;
+        }
+
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--color-accent-secondary);
+            cursor: pointer;
+            transition: transform var(--transition-fast);
+        }
+
+        .slider::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+        }
+
+        /* ATOM: Icon Badge */
+        .icon-badge {
+            width: 32px;
+            height: 32px;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: var(--font-size-md);
+        }
+
+        .icon-badge--danger { background: rgba(239, 68, 68, 0.2); }
+        .icon-badge--success { background: rgba(16, 185, 129, 0.2); }
+        .icon-badge--warning { background: rgba(245, 158, 11, 0.2); }
+        .icon-badge--info { background: rgba(139, 92, 246, 0.2); }
+
+        /* ATOM: Progress Dot */
+        .progress-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--color-accent-secondary);
+            opacity: 0.3;
+            transition: all var(--transition-fast);
+        }
+
+        .progress-dot--active {
+            opacity: 1;
+        }
+
+        .progress-dot--complete {
+            opacity: 1;
+            background: var(--color-success);
+        }
+
+        /* ATOM: Avatar */
+        .avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: var(--font-size-sm);
+            font-weight: var(--font-weight-semibold);
+            flex-shrink: 0;
+        }
+
+        .avatar--bot { background: var(--color-accent-primary); }
+        .avatar--user { background: var(--color-info); }
+
+        /* ATOM: Facilitator Tag */
+        .facilitator-tag {
+            padding: var(--space-sm) var(--space-lg);
+            border-radius: var(--radius-full);
+            font-weight: var(--font-weight-semibold);
+            font-size: var(--font-size-sm);
+            border: 1px solid;
+        }
+
+        .facilitator-tag--1 {
+            background: rgba(59, 130, 246, 0.2);
+            color: #93c5fd;
+            border-color: rgba(59, 130, 246, 0.3);
+        }
+        .facilitator-tag--2 {
+            background: rgba(236, 72, 153, 0.2);
+            color: #f9a8d4;
+            border-color: rgba(236, 72, 153, 0.3);
+        }
+        .facilitator-tag--3 {
+            background: rgba(245, 158, 11, 0.2);
+            color: #fcd34d;
+            border-color: rgba(245, 158, 11, 0.3);
+        }
+
+        /* ATOM: Day Badge */
+        .day-badge {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 60px;
+            height: 60px;
+            border-radius: var(--radius-xl);
+            font-weight: var(--font-weight-bold);
+            font-size: var(--font-size-sm);
+        }
+
+        .day-badge--1 {
+            background: linear-gradient(135deg, var(--color-success), var(--color-accent-secondary));
+        }
+
+        .day-badge--2 {
+            background: linear-gradient(135deg, #ec4899, var(--color-info));
+        }
+
+        /* ============================================
+           MOLECULES - Combinations of atoms
+           ============================================ */
+
+        /* MOLECULE: Card */
+        .card {
+            padding: var(--space-lg);
+            background: var(--color-bg-surface);
+            border: 1px solid var(--color-border-default);
+            border-radius: var(--radius-lg);
+            transition: all var(--transition-normal);
+        }
+
+        .card--interactive {
+            cursor: pointer;
+        }
+
+        .card--interactive:hover {
+            border-color: var(--color-accent-primary);
+            transform: translateY(-2px);
+        }
+
+        .card--selected {
+            border-color: var(--color-accent-secondary);
+            background: rgba(6, 182, 212, 0.1);
+        }
+
+        /* Hooked: Visual feedback on selection */
+        .card--selected::after {
+            content: "✓";
+            position: absolute;
+            top: var(--space-sm);
+            right: var(--space-sm);
+            color: var(--color-accent-secondary);
+            font-weight: bold;
+        }
+
+        .card--interactive {
+            position: relative;
+        }
+
+        .card__title {
+            font-size: var(--font-size-md);
+            font-weight: var(--font-weight-semibold);
+            margin-bottom: var(--space-xs);
+        }
+
+        .card__description {
+            font-size: var(--font-size-sm);
+            color: var(--color-text-muted);
+        }
+
+        /* MOLECULE: Form Group */
+        .form-group {
+            margin-bottom: var(--space-lg);
+        }
+
+        .form-group__label {
+            display: block;
+            margin-bottom: var(--space-sm);
+            font-weight: var(--font-weight-medium);
+            font-size: var(--font-size-sm);
+        }
+
+        .form-group__hint {
+            margin-top: var(--space-xs);
+            font-size: var(--font-size-xs);
+            color: var(--color-text-muted);
+        }
+
+        /* MOLECULE: Slider Group */
+        .slider-group {
+            margin-bottom: var(--space-lg);
+        }
+
+        .slider-group__header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: var(--space-sm);
+            font-size: var(--font-size-sm);
+        }
+
+        .slider-group__value {
+            font-weight: var(--font-weight-semibold);
+            color: var(--color-accent-secondary);
+        }
+
+        /* MOLECULE: Progress Bar */
+        .progress-bar {
+            height: 8px;
+            background: var(--color-bg-elevated);
+            border-radius: var(--radius-full);
+            overflow: hidden;
+        }
+
+        .progress-bar__fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--color-accent-primary), var(--color-accent-secondary));
+            border-radius: var(--radius-full);
+            transition: width var(--transition-slow);
+        }
+
+        /* Hooked: Celebration animation on progress */
+        .progress-bar__fill--celebrate {
+            animation: pulse-glow 0.5s ease;
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: none; }
+            50% { box-shadow: 0 0 20px var(--color-accent-secondary); }
+        }
+
+        /* MOLECULE: Chat Bubble */
+        .chat-bubble {
+            padding: var(--space-md);
+            border-radius: var(--radius-lg);
+            max-width: 70%;
+            font-size: var(--font-size-sm);
+        }
+
+        .chat-bubble--bot {
+            background: var(--color-bg-surface);
+            border-bottom-left-radius: var(--radius-sm);
+        }
+
+        .chat-bubble--user {
+            background: var(--color-accent-primary);
+            border-bottom-right-radius: var(--radius-sm);
+        }
+
+        /* MOLECULE: Phase Item */
+        .phase-item {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+            padding: var(--space-md) var(--space-lg);
+            background: var(--color-bg-elevated);
+            border-radius: var(--radius-lg);
+            border-left: 4px solid var(--color-accent-primary);
+            transition: all var(--transition-normal);
+        }
+
+        .phase-item--pending {
+            opacity: 0.6;
+            border-left-color: var(--color-text-muted);
+        }
+
+        .phase-item--current {
+            border-left-color: var(--color-accent-secondary);
+            background: rgba(6, 182, 212, 0.1);
+        }
+
+        .phase-item--complete {
+            border-left-color: var(--color-success);
+        }
+
+        /* Hooked: Visual reward for completion */
+        .phase-item--complete .phase-item__number {
+            background: var(--color-success);
+        }
+
+        .phase-item__number {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: var(--color-bg-surface);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: var(--font-weight-bold);
+            font-size: var(--font-size-sm);
+            flex-shrink: 0;
+        }
+
+        .phase-item__content {
+            flex: 1;
+        }
+
+        .phase-item__name {
+            font-weight: var(--font-weight-semibold);
+            margin-bottom: var(--space-xs);
+        }
+
+        .phase-item__desc {
+            font-size: var(--font-size-xs);
+            color: var(--color-text-muted);
+        }
+
+        /* MOLECULE: Metric Card */
+        .metric-card {
+            padding: var(--space-md);
+            background: var(--color-bg-surface);
+            border-radius: var(--radius-md);
+        }
+
+        .metric-card__label {
+            font-size: var(--font-size-xs);
+            color: var(--color-text-muted);
+            margin-bottom: var(--space-xs);
+        }
+
+        .metric-card__value {
+            font-weight: var(--font-weight-semibold);
+        }
+
+        /* MOLECULE: IO Block (Input/Output) */
+        .io-block {
+            padding: var(--space-md);
+            border-radius: var(--radius-lg);
+            font-size: var(--font-size-sm);
+        }
+
+        .io-block__label {
+            font-size: var(--font-size-xs);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--color-text-muted);
+            margin-bottom: var(--space-xs);
+        }
+
+        .io-block--input {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.2);
+            color: #fca5a5;
+        }
+
+        .io-block--output {
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            color: #6ee7b7;
+        }
+
+        /* MOLECULE: Progress Dots */
+        .progress-dots {
+            display: flex;
+            gap: var(--space-xs);
+        }
+
+        /* ============================================
+           ORGANISMS - Complex UI sections
+           ============================================ */
+
+        /* ORGANISM: Flow Step */
+        .flow-step {
+            display: grid;
+            grid-template-columns: 1fr auto 200px auto 1fr;
+            align-items: center;
+            gap: var(--space-lg);
+            padding: var(--space-lg);
+            background: var(--color-bg-surface);
+            border-radius: var(--radius-xl);
+            border: 1px solid var(--color-border-default);
+            transition: all var(--transition-normal);
+            cursor: pointer;
+        }
+
+        .flow-step:hover {
+            border-color: var(--color-accent-primary);
+            transform: translateX(4px);
+        }
+
+        /* Hooked: Visual feedback on hover */
+        .flow-step:hover .flow-step__arrow {
+            color: var(--color-accent-secondary);
+        }
+
+        .flow-step__arrow {
+            color: var(--color-text-muted);
+            font-size: var(--font-size-xl);
+            transition: color var(--transition-fast);
+        }
+
+        .flow-step__center {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+
+        .flow-step__method {
+            font-size: var(--font-size-xs);
+            color: var(--color-text-muted);
+        }
+
+        /* ORGANISM: Tab Panel */
+        .tabs {
+            display: flex;
+            gap: var(--space-sm);
+            margin-bottom: var(--space-xl);
+            flex-wrap: wrap;
+        }
+
+        .tabs__item {
+            padding: var(--space-sm) var(--space-lg);
+            border-radius: var(--radius-md);
+            font-size: var(--font-size-sm);
+            font-weight: var(--font-weight-medium);
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            background: transparent;
+            border: 1px solid var(--color-border-default);
+            color: var(--color-text-secondary);
+        }
+
+        .tabs__item:hover {
+            background: var(--color-bg-elevated);
+            border-color: var(--color-accent-primary);
+        }
+
+        .tabs__item--active {
+            background: var(--color-accent-primary);
+            border-color: var(--color-accent-primary);
+            color: white;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content--active {
+            display: block;
+            animation: fadeIn var(--transition-normal);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ORGANISM: Chat Container */
+        .chat-container {
+            background: var(--color-bg-elevated);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+        }
+
+        .chat-container__messages {
+            padding: var(--space-lg);
+            max-height: 300px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-md);
+        }
+
+        .chat-container__message {
+            display: flex;
+            gap: var(--space-md);
+        }
+
+        .chat-container__message--bot {
+            flex-direction: row;
+        }
+
+        .chat-container__message--user {
+            flex-direction: row-reverse;
+        }
+
+        .chat-container__input {
+            display: flex;
+            gap: var(--space-sm);
+            padding: var(--space-md);
+            background: var(--color-bg-surface);
+            border-top: 1px solid var(--color-border-default);
+        }
+
+        .chat-container__input .input {
+            flex: 1;
+        }
+
+        /* ORGANISM: Output Preview */
+        .output-preview {
+            background: var(--color-bg-elevated);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            margin-top: var(--space-lg);
+        }
+
+        .output-preview__header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-md);
+            padding-bottom: var(--space-md);
+            border-bottom: 1px solid var(--color-border-default);
+        }
+
+        .output-preview__title {
+            font-size: var(--font-size-md);
+            font-weight: var(--font-weight-semibold);
+        }
+
+        /* ORGANISM: System Window */
+        .system-window {
+            background: var(--color-bg-surface);
+            border-radius: var(--radius-xl);
+            border: 1px solid var(--color-border-default);
+            overflow: hidden;
+        }
+
+        .system-window__header {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            padding: var(--space-md) var(--space-lg);
+            background: var(--color-bg-elevated);
+            border-bottom: 1px solid var(--color-border-default);
+        }
+
+        .system-window__dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .system-window__dot--red { background: var(--color-danger); }
+        .system-window__dot--yellow { background: var(--color-warning); }
+        .system-window__dot--green { background: var(--color-success); }
+
+        .system-window__title {
+            margin-left: var(--space-md);
+            color: var(--color-text-muted);
+            font-size: var(--font-size-sm);
+        }
+
+        .system-window__content {
+            padding: var(--space-xl);
+        }
+
+        /* ORGANISM: Progress Section */
+        .progress-section {
+            margin-bottom: var(--space-xl);
+        }
+
+        .progress-section__header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: var(--space-sm);
+            font-size: var(--font-size-sm);
+        }
+
+        /* ORGANISM: Triple P Grid */
+        .triple-p-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--space-lg);
+            margin-bottom: var(--space-xl);
+        }
+
+        .triple-p-card {
+            padding: var(--space-lg);
+            background: var(--color-bg-elevated);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--color-border-default);
+        }
+
+        .triple-p-card__header {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            margin-bottom: var(--space-md);
+            font-weight: var(--font-weight-semibold);
+        }
+
+        /* ORGANISM: Metrics Grid */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: var(--space-md);
+        }
+
+        /* ORGANISM: Flow Connector */
+        .flow-connector {
+            display: flex;
+            justify-content: center;
+            padding: var(--space-sm) 0;
+        }
+
+        .flow-connector__line {
+            width: 2px;
+            height: 30px;
+            background: linear-gradient(180deg, var(--color-accent-secondary), transparent);
+        }
+
+        /* ============================================
+           TEMPLATES - Page-level layouts
+           ============================================ */
+
+        /* TEMPLATE: Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(10, 10, 15, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--color-border-default);
+            z-index: 1000;
+            padding: var(--space-md) var(--space-xl);
+        }
+
+        .nav__content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav__logo {
+            font-size: var(--font-size-xl);
+            font-weight: var(--font-weight-bold);
+        }
+
+        .nav__logo span {
+            color: var(--color-accent-secondary);
+        }
+
+        .nav__links {
+            display: flex;
+            gap: var(--space-md);
+        }
+
+        /* TEMPLATE: Section */
+        .section {
+            padding: var(--space-3xl) var(--space-xl);
+        }
+
+        .section--alt {
+            background: var(--color-bg-elevated);
+        }
+
+        .section__header {
+            text-align: center;
+            margin-bottom: var(--space-2xl);
+        }
+
+        .section__title {
+            font-size: var(--font-size-3xl);
+            font-weight: var(--font-weight-bold);
+            margin-bottom: var(--space-md);
+        }
+
+        .section__subtitle {
+            color: var(--color-text-secondary);
+            font-size: var(--font-size-lg);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* TEMPLATE: Hero */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: var(--space-3xl) var(--space-xl);
+            background: linear-gradient(180deg, var(--color-bg-base) 0%, var(--color-bg-elevated) 100%);
+        }
+
+        .hero__title {
+            font-size: clamp(var(--font-size-3xl), 5vw, var(--font-size-4xl));
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: var(--space-lg);
+            max-width: 900px;
+        }
+
+        .hero__highlight {
+            background: linear-gradient(135deg, var(--color-accent-secondary), var(--color-accent-primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero__subtitle {
+            font-size: var(--font-size-xl);
+            color: var(--color-text-secondary);
+            max-width: 600px;
+            margin-bottom: var(--space-2xl);
+        }
+
+        .hero__actions {
+            display: flex;
+            gap: var(--space-md);
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        /* TEMPLATE: Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .container--narrow {
+            max-width: 900px;
+        }
+
+        /* TEMPLATE: Day Section */
+        .day-section {
+            margin-bottom: var(--space-2xl);
+        }
+
+        .day-section__header {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+            margin-bottom: var(--space-xl);
+        }
+
+        .day-section__info h3 {
+            font-size: var(--font-size-2xl);
+            font-weight: var(--font-weight-bold);
+        }
+
+        .day-section__info span {
+            color: var(--color-text-muted);
+            font-size: var(--font-size-sm);
+        }
+
+        .day-section__steps {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-lg);
+        }
+
+        /* TEMPLATE: CTA Section */
+        .cta-section {
+            text-align: center;
+        }
+
+        .cta-box {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: var(--space-2xl);
+            background: var(--color-bg-surface);
+            border-radius: var(--radius-xl);
+            border: 1px solid var(--color-border-default);
+        }
+
+        .cta-box__title {
+            font-size: var(--font-size-2xl);
+            margin-bottom: var(--space-md);
+        }
+
+        .cta-box__text {
+            color: var(--color-text-secondary);
+            margin-bottom: var(--space-xl);
+        }
+
+        /* ============================================
+           HOOKED: Micro-interactions & Rewards
+           ============================================ */
+
+        /* Trigger: Hover states that invite action */
+        [data-hook-trigger] {
+            cursor: pointer;
+        }
+
+        /* Action: Easy click targets */
+        [data-hook-action] {
+            min-height: 44px; /* Touch-friendly */
+        }
+
+        /* Reward: Celebration animations */
+        .reward-pulse {
+            animation: rewardPulse 0.6s ease;
+        }
+
+        @keyframes rewardPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .reward-confetti {
+            position: relative;
+        }
+
+        .reward-confetti::after {
+            content: "🎉";
+            position: absolute;
+            top: -20px;
+            right: -10px;
+            animation: confettiFade 1s ease forwards;
+        }
+
+        @keyframes confettiFade {
+            0% { opacity: 1; transform: translateY(0); }
+            100% { opacity: 0; transform: translateY(-20px); }
+        }
+
+        /* Investment: Progress indicators */
+        .investment-indicator {
+            position: relative;
+        }
+
+        .investment-indicator::before {
+            content: attr(data-saved);
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: var(--color-success);
+            color: white;
+            font-size: 10px;
+            padding: 2px 6px;
+            border-radius: var(--radius-full);
+            opacity: 0;
+            transition: opacity var(--transition-fast);
+        }
+
+        .investment-indicator--saved::before {
+            opacity: 1;
+            animation: saveIndicator 2s ease forwards;
+        }
+
+        @keyframes saveIndicator {
+            0%, 80% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+
+        /* Hooked: Typing indicator */
+        .typing-indicator {
+            display: flex;
+            gap: 4px;
+            padding: var(--space-sm);
+        }
+
+        .typing-indicator span {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--color-text-muted);
+            animation: typingBounce 1.4s infinite ease-in-out;
+        }
+
+        .typing-indicator span:nth-child(1) { animation-delay: 0s; }
+        .typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
+        .typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes typingBounce {
+            0%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-6px); }
+        }
+
+        /* ============================================
+           UTILITIES
+           ============================================ */
+
+        .text-center { text-align: center; }
+        .text-muted { color: var(--color-text-muted); }
+        .text-sm { font-size: var(--font-size-sm); }
+        .text-success { color: var(--color-success); }
+        .mt-md { margin-top: var(--space-md); }
+        .mt-lg { margin-top: var(--space-lg); }
+        .mb-md { margin-bottom: var(--space-md); }
+        .mb-lg { margin-bottom: var(--space-lg); }
+
+        /* ============================================
+           RESPONSIVE
+           ============================================ */
+
+        @media (max-width: 768px) {
+            .flow-step {
+                grid-template-columns: 1fr;
+                gap: var(--space-md);
+            }
+
+            .flow-step .io-block {
+                text-align: center;
+            }
+
+            .flow-step__arrow {
+                transform: rotate(90deg);
+            }
+
+            .triple-p-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .nav__links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- TEMPLATE: Navigation -->
+    <nav class="nav">
+        <div class="nav__content">
+            <div class="nav__logo">Imersao <span>PPT</span></div>
+            <div class="nav__links">
+                <a href="#journey" class="btn btn--ghost">Jornada</a>
+                <a href="#system" class="btn btn--ghost">Sistema</a>
+                <a href="#cta" class="btn btn--primary">Garantir Vaga</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- TEMPLATE: Hero -->
+    <section class="hero">
+        <div class="badge badge--info mb-lg">
+            24-25 Janeiro | Presencial
+        </div>
+        <h1 class="hero__title">
+            De Caos a <span class="hero__highlight">Clareza Pragmatica</span> em 2 Dias
+        </h1>
+        <p class="hero__subtitle">
+            Nao vai sair com ideias. Vai sair com um <strong>sistema preenchido</strong>,
+            uma <strong>aplicacao funcionando</strong> e os <strong>proximos passos claros</strong>.
+        </p>
+        <div class="hero__actions">
+            <a href="#journey" class="btn btn--primary" data-hook-action>Ver a Jornada</a>
+            <a href="#system" class="btn btn--secondary" data-hook-action>Conhecer o Sistema</a>
+        </div>
+    </section>
+
+    <!-- TEMPLATE: Journey Section -->
+    <section id="journey" class="section section--alt">
+        <div class="container">
+            <div class="section__header">
+                <h2 class="section__title">A Jornada de Transformacao</h2>
+                <p class="section__subtitle">
+                    Metodo PPT: Pessoas, Processos e Tecnologia. IA e o ultimo passo, nao o primeiro.
+                </p>
+            </div>
+
+            <!-- Day 1: Saturday -->
+            <div class="day-section">
+                <div class="day-section__header">
+                    <div class="day-badge day-badge--1">SAB</div>
+                    <div class="day-section__info">
+                        <h3>Sabado - 24 de Janeiro</h3>
+                        <span>Do Caos a Primeira Aplicacao</span>
+                    </div>
+                </div>
+
+                <div class="day-section__steps">
+                    <!-- Step 1 -->
+                    <div class="flow-step" data-hook-trigger onclick="showTab('design-system')">
+                        <div class="io-block io-block--input">
+                            <div class="io-block__label">Input</div>
+                            Caos de ideias, problemas, confusao
+                        </div>
+                        <span class="flow-step__arrow">→</span>
+                        <div class="flow-step__center">
+                            <span class="facilitator-tag facilitator-tag--1">Alan</span>
+                            <span class="flow-step__method">Metodo Design System</span>
+                            <div class="progress-dots">
+                                <span class="progress-dot progress-dot--active"></span>
+                                <span class="progress-dot progress-dot--active"></span>
+                                <span class="progress-dot"></span>
+                            </div>
+                        </div>
+                        <span class="flow-step__arrow">→</span>
+                        <div class="io-block io-block--output">
+                            <div class="io-block__label">Output</div>
+                            Organizacao em processos e etapas
+                        </div>
+                    </div>
+
+                    <div class="flow-connector"><div class="flow-connector__line"></div></div>
+
+                    <!-- Step 2 -->
+                    <div class="flow-step" data-hook-trigger onclick="showTab('triple-p')">
+                        <div class="io-block io-block--input">
+                            <div class="io-block__label">Input</div>
+                            Organizacao em processos e etapas
+                        </div>
+                        <span class="flow-step__arrow">→</span>
+                        <div class="flow-step__center">
+                            <span class="facilitator-tag facilitator-tag--2">Marcondes</span>
+                            <span class="flow-step__method">Metodo 0,8 da IA em negocios</span>
+                            <div class="progress-dots">
+                                <span class="progress-dot progress-dot--active"></span>
+                                <span class="progress-dot progress-dot--active"></span>
+                                <span class="progress-dot progress-dot--active"></span>
+                            </div>
+                        </div>
+                        <span class="flow-step__arrow">→</span>
+                        <div class="io-block io-block--output">
+                            <div class="io-block__label">Output</div>
+                            Identificacao de area onde IA gera resultado
+                        </div>
+                    </div>
+
+                    <div class="flow-connector"><div class="flow-connector__line"></div></div>
+
+                    <!-- Step 3 -->
+                    <div class="flow-step" data-hook-trigger onclick="showTab('e2o')">
+                        <div class="io-block io-block--input">
+                            <div class="io-block__label">Input</div>
+                            Identificacao de area onde IA gera resultado
+                        </div>
+                        <span class="flow-step__arrow">→</span>
+                        <div class="flow-step__center">
+                            <span class="facilitator-tag facilitator-tag--3">Jose</span>
+                            <span class="flow-step__method">Metodo E2O</span>
+                            <div class="progress-dots">
+                                <span class="progress-dot progress-dot--active"></span>
+                                <span class="progress-dot progress-dot--active"></span>
+                                <span class="progress-dot progress-dot--active"></span>
+                                <span class="progress-dot progress-dot--active"></span>
+                            </div>
+                        </div>
+                        <span class="flow-step__arrow">→</span>
+                        <div class="io-block io-block--output">
+                            <div class="io-block__label">Output</div>
+                            Aplicacao com IA funcional (nivel embrionario)
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Day 2: Sunday -->
+            <div class="day-section">
+                <div class="day-section__header">
+                    <div class="day-badge day-badge--2">DOM</div>
+                    <div class="day-section__info">
+                        <h3>Domingo - 25 de Janeiro</h3>
+                        <span>Da Aplicacao ao Sistema Completo</span>
+                    </div>
+                </div>
+
+                <div class="day-section__steps">
+                    <!-- Step 4 -->
+                    <div class="flow-step" data-hook-trigger onclick="showTab('nexorama')">
+                        <div class="io-block io-block--input">
+                            <div class="io-block__label">Input</div>
+                            Aplicacao com IA (nivel embrionario)
+                        </div>
+                        <span class="flow-step__arrow">→</span>
+                        <div class="flow-step__center">
+                            <span class="facilitator-tag facilitator-tag--3">Jose</span>
+                            <span class="flow-step__method">Metodo Nexorama</span>
+                            <div class="progress-dots">
+                                <span class="progress-dot progress-dot--active"></span>
+                                <span class="progress-dot progress-dot--active"></span>
+                                <span class="progress-dot progress-dot--active"></span>
+                                <span class="progress-dot progress-dot--active"></span>
+                            </div>
+                        </div>
+                        <span class="flow-step__arrow">→</span>
+                        <div class="io-block io-block--output">
+                            <div class="io-block__label">Output</div>
+                            Sistema completo + guia de implementacao
+                        </div>
+                    </div>
+
+                    <div class="flow-connector"><div class="flow-connector__line"></div></div>
+
+                    <!-- Step 5 -->
+                    <div class="flow-step" data-hook-trigger onclick="showTab('continuidade')">
+                        <div class="io-block io-block--input">
+                            <div class="io-block__label">Input</div>
+                            Sistema completo com guia
+                        </div>
+                        <span class="flow-step__arrow">→</span>
+                        <div class="flow-step__center">
+                            <span class="facilitator-tag facilitator-tag--2">Marcondes</span>
+                            <span class="flow-step__method">Mapeamento de Continuidade</span>
+                            <div class="progress-dots">
+                                <span class="progress-dot progress-dot--active"></span>
+                                <span class="progress-dot progress-dot--active"></span>
+                            </div>
+                        </div>
+                        <span class="flow-step__arrow">→</span>
+                        <div class="io-block io-block--output">
+                            <div class="io-block__label">Output</div>
+                            Proximos passos e roadmap de 90 dias
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TEMPLATE: System Section -->
+    <section id="system" class="section">
+        <div class="container container--narrow">
+            <div class="section__header">
+                <h2 class="section__title">O Sistema Que Voce Vai Preencher</h2>
+                <p class="section__subtitle">
+                    Nao vai depender de lembrar, escrever ou ter criatividade. Tudo fica registrado.
+                </p>
+            </div>
+
+            <div class="system-window">
+                <div class="system-window__header">
+                    <div class="system-window__dot system-window__dot--red"></div>
+                    <div class="system-window__dot system-window__dot--yellow"></div>
+                    <div class="system-window__dot system-window__dot--green"></div>
+                    <span class="system-window__title">Sistema Imersao PPT - Seu Painel</span>
+                </div>
+                <div class="system-window__content">
+                    <!-- Hooked: Progress creates investment feeling -->
+                    <div class="progress-section">
+                        <div class="progress-section__header">
+                            <span>Progresso da Imersao</span>
+                            <span id="progress-text">3 de 5 etapas</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-bar__fill" id="progress-fill" style="width: 60%"></div>
+                        </div>
+                    </div>
+
+                    <!-- Tabs -->
+                    <div class="tabs" role="tablist">
+                        <button class="tabs__item tabs__item--active" data-tab="design-system">Design System</button>
+                        <button class="tabs__item" data-tab="triple-p">Triple P</button>
+                        <button class="tabs__item" data-tab="e2o">E2O</button>
+                        <button class="tabs__item" data-tab="nexorama">Nexorama</button>
+                        <button class="tabs__item" data-tab="continuidade">Continuidade</button>
+                    </div>
+
+                    <!-- Tab: Design System -->
+                    <div id="design-system" class="tab-content tab-content--active">
+                        <h3 class="mb-lg">Mapeamento do Negocio</h3>
+
+                        <div class="form-group">
+                            <label class="form-group__label">Descreva seu negocio em uma frase</label>
+                            <input type="text" class="input investment-indicator" data-saved="Salvo!"
+                                   placeholder="Ex: Consultoria de marketing digital para pequenas empresas"
+                                   value="Agencia de automacao comercial para PMEs"
+                                   onchange="saveField(this)">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-group__label">Quais sao os principais processos do seu negocio?</label>
+                            <textarea class="input input--textarea investment-indicator" data-saved="Salvo!"
+                                      onchange="saveField(this)">1. Prospeccao de clientes (ligacoes, emails, LinkedIn)
+2. Reuniao de diagnostico
+3. Proposta comercial
+4. Implementacao do sistema
+5. Suporte pos-venda</textarea>
+                        </div>
+
+                        <h4 class="mb-md">Selecione as areas com maior gargalo:</h4>
+                        <div class="metrics-grid mb-lg">
+                            <div class="card card--interactive card--selected" data-hook-trigger onclick="toggleCard(this)">
+                                <div class="card__title">Prospeccao</div>
+                                <div class="card__description">Encontrar e qualificar leads</div>
+                            </div>
+                            <div class="card card--interactive" data-hook-trigger onclick="toggleCard(this)">
+                                <div class="card__title">Vendas</div>
+                                <div class="card__description">Conversao de leads em clientes</div>
+                            </div>
+                            <div class="card card--interactive card--selected" data-hook-trigger onclick="toggleCard(this)">
+                                <div class="card__title">Operacao</div>
+                                <div class="card__description">Entrega do servico/produto</div>
+                            </div>
+                            <div class="card card--interactive" data-hook-trigger onclick="toggleCard(this)">
+                                <div class="card__title">Suporte</div>
+                                <div class="card__description">Atendimento pos-venda</div>
+                            </div>
+                        </div>
+
+                        <!-- Hooked: Variable Reward - personalized output -->
+                        <div class="output-preview">
+                            <div class="output-preview__header">
+                                <span class="output-preview__title">Diagnostico Gerado</span>
+                                <span class="badge badge--success">Pronto</span>
+                            </div>
+                            <p class="text-muted text-sm">
+                                Seu negocio tem <strong>5 processos principais</strong> com gargalos identificados em
+                                <strong>Prospeccao</strong> e <strong>Operacao</strong>. A proxima etapa vai analisar
+                                onde IA pode gerar maior impacto.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Tab: Triple P -->
+                    <div id="triple-p" class="tab-content">
+                        <h3 class="mb-lg">Analise Triple P</h3>
+
+                        <div class="triple-p-grid">
+                            <div class="triple-p-card">
+                                <div class="triple-p-card__header">
+                                    <span class="icon-badge icon-badge--danger">!</span>
+                                    Pain (Dor)
+                                </div>
+                                <div class="slider-group">
+                                    <div class="slider-group__header">
+                                        <span>Intensidade</span>
+                                        <span class="slider-group__value" id="pain-value">8/10</span>
+                                    </div>
+                                    <input type="range" class="slider" min="0" max="10" value="8"
+                                           oninput="updateSlider('pain', this.value)">
+                                </div>
+                                <textarea class="input input--textarea investment-indicator" data-saved="Salvo!"
+                                          onchange="saveField(this)">Prospeccao manual consome 4h/dia e gera poucos leads qualificados</textarea>
+                            </div>
+
+                            <div class="triple-p-card">
+                                <div class="triple-p-card__header">
+                                    <span class="icon-badge icon-badge--success">$</span>
+                                    Pocket (Bolso)
+                                </div>
+                                <div class="slider-group">
+                                    <div class="slider-group__header">
+                                        <span>Orcamento Disponivel</span>
+                                        <span class="slider-group__value" id="pocket-value">R$ 2.500/mes</span>
+                                    </div>
+                                    <input type="range" class="slider" min="0" max="10" value="5"
+                                           oninput="updateSlider('pocket', this.value)">
+                                </div>
+                                <textarea class="input input--textarea investment-indicator" data-saved="Salvo!"
+                                          onchange="saveField(this)">Margem permite investimento de ate R$ 3k/mes em ferramentas</textarea>
+                            </div>
+
+                            <div class="triple-p-card">
+                                <div class="triple-p-card__header">
+                                    <span class="icon-badge icon-badge--warning">*</span>
+                                    Priority (Prioridade)
+                                </div>
+                                <div class="slider-group">
+                                    <div class="slider-group__header">
+                                        <span>Urgencia</span>
+                                        <span class="slider-group__value" id="priority-value">9/10</span>
+                                    </div>
+                                    <input type="range" class="slider" min="0" max="10" value="9"
+                                           oninput="updateSlider('priority', this.value)">
+                                </div>
+                                <textarea class="input input--textarea investment-indicator" data-saved="Salvo!"
+                                          onchange="saveField(this)">Preciso resolver em 30 dias para bater meta do trimestre</textarea>
+                            </div>
+                        </div>
+
+                        <!-- Hooked: Variable Reward - score reveal -->
+                        <div class="output-preview">
+                            <div class="output-preview__header">
+                                <span class="output-preview__title">Veredicto Triple P</span>
+                                <span class="badge badge--warning">Alta Prioridade</span>
+                            </div>
+                            <div class="metrics-grid">
+                                <div class="metric-card">
+                                    <div class="metric-card__label">Score Total</div>
+                                    <div class="metric-card__value" id="total-score">22/30 pontos</div>
+                                </div>
+                                <div class="metric-card">
+                                    <div class="metric-card__label">Recomendacao</div>
+                                    <div class="metric-card__value">Implementar IA na Prospeccao</div>
+                                </div>
+                                <div class="metric-card">
+                                    <div class="metric-card__label">ROI Estimado</div>
+                                    <div class="metric-card__value">3.2x em 90 dias</div>
+                                </div>
+                                <div class="metric-card">
+                                    <div class="metric-card__label">Proxima Etapa</div>
+                                    <div class="metric-card__value">Metodo E2O</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tab: E2O -->
+                    <div id="e2o" class="tab-content">
+                        <h3 class="mb-lg">Entropy-to-Order: 6 Fases</h3>
+
+                        <div style="display: flex; flex-direction: column; gap: var(--space-md);">
+                            <div class="phase-item phase-item--complete">
+                                <div class="phase-item__number">1</div>
+                                <div class="phase-item__content">
+                                    <div class="phase-item__name">Ingestao</div>
+                                    <div class="phase-item__desc">Capturar o conteudo bruto do processo</div>
+                                </div>
+                                <span class="badge badge--success">Completo</span>
+                            </div>
+                            <div class="phase-item phase-item--complete">
+                                <div class="phase-item__number">2</div>
+                                <div class="phase-item__content">
+                                    <div class="phase-item__name">Decomposicao</div>
+                                    <div class="phase-item__desc">Separar em Acao + Objeto + Condicao</div>
+                                </div>
+                                <span class="badge badge--success">Completo</span>
+                            </div>
+                            <div class="phase-item phase-item--current">
+                                <div class="phase-item__number">3</div>
+                                <div class="phase-item__content">
+                                    <div class="phase-item__name">Arquitetura</div>
+                                    <div class="phase-item__desc">Definir sequencia e fluxo logico</div>
+                                </div>
+                                <span class="badge badge--info">Em progresso</span>
+                            </div>
+                            <div class="phase-item phase-item--pending">
+                                <div class="phase-item__number">4</div>
+                                <div class="phase-item__content">
+                                    <div class="phase-item__name">Friccao</div>
+                                    <div class="phase-item__desc">Simplificar e remover complexidade</div>
+                                </div>
+                                <span class="badge badge--default">Pendente</span>
+                            </div>
+                            <div class="phase-item phase-item--pending">
+                                <div class="phase-item__number">5</div>
+                                <div class="phase-item__content">
+                                    <div class="phase-item__name">Orquestracao</div>
+                                    <div class="phase-item__desc">IA constroi a estrutura do sistema</div>
+                                </div>
+                                <span class="badge badge--default">Pendente</span>
+                            </div>
+                            <div class="phase-item phase-item--pending">
+                                <div class="phase-item__number">6</div>
+                                <div class="phase-item__content">
+                                    <div class="phase-item__name">Construcao</div>
+                                    <div class="phase-item__desc">Sistema funcionando</div>
+                                </div>
+                                <span class="badge badge--default">Pendente</span>
+                            </div>
+                        </div>
+
+                        <div class="output-preview">
+                            <div class="output-preview__header">
+                                <span class="output-preview__title">Decomposicao AOC - Prospeccao</span>
+                                <span class="badge badge--success">3 acoes mapeadas</span>
+                            </div>
+                            <div class="text-sm text-muted">
+                                <p class="mb-md"><strong>Acao 1:</strong> QUANDO receber lista de leads → ENVIAR mensagem personalizada → PARA agendar reuniao</p>
+                                <p class="mb-md"><strong>Acao 2:</strong> SE lead responder → QUALIFICAR com 3 perguntas → PARA priorizar follow-up</p>
+                                <p><strong>Acao 3:</strong> APOS qualificacao positiva → AGENDAR call → PARA apresentar proposta</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tab: Nexorama -->
+                    <div id="nexorama" class="tab-content">
+                        <h3 class="mb-lg">Construtor Nexorama</h3>
+
+                        <!-- Hooked: Chat creates variable reward (responses are unpredictable) -->
+                        <div class="chat-container">
+                            <div class="chat-container__messages">
+                                <div class="chat-container__message chat-container__message--bot">
+                                    <div class="avatar avatar--bot">IA</div>
+                                    <div class="chat-bubble chat-bubble--bot">
+                                        Vou te ajudar a transformar sua prospeccao em um sistema automatizado.
+                                        Primeiro: qual e o perfil ideal do seu cliente?
+                                    </div>
+                                </div>
+                                <div class="chat-container__message chat-container__message--user">
+                                    <div class="avatar avatar--user">VC</div>
+                                    <div class="chat-bubble chat-bubble--user">
+                                        PMEs com 10-50 funcionarios que usam planilhas para gestao comercial
+                                    </div>
+                                </div>
+                                <div class="chat-container__message chat-container__message--bot">
+                                    <div class="avatar avatar--bot">IA</div>
+                                    <div class="chat-bubble chat-bubble--bot">
+                                        Perfeito! Agora me conta: quando voce entra em contato, qual a principal objecao que recebe?
+                                    </div>
+                                </div>
+                                <div class="chat-container__message chat-container__message--user">
+                                    <div class="avatar avatar--user">VC</div>
+                                    <div class="chat-bubble chat-bubble--user">
+                                        "Ja tentamos sistemas antes e nao funcionou" ou "Nao temos tempo pra implementar"
+                                    </div>
+                                </div>
+                                <div class="chat-container__message chat-container__message--bot">
+                                    <div class="avatar avatar--bot">IA</div>
+                                    <div class="chat-bubble chat-bubble--bot">
+                                        Entendi! Vou criar um fluxo que antecipa essas objecoes. Veja o sistema que montei...
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="chat-container__input">
+                                <input type="text" class="input" placeholder="Digite sua resposta..." id="chat-input">
+                                <button class="btn btn--primary" onclick="sendMessage()">Enviar</button>
+                            </div>
+                        </div>
+
+                        <div class="output-preview">
+                            <div class="output-preview__header">
+                                <span class="output-preview__title">Sistema Gerado: Prospector IA</span>
+                                <span class="badge badge--success">Funcional</span>
+                            </div>
+                            <div class="metrics-grid">
+                                <div class="metric-card">
+                                    <div class="metric-card__label">Tipo</div>
+                                    <div class="metric-card__value">Chatbot de Qualificacao</div>
+                                </div>
+                                <div class="metric-card">
+                                    <div class="metric-card__label">Integracao</div>
+                                    <div class="metric-card__value">WhatsApp + CRM</div>
+                                </div>
+                                <div class="metric-card">
+                                    <div class="metric-card__label">Automacoes</div>
+                                    <div class="metric-card__value">3 fluxos ativos</div>
+                                </div>
+                                <div class="metric-card">
+                                    <div class="metric-card__label">Status</div>
+                                    <div class="metric-card__value text-success">Pronto para deploy</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tab: Continuidade -->
+                    <div id="continuidade" class="tab-content">
+                        <h3 class="mb-lg">Mapeamento de Continuidade</h3>
+
+                        <div class="form-group">
+                            <label class="form-group__label">O que voce aprendeu nesta imersao?</label>
+                            <textarea class="input input--textarea investment-indicator" data-saved="Salvo!"
+                                      onchange="saveField(this)">- Como mapear processos com visao sistemica
+- Metodo Triple P para priorizar onde usar IA
+- E2O para transformar caos em sistema
+- Nexorama para construir aplicacoes rapidamente</textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-group__label">Qual o primeiro passo que voce vai dar na segunda-feira?</label>
+                            <input type="text" class="input investment-indicator" data-saved="Salvo!"
+                                   value="Ativar o Prospector IA e fazer os primeiros 10 contatos automatizados"
+                                   onchange="saveField(this)">
+                        </div>
+
+                        <h4 class="mb-md">Roadmap 90 Dias:</h4>
+                        <div class="metrics-grid mb-lg">
+                            <div class="card card--interactive card--selected" data-hook-trigger onclick="toggleCard(this)">
+                                <div class="card__title">Semana 1-2</div>
+                                <div class="card__description">Deploy do Prospector IA + primeiros ajustes</div>
+                            </div>
+                            <div class="card card--interactive" data-hook-trigger onclick="toggleCard(this)">
+                                <div class="card__title">Semana 3-4</div>
+                                <div class="card__description">Otimizar mensagens baseado em dados</div>
+                            </div>
+                            <div class="card card--interactive" data-hook-trigger onclick="toggleCard(this)">
+                                <div class="card__title">Mes 2</div>
+                                <div class="card__description">Escalar para 100 contatos/dia</div>
+                            </div>
+                            <div class="card card--interactive" data-hook-trigger onclick="toggleCard(this)">
+                                <div class="card__title">Mes 3</div>
+                                <div class="card__description">Integrar com vendas e suporte</div>
+                            </div>
+                        </div>
+
+                        <!-- Hooked: Investment - shows everything user has built -->
+                        <div class="output-preview">
+                            <div class="output-preview__header">
+                                <span class="output-preview__title">Seu Entregavel Final</span>
+                                <span class="badge badge--success">Completo</span>
+                            </div>
+                            <div class="metrics-grid mb-lg">
+                                <div class="metric-card">
+                                    <div class="metric-card__label">Mapeamento</div>
+                                    <div class="metric-card__value">5 processos documentados</div>
+                                </div>
+                                <div class="metric-card">
+                                    <div class="metric-card__label">Analise Triple P</div>
+                                    <div class="metric-card__value">22/30 pontos</div>
+                                </div>
+                                <div class="metric-card">
+                                    <div class="metric-card__label">Sistema Criado</div>
+                                    <div class="metric-card__value">Prospector IA</div>
+                                </div>
+                                <div class="metric-card">
+                                    <div class="metric-card__label">Roadmap</div>
+                                    <div class="metric-card__value">90 dias planejados</div>
+                                </div>
+                            </div>
+                            <button class="btn btn--primary btn--block">Baixar Relatorio Completo (PDF)</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TEMPLATE: CTA Section -->
+    <section id="cta" class="section section--alt cta-section">
+        <div class="cta-box">
+            <h2 class="cta-box__title">
+                Nao vou sair com ideias.<br>Vou sair com algo preenchido.
+            </h2>
+            <p class="cta-box__text">
+                Sistema completo + Aplicacao funcionando + Roadmap de 90 dias.
+                Tudo registrado, tudo documentado, pronto para executar.
+            </p>
+            <a href="#" class="btn btn--primary" data-hook-action>Garantir Minha Vaga</a>
+        </div>
+    </section>
+
+    <script>
+        /* ============================================
+           HOOKED: Behavioral Triggers & Rewards
+           ============================================ */
+
+        // Tab switching with smooth transition
+        function showTab(tabId) {
+            // Update tabs
+            document.querySelectorAll('.tabs__item').forEach(t => {
+                t.classList.remove('tabs__item--active');
+                if (t.dataset.tab === tabId) t.classList.add('tabs__item--active');
+            });
+
+            // Update content
+            document.querySelectorAll('.tab-content').forEach(c => {
+                c.classList.remove('tab-content--active');
+            });
+            document.getElementById(tabId).classList.add('tab-content--active');
+
+            // Scroll to system
+            document.getElementById('system').scrollIntoView({ behavior: 'smooth' });
+
+            // Hooked: Update progress (variable reward)
+            updateProgress();
+        }
+
+        // Tab click handler
+        document.querySelectorAll('.tabs__item').forEach(tab => {
+            tab.addEventListener('click', () => showTab(tab.dataset.tab));
+        });
+
+        // Card selection toggle with reward animation
+        function toggleCard(card) {
+            card.classList.toggle('card--selected');
+
+            // Hooked: Visual reward on selection
+            if (card.classList.contains('card--selected')) {
+                card.classList.add('reward-pulse');
+                setTimeout(() => card.classList.remove('reward-pulse'), 600);
+            }
+        }
+
+        // Slider updates with immediate feedback
+        function updateSlider(type, value) {
+            const displays = {
+                pain: `${value}/10`,
+                pocket: `R$ ${(value * 500).toLocaleString()}/mes`,
+                priority: `${value}/10`
+            };
+
+            document.getElementById(`${type}-value`).textContent = displays[type];
+
+            // Hooked: Update total score (variable reward)
+            const pain = parseInt(document.querySelector('[oninput*="pain"]').value);
+            const pocket = parseInt(document.querySelector('[oninput*="pocket"]').value);
+            const priority = parseInt(document.querySelector('[oninput*="priority"]').value);
+            const total = pain + pocket + priority;
+
+            document.getElementById('total-score').textContent = `${total}/30 pontos`;
+        }
+
+        // Save field with visual feedback (investment)
+        function saveField(input) {
+            input.classList.add('investment-indicator--saved');
+            setTimeout(() => {
+                input.classList.remove('investment-indicator--saved');
+            }, 2000);
+
+            // Hooked: Update progress
+            updateProgress();
+        }
+
+        // Progress calculation
+        function updateProgress() {
+            const filledInputs = document.querySelectorAll('.input:not([value=""])').length;
+            const selectedCards = document.querySelectorAll('.card--selected').length;
+            const total = filledInputs + selectedCards;
+            const max = 15;
+            const percent = Math.min((total / max) * 100, 100);
+
+            const fill = document.getElementById('progress-fill');
+            fill.style.width = `${percent}%`;
+
+            // Hooked: Celebration on milestones
+            if (percent >= 60 && !fill.classList.contains('celebrated-60')) {
+                fill.classList.add('progress-bar__fill--celebrate', 'celebrated-60');
+                setTimeout(() => fill.classList.remove('progress-bar__fill--celebrate'), 500);
+            }
+        }
+
+        // Chat message (simulated)
+        function sendMessage() {
+            const input = document.getElementById('chat-input');
+            if (!input.value.trim()) return;
+
+            const messages = document.querySelector('.chat-container__messages');
+
+            // Add user message
+            const userMsg = document.createElement('div');
+            userMsg.className = 'chat-container__message chat-container__message--user';
+            userMsg.innerHTML = `
+                <div class="avatar avatar--user">VC</div>
+                <div class="chat-bubble chat-bubble--user">${input.value}</div>
+            `;
+            messages.appendChild(userMsg);
+
+            // Show typing indicator (variable reward - anticipation)
+            const typing = document.createElement('div');
+            typing.className = 'chat-container__message chat-container__message--bot';
+            typing.innerHTML = `
+                <div class="avatar avatar--bot">IA</div>
+                <div class="typing-indicator">
+                    <span></span><span></span><span></span>
+                </div>
+            `;
+            messages.appendChild(typing);
+
+            // Simulate response
+            setTimeout(() => {
+                typing.innerHTML = `
+                    <div class="avatar avatar--bot">IA</div>
+                    <div class="chat-bubble chat-bubble--bot">
+                        Excelente! Estou processando sua informacao e ajustando o sistema...
+                    </div>
+                `;
+            }, 1500);
+
+            input.value = '';
+            messages.scrollTop = messages.scrollHeight;
+        }
+
+        // Enter key for chat
+        document.getElementById('chat-input').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') sendMessage();
+        });
+
+        // Smooth scroll for nav
+        document.querySelectorAll('a[href^="#"]').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const target = document.querySelector(link.getAttribute('href'));
+                if (target) target.scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+
+        // Initialize
+        updateProgress();
+    </script>
+</body>
+</html>
