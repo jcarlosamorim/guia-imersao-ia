@@ -4,9 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Imersão IA para Negócios | Tire da sua cabeça. Faça funcionar.</title>
+
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-K6BM8NQX');</script>
+    <!-- End Google Tag Manager -->
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;0,8..60,700;1,8..60,400&display=swap" rel="stylesheet">
     <style>
         /* ============================================
            DESIGN SYSTEM TOKENS
@@ -145,6 +154,26 @@
         .btn--ghost:hover {
             background: var(--color-accent);
             color: var(--color-bg);
+        }
+
+        .btn--locked {
+            opacity: 0.5;
+            cursor: not-allowed;
+            pointer-events: auto;
+        }
+
+        .btn--locked:hover {
+            background: var(--color-accent-glow);
+            color: var(--color-accent);
+            transform: none;
+        }
+
+        .btn--locked .btn__lock {
+            margin-right: var(--space-xs);
+        }
+
+        .btn:not(.btn--locked) .btn__lock {
+            display: none;
         }
 
         .btn--lg {
@@ -301,7 +330,7 @@
         .font-semibold { font-weight: 600; }
         .font-bold { font-weight: 700; }
 
-        .serif { font-family: 'Playfair Display', Georgia, serif; }
+        .serif { font-family: 'Source Serif 4', Georgia, serif; }
         .uppercase { text-transform: uppercase; letter-spacing: 0.1em; }
 
         /* ============================================
@@ -317,7 +346,7 @@
         }
 
         .section-title {
-            font-family: 'Playfair Display', serif;
+            font-family: 'Source Serif 4', serif;
             font-size: var(--text-3xl);
             font-weight: 500;
             margin-bottom: var(--space-lg);
@@ -375,10 +404,27 @@
         }
 
         .timeline__node-dot--completed {
-            background: var(--color-accent) !important;
             border-color: var(--color-accent) !important;
-            color: var(--color-bg) !important;
             box-shadow: 0 0 15px var(--color-accent-glow);
+            position: relative;
+        }
+
+        .timeline__node-dot--completed::after {
+            content: '✓';
+            position: absolute;
+            bottom: -4px;
+            right: -4px;
+            width: 18px;
+            height: 18px;
+            background: var(--color-accent);
+            color: var(--color-bg);
+            border-radius: 50%;
+            font-size: 10px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid var(--color-bg);
         }
 
         /* Mini Design System Preview */
@@ -404,7 +450,7 @@
         }
 
         .mini-brand__typography {
-            font-family: 'Playfair Display', serif;
+            font-family: 'Source Serif 4', serif;
             font-size: var(--text-xl);
             color: var(--color-text);
             margin-bottom: var(--space-xs);
@@ -604,7 +650,7 @@
         }
 
         .hero__title {
-            font-family: 'Playfair Display', serif;
+            font-family: 'Source Serif 4', serif;
             font-size: clamp(2.25rem, 5vw, 3.25rem);
             font-weight: 500;
             line-height: 1.2;
@@ -660,7 +706,7 @@
         }
 
         .section-title {
-            font-family: 'Playfair Display', serif;
+            font-family: 'Source Serif 4', serif;
             font-size: var(--text-3xl);
             font-weight: 500;
             margin-bottom: 1.5rem;
@@ -688,7 +734,7 @@
         }
 
         .invisivel__punchline {
-            font-family: 'Playfair Display', serif;
+            font-family: 'Source Serif 4', serif;
             font-size: 1.5rem;
             font-style: italic;
             color: var(--accent);
@@ -715,7 +761,7 @@
         }
 
         .honesty-box__title {
-            font-family: 'Playfair Display', serif;
+            font-family: 'Source Serif 4', serif;
             font-size: 1.375rem;
             color: var(--text);
             margin-bottom: 1rem;
@@ -752,6 +798,42 @@
             .honesty-box__text {
                 font-size: 0.9375rem;
             }
+        }
+
+        /* Insight Box */
+        .insight-box {
+            margin-top: var(--space-2xl);
+            padding: var(--space-xl);
+            background: linear-gradient(135deg, var(--color-bg-card) 0%, var(--color-bg-elevated) 100%);
+            border: 1px solid var(--color-accent-border);
+            border-radius: var(--radius-xl);
+            text-align: center;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .insight-box__text {
+            font-size: var(--text-base);
+            color: var(--color-text-muted);
+            line-height: 1.8;
+            margin-bottom: var(--space-md);
+        }
+
+        .insight-box__text:last-child {
+            margin-bottom: 0;
+        }
+
+        .insight-box__text strong {
+            color: var(--color-text);
+        }
+
+        .insight-box__highlight {
+            font-family: 'Source Serif 4', serif;
+            font-size: var(--text-xl);
+            font-style: italic;
+            color: var(--color-accent);
+            margin: var(--space-lg) 0;
         }
 
         /* ============================================
@@ -1298,7 +1380,7 @@
         }
 
         .mudanca__highlight p {
-            font-family: 'Playfair Display', serif;
+            font-family: 'Source Serif 4', serif;
             font-size: 1.25rem;
             color: var(--text);
             text-align: center;
@@ -1365,7 +1447,7 @@
         }
 
         .jornada__hero-title {
-            font-family: 'Playfair Display', serif;
+            font-family: 'Source Serif 4', serif;
             font-size: 1.75rem;
             margin-bottom: 0.5rem;
         }
@@ -1448,12 +1530,19 @@
             color: var(--accent);
             z-index: 1;
             transition: all 0.3s;
+            overflow: hidden;
+        }
+
+        .timeline__node-dot img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
         }
 
         .timeline__node:hover .timeline__node-dot {
             border-color: var(--accent);
-            background: var(--accent);
-            color: var(--bg);
+            box-shadow: 0 0 15px var(--accent-glow);
         }
 
         .timeline__node-dot--start {
@@ -1511,7 +1600,7 @@
         }
 
         .timeline__node-method {
-            font-family: 'Playfair Display', serif;
+            font-family: 'Source Serif 4', serif;
             font-size: 0.875rem;
             font-style: italic;
             color: var(--text-muted);
@@ -1603,6 +1692,14 @@
             justify-content: center;
             font-weight: 700;
             font-size: 1.125rem;
+            overflow: hidden;
+            border: 2px solid var(--accent);
+        }
+
+        .especialista-card__avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
         .especialista-card__name {
@@ -1738,7 +1835,7 @@
         }
 
         .case-card__quote {
-            font-family: 'Playfair Display', serif;
+            font-family: 'Source Serif 4', serif;
             font-size: 1.125rem;
             font-style: italic;
             color: var(--accent);
@@ -1760,7 +1857,7 @@
         }
 
         .entregas__question {
-            font-family: 'Playfair Display', serif;
+            font-family: 'Source Serif 4', serif;
             font-size: 1.5rem;
             font-style: italic;
             color: var(--text-muted);
@@ -2175,7 +2272,7 @@
         }
 
         .sistema-final__title {
-            font-family: 'Playfair Display', serif;
+            font-family: 'Source Serif 4', serif;
             font-size: 1.5rem;
             margin-bottom: 0.5rem;
         }
@@ -2349,6 +2446,204 @@
             }
         }
 
+        /* ============================================
+           MID-PAGE CTAs (Schwartz Strategic Points)
+           ============================================ */
+        .section-cta {
+            text-align: center;
+            margin-top: var(--space-2xl);
+            padding-top: var(--space-xl);
+            border-top: 1px solid var(--color-border);
+        }
+
+        .section-cta__text {
+            font-size: var(--text-sm);
+            color: var(--color-text-muted);
+            margin-bottom: var(--space-md);
+        }
+
+        .section-cta__hint {
+            font-size: var(--text-xs);
+            color: var(--color-text-subtle);
+            margin-top: var(--space-sm);
+        }
+
+        /* ============================================
+           PRICING SECTION
+           ============================================ */
+        .pricing {
+            padding: var(--space-3xl) 0;
+            border-top: 1px solid var(--color-border);
+        }
+
+        .pricing__grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-xl);
+            margin-top: var(--space-2xl);
+        }
+
+        /* Incluso Card */
+        .pricing__incluso {
+            background: var(--color-bg-card);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-lg);
+            padding: var(--space-xl);
+        }
+
+        .pricing__incluso-title {
+            font-family: 'Source Serif 4', serif;
+            font-size: var(--text-xl);
+            margin-bottom: var(--space-lg);
+        }
+
+        .pricing__incluso-list {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-md);
+        }
+
+        .pricing__incluso-item {
+            display: flex;
+            align-items: flex-start;
+            gap: var(--space-sm);
+            font-size: var(--text-base);
+            color: var(--color-text-muted);
+        }
+
+        .pricing__incluso-item svg {
+            width: 20px;
+            height: 20px;
+            color: var(--color-text-subtle);
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        /* Lotes */
+        .pricing__lotes {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-md);
+        }
+
+        .pricing__lote {
+            background: var(--color-bg-card);
+            border: 2px solid var(--color-border);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+            opacity: 0.6;
+        }
+
+        .pricing__lote--active {
+            border-color: var(--color-accent);
+            opacity: 1;
+            background: var(--color-bg-elevated);
+        }
+
+        .pricing__lote-badge {
+            position: absolute;
+            top: -12px;
+            left: 20px;
+            background: var(--color-bg-elevated);
+            border: 1px solid var(--color-border);
+            padding: var(--space-xs) var(--space-sm);
+            font-size: var(--text-xs);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border-radius: var(--radius-sm);
+        }
+
+        .pricing__lote--active .pricing__lote-badge {
+            background: var(--color-accent);
+            color: var(--color-bg);
+            border-color: var(--color-accent);
+        }
+
+        .pricing__lote-info {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-xs);
+        }
+
+        .pricing__lote-price {
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            font-weight: 700;
+        }
+
+        .pricing__lote--active .pricing__lote-price {
+            color: var(--color-text);
+        }
+
+        .pricing__lote-price span {
+            font-size: var(--text-lg);
+        }
+
+        .pricing__lote-cash {
+            font-size: var(--text-sm);
+            color: var(--color-text-subtle);
+        }
+
+        .pricing__lote-btn {
+            padding: var(--space-sm) var(--space-lg);
+            background: transparent;
+            border: 1px solid var(--color-border);
+            color: var(--color-text-muted);
+            border-radius: var(--radius-md);
+            font-size: var(--text-sm);
+            font-weight: 600;
+            cursor: not-allowed;
+        }
+
+        .pricing__lote--active .pricing__lote-btn {
+            background: var(--color-accent);
+            border-color: var(--color-accent);
+            color: var(--color-bg);
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .pricing__lote--active .pricing__lote-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px var(--color-accent-glow);
+        }
+
+        /* Countdown */
+        .pricing__countdown {
+            margin-top: var(--space-md);
+            background: #ef4444;
+            color: white;
+            padding: var(--space-sm) var(--space-md);
+            border-radius: var(--radius-md);
+            text-align: center;
+            font-size: var(--text-sm);
+            font-weight: 600;
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .pricing__grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .pricing__lote {
+                flex-direction: column;
+                text-align: center;
+                gap: var(--space-md);
+            }
+
+            .pricing__lote-badge {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+        }
+
         /* CTA Final */
         .cta-final {
             text-align: center;
@@ -2364,7 +2659,7 @@
         }
 
         .cta-final__title {
-            font-family: 'Playfair Display', serif;
+            font-family: 'Source Serif 4', serif;
             font-size: clamp(2rem, 4vw, 2.5rem);
             font-weight: 500;
             margin-bottom: var(--space-md);
@@ -2613,6 +2908,10 @@
     </style>
 </head>
 <body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K6BM8NQX"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
 
     <!-- Hero -->
     <section class="hero">
@@ -2621,7 +2920,7 @@
             <h1 class="hero__title">Tire da sua cabeça.<br><span>Faça funcionar.</span></h1>
             <p class="hero__subtitle">Aquele jeito que você faz as coisas - seu processo, seu método - pode virar um sistema que funciona sozinho. Sem programar. Sem depender de ninguém.</p>
 
-            <a href="#cta" class="btn btn--primary btn--lg">Quero participar →</a>
+            <a href="https://checkout.pagtrust.com.br/ck3dd8ac36?funnel=fn7e41919e&sck=cartadevendas&ra=false" class="btn btn--primary btn--lg">Garantir minha vaga na Imersão →</a>
 
             <div class="hero__details">
                 <div class="hero__detail">
@@ -2666,10 +2965,10 @@
                     Acesse o link abaixo, abra uma conversa com a IA e faça igual a demonstração aqui embaixo.
                     Veja com seus próprios olhos.
                 </p>
-                <a href="https://aistudio.google.com/app" target="_blank" class="btn btn--ghost">
-                    Abrir Google AI Studio →
+                <a href="https://aistudio.google.com/app" target="_blank" class="btn btn--ghost btn--locked" id="btn-aistudio" onclick="return !this.classList.contains('btn--locked')">
+                    <span class="btn__lock">🔒</span> Abrir Google AI Studio →
                 </a>
-                <p class="honesty-box__hint">Clique em "Assistir Demo" abaixo e depois teste você mesmo</p>
+                <p class="honesty-box__hint" id="hint-aistudio">Assista a demo abaixo para desbloquear</p>
             </div>
 
             <!-- Vibe Coding Animation -->
@@ -2739,6 +3038,28 @@
                     <button class="btn btn--primary" onclick="startVibeCoding()">▶ Assistir Demo</button>
                 </div>
                 <div class="vibecoding__label">Clique em "Assistir Demo" para ver a mágica acontecer</div>
+            </div>
+
+            <!-- Insight Box -->
+            <div class="insight-box reveal">
+                <p class="insight-box__text">
+                    Talvez você nem saiba o que é uma Todo List. Muito menos a Matriz de Eisenhower.
+                    <strong>E tá tudo bem.</strong>
+                </p>
+                <p class="insight-box__highlight">
+                    Porque nossa diferença não é ser especialista em IA.
+                </p>
+                <p class="insight-box__text">
+                    Somos especialistas em <strong>metodologias</strong>. Em <strong>mentes</strong>. Em <strong>processos</strong>.
+                    <br>A IA? É só a ferramenta que usamos para traduzir isso em sistema.
+                </p>
+            </div>
+
+            <!-- CTA Mid-Page: Após VibeCoding Demo -->
+            <div class="section-cta reveal">
+                <p class="section-cta__text">Viu como funciona? Isso é só o começo.</p>
+                <a href="https://checkout.pagtrust.com.br/ck3dd8ac36?funnel=fn7e41919e&sck=cartadevendas&ra=false" class="btn btn--primary">Quero aprender a fazer isso →</a>
+                <p class="section-cta__hint">Vagas limitadas para a Imersão</p>
             </div>
         </div>
     </section>
@@ -2811,7 +3132,7 @@
 
                     <!-- Alan Nicolas -->
                     <div class="timeline__node reveal" data-panel="design-system" data-viewed="false" onclick="openPanel('design-system')">
-                        <div class="timeline__node-dot">AN</div>
+                        <div class="timeline__node-dot"><img src="https://i.imgur.com/Pi7CwUg.png" alt="Alan Nicolas"></div>
                         <!-- Estado Inicial: Speaker -->
                         <div class="timeline__node-card timeline__node-card--speaker">
                             <div class="timeline__node-time">09h</div>
@@ -2838,7 +3159,7 @@
 
                     <!-- Gabriel Marcondes -->
                     <div class="timeline__node reveal" data-panel="triple-p" data-viewed="false" onclick="openPanel('triple-p')">
-                        <div class="timeline__node-dot">GM</div>
+                        <div class="timeline__node-dot"><img src="https://i.imgur.com/u0Zi5oT.png" alt="Gabriel Marcondes"></div>
                         <!-- Estado Inicial: Speaker -->
                         <div class="timeline__node-card timeline__node-card--speaker">
                             <div class="timeline__node-time">11h</div>
@@ -2877,7 +3198,7 @@
 
                     <!-- José Amorim E2O -->
                     <div class="timeline__node reveal" data-panel="e2o" data-viewed="false" onclick="openPanel('e2o')">
-                        <div class="timeline__node-dot">JA</div>
+                        <div class="timeline__node-dot"><img src="https://i.imgur.com/VnoufqM.png" alt="José Amorim"></div>
                         <!-- Estado Inicial: Speaker -->
                         <div class="timeline__node-card timeline__node-card--speaker">
                             <div class="timeline__node-time">14h</div>
@@ -2925,7 +3246,7 @@
 
                     <!-- José Amorim Nexorama -->
                     <div class="timeline__node reveal" data-panel="nexorama" data-viewed="false" onclick="openPanel('nexorama')">
-                        <div class="timeline__node-dot">JA</div>
+                        <div class="timeline__node-dot"><img src="https://i.imgur.com/VnoufqM.png" alt="José Amorim"></div>
                         <!-- Estado Inicial: Speaker -->
                         <div class="timeline__node-card timeline__node-card--speaker">
                             <div class="timeline__node-time">09h</div>
@@ -2954,7 +3275,7 @@
 
                     <!-- Gabriel Marcondes Continuidade -->
                     <div class="timeline__node reveal" data-panel="continuidade" data-viewed="false" onclick="openPanel('continuidade')">
-                        <div class="timeline__node-dot">GM</div>
+                        <div class="timeline__node-dot"><img src="https://i.imgur.com/u0Zi5oT.png" alt="Gabriel Marcondes"></div>
                         <!-- Estado Inicial: Speaker -->
                         <div class="timeline__node-card timeline__node-card--speaker">
                             <div class="timeline__node-time">13h</div>
@@ -2978,7 +3299,7 @@
 
                     <!-- Alan Nicolas Encerramento -->
                     <div class="timeline__node reveal" data-panel="encerramento" data-viewed="false" onclick="openPanel('encerramento')">
-                        <div class="timeline__node-dot">AN</div>
+                        <div class="timeline__node-dot"><img src="https://i.imgur.com/Pi7CwUg.png" alt="Alan Nicolas"></div>
                         <!-- Estado Inicial: Speaker -->
                         <div class="timeline__node-card timeline__node-card--speaker">
                             <div class="timeline__node-time">16h30</div>
@@ -3028,7 +3349,7 @@
                 <!-- Alan Nicolas -->
                 <div class="especialista-card">
                     <div class="especialista-card__header">
-                        <div class="especialista-card__avatar">AN</div>
+                        <div class="especialista-card__avatar"><img src="https://i.imgur.com/Pi7CwUg.png" alt="Alan Nicolas"></div>
                         <div>
                             <div class="especialista-card__name">Alan Nicolas</div>
                             <div class="especialista-card__role">CEO Academia Lendária</div>
@@ -3047,7 +3368,7 @@
                 <!-- José Amorim -->
                 <div class="especialista-card">
                     <div class="especialista-card__header">
-                        <div class="especialista-card__avatar">JA</div>
+                        <div class="especialista-card__avatar"><img src="https://i.imgur.com/VnoufqM.png" alt="José Amorim"></div>
                         <div>
                             <div class="especialista-card__name">José Amorim</div>
                             <div class="especialista-card__role">Nexialista</div>
@@ -3066,7 +3387,7 @@
                 <!-- Gabriel Marcondes -->
                 <div class="especialista-card">
                     <div class="especialista-card__header">
-                        <div class="especialista-card__avatar">GM</div>
+                        <div class="especialista-card__avatar"><img src="https://i.imgur.com/u0Zi5oT.png" alt="Gabriel Marcondes"></div>
                         <div>
                             <div class="especialista-card__name">Gabriel Marcondes</div>
                             <div class="especialista-card__role">CEO Agência Lendária</div>
@@ -3167,6 +3488,13 @@
                 </div>
 
                 <div class="case-card__quote">Transformou sua "zona de genialidade" em linha de produção.</div>
+            </div>
+
+            <!-- CTA Mid-Page: Após Cases -->
+            <div class="section-cta reveal">
+                <p class="section-cta__text">Resultados reais de quem aplicou o método.</p>
+                <a href="https://checkout.pagtrust.com.br/ck3dd8ac36?funnel=fn7e41919e&sck=cartadevendas&ra=false" class="btn btn--primary">Quero resultados como esses →</a>
+                <p class="section-cta__hint">Próxima turma: 24 e 25 de Janeiro</p>
             </div>
         </div>
     </section>
@@ -3411,11 +3739,102 @@
                     <button class="btn btn--primary" onclick="startSistema()">▶ Ver Demonstração</button>
                 </div>
             </div>
+
+            <!-- CTA Mid-Page: Após Sistema Builder -->
+            <div class="section-cta reveal">
+                <p class="section-cta__text">Isso é o que você vai construir na Imersão.</p>
+                <a href="https://checkout.pagtrust.com.br/ck3dd8ac36?funnel=fn7e41919e&sck=cartadevendas&ra=false" class="btn btn--primary">Quero construir meu sistema →</a>
+                <p class="section-cta__hint">2 dias. Sistema funcionando. Seu método automatizado.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing -->
+    <section class="pricing reveal" id="cta">
+        <div class="container">
+            <div class="section-label">Investimento</div>
+
+            <h2 class="section-title">Garanta sua vaga na Imersão</h2>
+
+            <div class="pricing__grid">
+                <!-- O que está incluso -->
+                <div class="pricing__incluso">
+                    <h3 class="pricing__incluso-title">O que está incluso:</h3>
+                    <div class="pricing__incluso-list">
+                        <div class="pricing__incluso-item">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                            <span>2 dias completos de imersão (09h-18h)</span>
+                        </div>
+                        <div class="pricing__incluso-item">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                            <span>Plantão noturno (19h-23h) nos 2 dias</span>
+                        </div>
+                        <div class="pricing__incluso-item">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                            <span>Suporte direto do time em tempo real</span>
+                        </div>
+                        <div class="pricing__incluso-item">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                            <span>Todos os frameworks e materiais</span>
+                        </div>
+                        <div class="pricing__incluso-item">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                            <span>Gravação completa (acesso por 90 dias)</span>
+                        </div>
+                        <div class="pricing__incluso-item">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                            <span>Certificado de conclusão</span>
+                        </div>
+                        <div class="pricing__incluso-item">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                            <span>Garantia Incondicional</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Lotes -->
+                <div class="pricing__lotes">
+                    <!-- Lote 01 - Ativo -->
+                    <div class="pricing__lote pricing__lote--active">
+                        <div class="pricing__lote-badge">Lote 01</div>
+                        <div class="pricing__lote-info">
+                            <div class="pricing__lote-price">12x de <span>R$ 34,80</span></div>
+                            <div class="pricing__lote-cash">ou R$ 348 à vista</div>
+                        </div>
+                        <a href="https://checkout.pagtrust.com.br/ck3dd8ac36?funnel=fn7e41919e&sck=cartadevendas&ra=false" class="pricing__lote-btn">Garantir meu Lugar</a>
+                    </div>
+
+                    <!-- Countdown -->
+                    <div class="pricing__countdown" id="pricing-countdown">
+                        Esta oferta encerra em <span id="countdown-timer">00 Dias : 00 Hrs : 00 Min : 00 Seg</span>
+                    </div>
+
+                    <!-- Lote 02 -->
+                    <div class="pricing__lote">
+                        <div class="pricing__lote-badge">Lote 02</div>
+                        <div class="pricing__lote-info">
+                            <div class="pricing__lote-price">12x de <span>R$ 38,80</span></div>
+                            <div class="pricing__lote-cash">ou R$ 388 à vista</div>
+                        </div>
+                        <span class="pricing__lote-btn">Garantir meu Lugar</span>
+                    </div>
+
+                    <!-- Lote 03 -->
+                    <div class="pricing__lote">
+                        <div class="pricing__lote-badge">Lote 03</div>
+                        <div class="pricing__lote-info">
+                            <div class="pricing__lote-price">12x de <span>R$ 42,80</span></div>
+                            <div class="pricing__lote-cash">ou R$ 428 à vista</div>
+                        </div>
+                        <span class="pricing__lote-btn">Garantir meu Lugar</span>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
     <!-- CTA Final -->
-    <section class="cta-final" id="cta">
+    <section class="cta-final">
         <div class="container">
             <p class="cta-final__pretitle">Imersão IA para Negócios</p>
 
@@ -3423,7 +3842,7 @@
 
             <p class="cta-final__subtitle">Em 2 dias, você vai construir seu primeiro sistema. O SEU jeito de fazer, funcionando sozinho.</p>
 
-            <a href="#" class="btn btn--primary btn--lg">Garantir minha vaga →</a>
+            <a href="https://checkout.pagtrust.com.br/ck3dd8ac36?funnel=fn7e41919e&sck=cartadevendas&ra=false" class="btn btn--primary btn--lg">Quero meu sistema funcionando →</a>
 
             <p class="cta-final__note">24 e 25 de Janeiro de 2026 | Online ao vivo | Gravação por 2 semanas</p>
         </div>
@@ -3788,8 +4207,7 @@
                     resultCard.style.transform = 'scale(1)';
                 });
 
-                // Update dot to completed state
-                dot.innerHTML = '✓';
+                // Update dot to completed state (checkmark via CSS ::after)
                 dot.classList.add('timeline__node-dot--completed');
             }, 300);
         }
@@ -3873,6 +4291,19 @@
 
             // Hide matrix
             document.getElementById('matrix').classList.remove('visible');
+        }
+
+        function unlockAiStudioButton() {
+            const btn = document.getElementById('btn-aistudio');
+            const hint = document.getElementById('hint-aistudio');
+            if (btn) {
+                btn.classList.remove('btn--locked');
+                btn.innerHTML = 'Abrir Google AI Studio →';
+            }
+            if (hint) {
+                hint.textContent = '✓ Demo assistida! Agora teste você mesmo';
+                hint.style.color = 'var(--color-accent)';
+            }
         }
 
         function addMessage(type, text) {
@@ -3970,6 +4401,8 @@
         async function runStep() {
             if (currentStep >= vibeCodingSteps.length || !isAnimating) {
                 isAnimating = false;
+                // Unlock the Google AI Studio button
+                unlockAiStudioButton();
                 return;
             }
 
@@ -4116,7 +4549,7 @@
 
             // Field 2: Typography
             document.getElementById('ds-field-2').classList.add('visible');
-            await typeText(document.getElementById('ds-tipo'), 'Inter (títulos) + Playfair Display (destaques)', 20);
+            await typeText(document.getElementById('ds-tipo'), 'Inter (UI) + Source Serif 4 (textos)', 20);
             updateProgress(15);
 
             await new Promise(r => setTimeout(r, 200));
@@ -4258,6 +4691,34 @@
 
             sistemaAnimating = false;
         }
+
+        // ============================================
+        // PRICING COUNTDOWN
+        // ============================================
+        function updateCountdown() {
+            // Set end date to Jan 24, 2026 at 09:00 (start of immersion)
+            const endDate = new Date('2026-01-24T09:00:00-03:00').getTime();
+            const now = new Date().getTime();
+            const distance = endDate - now;
+
+            if (distance < 0) {
+                document.getElementById('countdown-timer').textContent = 'Encerrado!';
+                return;
+            }
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            const pad = n => n.toString().padStart(2, '0');
+            document.getElementById('countdown-timer').textContent =
+                `${pad(days)} Dias : ${pad(hours)} Hrs : ${pad(minutes)} Min : ${pad(seconds)} Seg`;
+        }
+
+        // Start countdown
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
     </script>
 </body>
 </html>
