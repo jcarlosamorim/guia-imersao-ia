@@ -324,6 +324,257 @@
         }
 
         /* ============================================
+           SCROLL REVEAL ANIMATIONS
+           ============================================ */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Stagger delays for timeline nodes */
+        .timeline__day .reveal:nth-child(1) { transition-delay: 0s; }
+        .timeline__day .reveal:nth-child(2) { transition-delay: 0.1s; }
+        .timeline__day .reveal:nth-child(3) { transition-delay: 0.2s; }
+        .timeline__day .reveal:nth-child(4) { transition-delay: 0.3s; }
+        .timeline__day .reveal:nth-child(5) { transition-delay: 0.4s; }
+        .timeline__day .reveal:nth-child(6) { transition-delay: 0.5s; }
+
+        /* ============================================
+           TIMELINE RESULT TRANSFORMATION
+           ============================================ */
+        .timeline__node-card--speaker,
+        .timeline__node-card--result {
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        .timeline__node-card--result {
+            background: var(--color-accent-glow);
+            border-color: var(--color-accent-border);
+        }
+
+        .timeline__node-result-badge {
+            font-size: var(--text-xs);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--color-accent);
+            margin-bottom: var(--space-sm);
+        }
+
+        .timeline__node-result-hint {
+            font-size: var(--text-xs);
+            color: var(--color-text-muted);
+            margin-top: var(--space-sm);
+            font-style: italic;
+        }
+
+        .timeline__node-dot--completed {
+            background: var(--color-accent) !important;
+            border-color: var(--color-accent) !important;
+            color: var(--color-bg) !important;
+            box-shadow: 0 0 15px var(--color-accent-glow);
+        }
+
+        /* Mini Design System Preview */
+        .mini-brand {
+            padding: var(--space-md);
+            background: var(--color-bg-card);
+            border-radius: var(--radius-md);
+            text-align: center;
+        }
+
+        .mini-brand__colors {
+            display: flex;
+            gap: var(--space-xs);
+            justify-content: center;
+            margin-bottom: var(--space-sm);
+        }
+
+        .mini-brand__colors span {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: 2px solid var(--color-border);
+        }
+
+        .mini-brand__typography {
+            font-family: 'Playfair Display', serif;
+            font-size: var(--text-xl);
+            color: var(--color-text);
+            margin-bottom: var(--space-xs);
+        }
+
+        .mini-brand__label {
+            font-size: var(--text-xs);
+            color: var(--color-text-muted);
+        }
+
+        /* Mini Triple P Preview */
+        .mini-triple-p {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--space-xs);
+            margin-bottom: var(--space-sm);
+        }
+
+        .mini-triple-p__box {
+            padding: var(--space-sm);
+            background: var(--color-bg-card);
+            border-radius: var(--radius-sm);
+            text-align: center;
+        }
+
+        .mini-triple-p__letter {
+            display: block;
+            font-size: var(--text-lg);
+            font-weight: 700;
+            color: var(--color-accent);
+        }
+
+        .mini-triple-p__label {
+            font-size: 0.5rem;
+            color: var(--color-text-subtle);
+            text-transform: uppercase;
+        }
+
+        .mini-triple-p__result {
+            font-size: var(--text-xs);
+            color: var(--color-text-muted);
+            text-align: center;
+        }
+
+        /* Mini E2O Flow Preview */
+        .mini-e2o {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-xs);
+            margin-bottom: var(--space-sm);
+        }
+
+        .mini-e2o__step {
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: var(--color-bg-elevated);
+            border: 1px solid var(--color-border);
+            color: var(--color-text-muted);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: var(--text-xs);
+            font-weight: 700;
+        }
+
+        .mini-e2o__step--final {
+            background: var(--color-accent);
+            border-color: var(--color-accent);
+            color: var(--color-bg);
+        }
+
+        .mini-e2o__arrow {
+            color: var(--color-text-subtle);
+            font-size: var(--text-xs);
+        }
+
+        .mini-e2o__label {
+            font-size: var(--text-xs);
+            color: var(--color-text-muted);
+            text-align: center;
+        }
+
+        /* Mini Chat Preview (Nexorama) */
+        .mini-chat {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-xs);
+            margin-bottom: var(--space-sm);
+        }
+
+        .mini-chat__message {
+            padding: var(--space-xs) var(--space-sm);
+            border-radius: var(--radius-sm);
+            font-size: var(--text-xs);
+            max-width: 80%;
+        }
+
+        .mini-chat__message--user {
+            background: var(--color-bg-elevated);
+            color: var(--color-text-muted);
+            align-self: flex-end;
+        }
+
+        .mini-chat__message--ai {
+            background: var(--color-accent);
+            color: var(--color-bg);
+            align-self: flex-start;
+        }
+
+        .mini-nexorama__label {
+            font-size: var(--text-xs);
+            color: var(--color-text-muted);
+            text-align: center;
+        }
+
+        /* Mini Roadmap Preview (Continuidade) */
+        .mini-roadmap {
+            display: flex;
+            justify-content: center;
+            gap: var(--space-xs);
+            margin-bottom: var(--space-sm);
+        }
+
+        .mini-roadmap__month {
+            padding: var(--space-xs) var(--space-sm);
+            background: var(--color-bg-elevated);
+            border-radius: var(--radius-sm);
+            font-size: var(--text-xs);
+            font-weight: 600;
+            color: var(--color-text-subtle);
+        }
+
+        .mini-roadmap__month--active {
+            background: var(--color-accent);
+            color: var(--color-bg);
+        }
+
+        .mini-roadmap__label {
+            font-size: var(--text-xs);
+            color: var(--color-text-muted);
+            text-align: center;
+        }
+
+        /* Mini Certificate Preview (Encerramento) */
+        .mini-certificate {
+            text-align: center;
+            margin-bottom: var(--space-sm);
+        }
+
+        .mini-certificate__icon {
+            font-size: var(--text-2xl);
+            color: var(--color-accent);
+            margin-bottom: var(--space-xs);
+        }
+
+        .mini-certificate__text {
+            font-size: var(--text-sm);
+            font-weight: 600;
+            color: var(--color-text);
+        }
+
+        .mini-certificate__label {
+            font-size: var(--text-xs);
+            color: var(--color-text-muted);
+            text-align: center;
+        }
+
+        /* ============================================
            LAYOUT
            ============================================ */
         .container { max-width: 800px; margin: 0 auto; padding: 0 var(--space-lg); }
@@ -2559,26 +2810,62 @@
                     </div>
 
                     <!-- Alan Nicolas -->
-                    <div class="timeline__node" onclick="openPanel('design-system')">
+                    <div class="timeline__node reveal" data-panel="design-system" data-viewed="false" onclick="openPanel('design-system')">
                         <div class="timeline__node-dot">AN</div>
-                        <div class="timeline__node-card">
+                        <!-- Estado Inicial: Speaker -->
+                        <div class="timeline__node-card timeline__node-card--speaker">
                             <div class="timeline__node-time">09h</div>
                             <div class="timeline__node-title">Alan Nicolas</div>
                             <div class="timeline__node-speaker">CEO Academia Lendária</div>
                             <div class="timeline__node-method">Design System</div>
                             <div class="timeline__node-cta">Clique para ver detalhes →</div>
                         </div>
+                        <!-- Estado Resultado: Preview -->
+                        <div class="timeline__node-card timeline__node-card--result" style="display: none;">
+                            <div class="timeline__node-result-badge">Seu Resultado</div>
+                            <div class="mini-brand">
+                                <div class="mini-brand__colors">
+                                    <span style="background: var(--color-accent)"></span>
+                                    <span style="background: #0a0a0a"></span>
+                                    <span style="background: #fff"></span>
+                                </div>
+                                <div class="mini-brand__typography">Aa</div>
+                                <div class="mini-brand__label">Design System</div>
+                            </div>
+                            <div class="timeline__node-result-hint">Pronto para a IA replicar</div>
+                        </div>
                     </div>
 
                     <!-- Gabriel Marcondes -->
-                    <div class="timeline__node" onclick="openPanel('triple-p')">
+                    <div class="timeline__node reveal" data-panel="triple-p" data-viewed="false" onclick="openPanel('triple-p')">
                         <div class="timeline__node-dot">GM</div>
-                        <div class="timeline__node-card">
+                        <!-- Estado Inicial: Speaker -->
+                        <div class="timeline__node-card timeline__node-card--speaker">
                             <div class="timeline__node-time">11h</div>
                             <div class="timeline__node-title">Gabriel Marcondes</div>
                             <div class="timeline__node-speaker">CEO Agência Lendária</div>
                             <div class="timeline__node-method">Método Triple P</div>
                             <div class="timeline__node-cta">Clique para ver detalhes →</div>
+                        </div>
+                        <!-- Estado Resultado: Preview -->
+                        <div class="timeline__node-card timeline__node-card--result" style="display: none;">
+                            <div class="timeline__node-result-badge">Seu Resultado</div>
+                            <div class="mini-triple-p">
+                                <div class="mini-triple-p__box">
+                                    <span class="mini-triple-p__letter">P</span>
+                                    <span class="mini-triple-p__label">DOR</span>
+                                </div>
+                                <div class="mini-triple-p__box">
+                                    <span class="mini-triple-p__letter">P</span>
+                                    <span class="mini-triple-p__label">CUSTO</span>
+                                </div>
+                                <div class="mini-triple-p__box">
+                                    <span class="mini-triple-p__letter">P</span>
+                                    <span class="mini-triple-p__label">PRIO</span>
+                                </div>
+                            </div>
+                            <div class="mini-triple-p__result">Prioridade definida</div>
+                            <div class="timeline__node-result-hint">Sabe onde aplicar IA primeiro</div>
                         </div>
                     </div>
 
@@ -2589,14 +2876,30 @@
                     </div>
 
                     <!-- José Amorim E2O -->
-                    <div class="timeline__node" onclick="openPanel('e2o')">
+                    <div class="timeline__node reveal" data-panel="e2o" data-viewed="false" onclick="openPanel('e2o')">
                         <div class="timeline__node-dot">JA</div>
-                        <div class="timeline__node-card">
+                        <!-- Estado Inicial: Speaker -->
+                        <div class="timeline__node-card timeline__node-card--speaker">
                             <div class="timeline__node-time">14h</div>
                             <div class="timeline__node-title">José Amorim</div>
                             <div class="timeline__node-speaker">Nexialista</div>
                             <div class="timeline__node-method">Método E2O</div>
                             <div class="timeline__node-cta">Clique para ver detalhes →</div>
+                        </div>
+                        <!-- Estado Resultado: Preview -->
+                        <div class="timeline__node-card timeline__node-card--result" style="display: none;">
+                            <div class="timeline__node-result-badge">Seu Resultado</div>
+                            <div class="mini-e2o">
+                                <div class="mini-e2o__step">1</div>
+                                <span class="mini-e2o__arrow">→</span>
+                                <div class="mini-e2o__step">2</div>
+                                <span class="mini-e2o__arrow">→</span>
+                                <div class="mini-e2o__step">3</div>
+                                <span class="mini-e2o__arrow">→</span>
+                                <div class="mini-e2o__step mini-e2o__step--final">✓</div>
+                            </div>
+                            <div class="mini-e2o__label">Sistema Mapeado</div>
+                            <div class="timeline__node-result-hint">Fluxo completo definido</div>
                         </div>
                     </div>
 
@@ -2621,14 +2924,25 @@
                     </div>
 
                     <!-- José Amorim Nexorama -->
-                    <div class="timeline__node" onclick="openPanel('nexorama')">
+                    <div class="timeline__node reveal" data-panel="nexorama" data-viewed="false" onclick="openPanel('nexorama')">
                         <div class="timeline__node-dot">JA</div>
-                        <div class="timeline__node-card">
+                        <!-- Estado Inicial: Speaker -->
+                        <div class="timeline__node-card timeline__node-card--speaker">
                             <div class="timeline__node-time">09h</div>
                             <div class="timeline__node-title">José Amorim</div>
                             <div class="timeline__node-speaker">Nexialista</div>
                             <div class="timeline__node-method">Método Nexorama</div>
                             <div class="timeline__node-cta">Clique para ver detalhes →</div>
+                        </div>
+                        <!-- Estado Resultado: Preview -->
+                        <div class="timeline__node-card timeline__node-card--result" style="display: none;">
+                            <div class="timeline__node-result-badge">Seu Resultado</div>
+                            <div class="mini-chat">
+                                <div class="mini-chat__message mini-chat__message--user">Meu processo...</div>
+                                <div class="mini-chat__message mini-chat__message--ai">Sistema criado!</div>
+                            </div>
+                            <div class="mini-nexorama__label">IA Personalizada</div>
+                            <div class="timeline__node-result-hint">Construído em tempo real</div>
                         </div>
                     </div>
 
@@ -2639,26 +2953,49 @@
                     </div>
 
                     <!-- Gabriel Marcondes Continuidade -->
-                    <div class="timeline__node" onclick="openPanel('continuidade')">
+                    <div class="timeline__node reveal" data-panel="continuidade" data-viewed="false" onclick="openPanel('continuidade')">
                         <div class="timeline__node-dot">GM</div>
-                        <div class="timeline__node-card">
+                        <!-- Estado Inicial: Speaker -->
+                        <div class="timeline__node-card timeline__node-card--speaker">
                             <div class="timeline__node-time">13h</div>
                             <div class="timeline__node-title">Gabriel Marcondes</div>
                             <div class="timeline__node-speaker">CEO Agência Lendária</div>
                             <div class="timeline__node-method">Continuidade</div>
                             <div class="timeline__node-cta">Clique para ver detalhes →</div>
                         </div>
+                        <!-- Estado Resultado: Preview -->
+                        <div class="timeline__node-card timeline__node-card--result" style="display: none;">
+                            <div class="timeline__node-result-badge">Seu Resultado</div>
+                            <div class="mini-roadmap">
+                                <div class="mini-roadmap__month">30d</div>
+                                <div class="mini-roadmap__month">60d</div>
+                                <div class="mini-roadmap__month mini-roadmap__month--active">90d</div>
+                            </div>
+                            <div class="mini-roadmap__label">Roadmap Definido</div>
+                            <div class="timeline__node-result-hint">Próximos passos claros</div>
+                        </div>
                     </div>
 
                     <!-- Alan Nicolas Encerramento -->
-                    <div class="timeline__node" onclick="openPanel('encerramento')">
+                    <div class="timeline__node reveal" data-panel="encerramento" data-viewed="false" onclick="openPanel('encerramento')">
                         <div class="timeline__node-dot">AN</div>
-                        <div class="timeline__node-card">
+                        <!-- Estado Inicial: Speaker -->
+                        <div class="timeline__node-card timeline__node-card--speaker">
                             <div class="timeline__node-time">16h30</div>
                             <div class="timeline__node-title">Alan Nicolas</div>
                             <div class="timeline__node-speaker">CEO Academia Lendária</div>
                             <div class="timeline__node-method">Encerramento</div>
                             <div class="timeline__node-cta">Clique para ver detalhes →</div>
+                        </div>
+                        <!-- Estado Resultado: Preview -->
+                        <div class="timeline__node-card timeline__node-card--result" style="display: none;">
+                            <div class="timeline__node-result-badge">Seu Resultado</div>
+                            <div class="mini-certificate">
+                                <div class="mini-certificate__icon">★</div>
+                                <div class="mini-certificate__text">Certificado</div>
+                            </div>
+                            <div class="mini-certificate__label">Imersão Completa</div>
+                            <div class="timeline__node-result-hint">Sistema + Clareza + Caminho</div>
                         </div>
                     </div>
 
@@ -2758,7 +3095,7 @@
             <p class="cases__intro">Em uma semana de Hackathon interno, 3 pessoas da nossa equipe criaram sistemas que usamos TODO DIA. Nenhuma delas sabia código.</p>
 
             <!-- Case Erica -->
-            <div class="case-card">
+            <div class="case-card reveal">
                 <div class="case-card__header">
                     <div class="case-card__avatar">ES</div>
                     <div>
@@ -2783,7 +3120,7 @@
             </div>
 
             <!-- Case Fran -->
-            <div class="case-card">
+            <div class="case-card reveal">
                 <div class="case-card__header">
                     <div class="case-card__avatar">FC</div>
                     <div>
@@ -2808,7 +3145,7 @@
             </div>
 
             <!-- Case JP -->
-            <div class="case-card">
+            <div class="case-card reveal">
                 <div class="case-card__header">
                     <div class="case-card__avatar">JP</div>
                     <div>
@@ -3384,16 +3721,77 @@
     </div>
 
     <script>
+        // ============================================
+        // SCROLL REVEAL ANIMATIONS
+        // ============================================
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+        // ============================================
+        // PANEL FUNCTIONS WITH TRANSFORMATION
+        // ============================================
+        let currentPanelId = null;
+
         function openPanel(panelId) {
+            currentPanelId = panelId;
             document.querySelector('.panel-overlay').classList.add('active');
             document.getElementById('panel-' + panelId).classList.add('active');
             document.body.style.overflow = 'hidden';
         }
 
         function closePanel() {
+            // Transform the timeline node before closing
+            if (currentPanelId) {
+                transformTimelineNode(currentPanelId);
+            }
+
             document.querySelector('.panel-overlay').classList.remove('active');
             document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
             document.body.style.overflow = '';
+            currentPanelId = null;
+        }
+
+        function transformTimelineNode(panelId) {
+            const node = document.querySelector(`[data-panel="${panelId}"]`);
+            if (!node || node.dataset.viewed === 'true') return;
+
+            node.dataset.viewed = 'true';
+
+            const speakerCard = node.querySelector('.timeline__node-card--speaker');
+            const resultCard = node.querySelector('.timeline__node-card--result');
+            const dot = node.querySelector('.timeline__node-dot');
+
+            if (!speakerCard || !resultCard) return;
+
+            // Animate out speaker card
+            speakerCard.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+            speakerCard.style.opacity = '0';
+            speakerCard.style.transform = 'scale(0.95)';
+
+            setTimeout(() => {
+                speakerCard.style.display = 'none';
+                resultCard.style.display = 'block';
+                resultCard.style.opacity = '0';
+                resultCard.style.transform = 'scale(0.95)';
+                resultCard.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+
+                // Animate in result card
+                requestAnimationFrame(() => {
+                    resultCard.style.opacity = '1';
+                    resultCard.style.transform = 'scale(1)';
+                });
+
+                // Update dot to completed state
+                dot.innerHTML = '✓';
+                dot.classList.add('timeline__node-dot--completed');
+            }, 300);
         }
 
         // Close on ESC
