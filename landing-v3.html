@@ -4719,6 +4719,52 @@
         // Start countdown
         updateCountdown();
         setInterval(updateCountdown, 1000);
+
+        // ============================================
+        // URL PARAMETER - CHECKOUT ALUNOS
+        // ============================================
+        (function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const isAluno = urlParams.has('aluno');
+
+            if (isAluno) {
+                // Checkout link para alunos
+                const checkoutAluno = 'https://checkout.pagtrust.com.br/ck64d33b09?funnel=fn8371345f&sck=cartadevendas&ra=false';
+
+                // Trocar todos os links de checkout
+                document.querySelectorAll('a[href*="checkout.pagtrust"]').forEach(link => {
+                    link.href = checkoutAluno;
+                });
+
+                // Atualizar preços na seção de pricing
+                const priceElements = document.querySelectorAll('.pricing__lote-price');
+                const cashElements = document.querySelectorAll('.pricing__lote-cash');
+
+                priceElements.forEach(el => {
+                    el.innerHTML = '12x de <span>R$ 24,00</span>';
+                });
+
+                cashElements.forEach(el => {
+                    el.textContent = 'ou R$ 288 à vista';
+                });
+
+                // Esconder lotes 2 e 3, mostrar só o ativo
+                const lotes = document.querySelectorAll('.pricing__lote');
+                lotes.forEach((lote, index) => {
+                    if (index > 0) lote.style.display = 'none';
+                });
+
+                // Adicionar badge de aluno
+                const pricingHeader = document.querySelector('.pricing__header');
+                if (pricingHeader) {
+                    const badge = document.createElement('div');
+                    badge.className = 'pricing__aluno-badge';
+                    badge.innerHTML = '🎓 Preço Especial para Alunos';
+                    badge.style.cssText = 'background: var(--color-accent); color: var(--color-bg); padding: 8px 16px; border-radius: 20px; font-weight: 700; font-size: 14px; margin-bottom: 16px; display: inline-block;';
+                    pricingHeader.insertBefore(badge, pricingHeader.firstChild);
+                }
+            }
+        })();
     </script>
 </body>
 </html>
