@@ -1,0 +1,3243 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guia do Comprador - Imersão IA para Negócios</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <style>
+        /* ============================================
+           DESIGN SYSTEM - 3 CORES: Preto, Branco, Amarelo
+           ============================================ */
+        :root {
+            --background: #0a0a0a;
+            --background-secondary: #0f0f0f;
+            --card: #141414;
+            --card-hover: #1a1a1a;
+            --muted: #1f1f1f;
+            --primary: #F5C842;
+            --primary-foreground: #0a0a0a;
+            --primary-glow: rgba(245, 200, 66, 0.25);
+            --primary-subtle: rgba(245, 200, 66, 0.1);
+            --foreground: #FFFFFF;
+            --foreground-muted: #9CA3AF;
+            --foreground-subtle: #6B7280;
+            --border: #262626;
+            --border-subtle: rgba(255, 255, 255, 0.08);
+            --container-max: 800px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--background);
+            color: var(--foreground);
+            min-height: 100vh;
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .font-serif {
+            font-family: 'Playfair Display', Georgia, serif;
+        }
+
+        /* Header */
+        .header {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            width: 100%;
+            border-bottom: 1px solid var(--border-subtle);
+            background: rgba(9, 9, 11, 0.9);
+            backdrop-filter: blur(12px);
+        }
+
+        .header__container {
+            max-width: var(--container-max);
+            margin: 0 auto;
+            padding: 0 1.5rem;
+            height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .header__logo {
+            font-size: 1.125rem;
+            font-weight: 700;
+        }
+
+        .header__logo span {
+            color: var(--primary);
+        }
+
+        .header__badge {
+            padding: 0.375rem 0.75rem;
+            background: var(--primary-subtle);
+            border: 1px solid rgba(245, 200, 66, 0.3);
+            border-radius: 6px;
+            font-size: 0.6875rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--primary);
+        }
+
+        /* Main Content */
+        .main {
+            max-width: var(--container-max);
+            margin: 0 auto;
+            padding: 3rem 1.5rem 4rem;
+        }
+
+        /* Hero */
+        .hero {
+            text-align: center;
+            margin-bottom: 4rem;
+            padding-bottom: 3rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .hero__badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: var(--primary-subtle);
+            border: 1px solid rgba(245, 200, 66, 0.3);
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+        }
+
+        .hero__title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+            margin-bottom: 1rem;
+        }
+
+        .hero__title span {
+            color: var(--primary);
+        }
+
+        .hero__subtitle {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 1.25rem;
+            color: var(--foreground-muted);
+            font-style: italic;
+            margin-bottom: 2rem;
+        }
+
+        .hero__date {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem 1.5rem;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        .hero__date-icon {
+            font-size: 1.25rem;
+        }
+
+        /* Section */
+        .section {
+            margin-bottom: 3rem;
+        }
+
+        .section__header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .section__icon {
+            width: 40px;
+            height: 40px;
+            background: var(--primary);
+            color: var(--primary-foreground);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.125rem;
+            flex-shrink: 0;
+        }
+
+        .section__title {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .section__content {
+            padding-left: 0;
+        }
+
+        /* Info Card */
+        .info-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .info-card--highlight {
+            border-color: var(--primary);
+            background: var(--primary-subtle);
+        }
+
+        .info-card__title {
+            font-size: 0.6875rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--foreground-subtle);
+            margin-bottom: 0.5rem;
+        }
+
+        .info-card__value {
+            font-size: 1.125rem;
+            font-weight: 600;
+        }
+
+        .info-card__desc {
+            font-size: 0.875rem;
+            color: var(--foreground-muted);
+            margin-top: 0.5rem;
+        }
+
+        /* Grid */
+        .grid {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .grid--2 {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .grid--3 {
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        @media (max-width: 640px) {
+            .grid--2, .grid--3 {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Schedule */
+        .schedule {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            overflow: hidden;
+        }
+
+        .schedule__day {
+            padding: 1.5rem;
+        }
+
+        .schedule__day + .schedule__day {
+            border-top: 1px solid var(--border);
+        }
+
+        .schedule__day-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .schedule__day-badge {
+            padding: 0.375rem 0.75rem;
+            background: var(--primary);
+            color: var(--primary-foreground);
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .schedule__day-title {
+            font-weight: 600;
+            color: var(--foreground-muted);
+        }
+
+        .schedule__items {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .schedule__item {
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+        }
+
+        .schedule__time {
+            width: 60px;
+            flex-shrink: 0;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .schedule__event {
+            flex: 1;
+        }
+
+        .schedule__event-title {
+            font-size: 0.9375rem;
+            font-weight: 500;
+            margin-bottom: 0.125rem;
+        }
+
+        .schedule__event-desc {
+            font-size: 0.8125rem;
+            color: var(--foreground-muted);
+        }
+
+        .schedule__break {
+            padding: 0.75rem 1rem;
+            background: var(--muted);
+            border-radius: 8px;
+            margin: 0.75rem 0;
+            text-align: center;
+            font-size: 0.8125rem;
+            color: var(--foreground-muted);
+        }
+
+        /* Checklist */
+        .checklist {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .checklist__item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            padding: 1rem;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+        }
+
+        .checklist__icon {
+            width: 24px;
+            height: 24px;
+            background: var(--primary);
+            color: var(--primary-foreground);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .checklist__text {
+            font-size: 0.9375rem;
+        }
+
+        .checklist__text strong {
+            color: var(--foreground);
+        }
+
+        /* Alert Box */
+        .alert {
+            padding: 1.25rem 1.5rem;
+            border-radius: 12px;
+            margin-bottom: 1.5rem;
+        }
+
+        .alert--warning {
+            background: var(--primary-subtle);
+            border: 1px solid rgba(245, 200, 66, 0.3);
+        }
+
+        .alert--info {
+            background: var(--muted);
+            border: 1px solid var(--border);
+        }
+
+        .alert__title {
+            font-size: 0.875rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .alert--warning .alert__title {
+            color: var(--primary);
+        }
+
+        .alert__text {
+            font-size: 0.875rem;
+            color: var(--foreground-muted);
+            line-height: 1.6;
+        }
+
+        /* Deliverables */
+        .deliverable {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 1.25rem;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            margin-bottom: 0.625rem;
+        }
+
+        .deliverable__check {
+            width: 28px;
+            height: 28px;
+            background: var(--primary);
+            color: var(--primary-foreground);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.875rem;
+            flex-shrink: 0;
+        }
+
+        .deliverable__text {
+            font-size: 0.9375rem;
+            font-weight: 500;
+        }
+
+        /* FAQ */
+        .faq {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .faq__item {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .faq__question {
+            padding: 1rem 1.25rem;
+            font-size: 0.9375rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.2s;
+        }
+
+        .faq__question:hover {
+            background: var(--muted);
+        }
+
+        .faq__toggle {
+            color: var(--primary);
+            font-size: 1.25rem;
+            transition: transform 0.2s;
+        }
+
+        .faq__item.active .faq__toggle {
+            transform: rotate(45deg);
+        }
+
+        .faq__answer {
+            padding: 0 1.25rem 1rem;
+            font-size: 0.875rem;
+            color: var(--foreground-muted);
+            line-height: 1.7;
+            display: none;
+        }
+
+        .faq__item.active .faq__answer {
+            display: block;
+        }
+
+        /* Not List */
+        .not-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .not-list__item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 0.9375rem;
+            color: var(--foreground-muted);
+        }
+
+        .not-list__icon {
+            color: var(--foreground-subtle);
+            font-size: 1rem;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            text-align: center;
+            padding: 3rem 2rem;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            margin-top: 3rem;
+        }
+
+        .cta-section__title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .cta-section__desc {
+            font-size: 1rem;
+            color: var(--foreground-muted);
+            margin-bottom: 1.5rem;
+        }
+
+        .cta-section__btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2rem;
+            background: var(--primary);
+            color: var(--primary-foreground);
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+        }
+
+        .cta-section__btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px var(--primary-glow);
+        }
+
+        /* Vertical Journey Timeline */
+        .journey-timeline {
+            position: relative;
+            padding: 2rem 0;
+        }
+
+        .journey-timeline__line {
+            position: absolute;
+            left: 20px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(180deg, var(--border) 0%, var(--primary) 50%, var(--border) 100%);
+        }
+
+        .journey-day {
+            margin-bottom: 2rem;
+        }
+
+        .journey-day__header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            margin-left: 0;
+        }
+
+        .journey-day__badge {
+            padding: 0.5rem 1rem;
+            background: var(--primary);
+            color: var(--primary-foreground);
+            border-radius: 8px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-left: 40px;
+        }
+
+        .journey-day__date {
+            font-size: 0.875rem;
+            color: var(--foreground-muted);
+        }
+
+        .journey-node {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        .journey-node__dot {
+            width: 42px;
+            height: 42px;
+            background: var(--card);
+            border: 2px solid var(--border);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.6875rem;
+            font-weight: 700;
+            color: var(--primary);
+            flex-shrink: 0;
+            z-index: 1;
+        }
+
+        .journey-node__dot--terminal {
+            background: var(--muted);
+            border-color: var(--border);
+            color: var(--foreground-muted);
+            font-size: 0.5rem;
+            text-align: center;
+            line-height: 1.2;
+        }
+
+        .journey-node__dot--end {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: var(--primary-foreground);
+            box-shadow: 0 0 20px var(--primary-glow);
+        }
+
+        /* Estados coloridos da jornada - dots */
+        .journey-node__dot--caos {
+            background: #DC2626;
+            border-color: #DC2626;
+            color: #FFFFFF;
+            box-shadow: 0 0 15px rgba(220, 38, 38, 0.4);
+        }
+
+        .journey-node__dot--primeiro {
+            background: #2563EB;
+            border-color: #2563EB;
+            color: #FFFFFF;
+            box-shadow: 0 0 15px rgba(37, 99, 235, 0.4);
+        }
+
+        .journey-node__dot--clareza {
+            background: #16A34A;
+            border-color: #16A34A;
+            color: #FFFFFF;
+            box-shadow: 0 0 15px rgba(22, 163, 74, 0.4);
+        }
+
+        .journey-node__card {
+            flex: 1;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1rem;
+            transition: all 0.2s;
+        }
+
+        .journey-node__card:hover {
+            border-color: var(--primary);
+            transform: translateX(4px);
+        }
+
+        .journey-node__time {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            background: var(--primary);
+            color: var(--primary-foreground);
+            border-radius: 4px;
+            font-size: 0.625rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .journey-node__title {
+            font-size: 0.9375rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .journey-node__role {
+            font-size: 0.6875rem;
+            color: var(--foreground-subtle);
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+            margin-bottom: 0.5rem;
+        }
+
+        .journey-node__method {
+            font-size: 0.8125rem;
+            color: var(--foreground-muted);
+            font-family: 'Playfair Display', Georgia, serif;
+            font-style: italic;
+        }
+
+        .journey-node__cta {
+            font-size: 0.6875rem;
+            color: var(--primary);
+            margin-top: 0.5rem;
+            font-weight: 500;
+        }
+
+        .journey-node__card {
+            cursor: pointer;
+        }
+
+        .journey-node__terminal {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 1rem;
+            background: var(--muted);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--foreground-muted);
+        }
+
+        .journey-node__terminal--end {
+            background: var(--primary-subtle);
+            border-color: rgba(245, 200, 66, 0.3);
+            color: var(--primary);
+        }
+
+        .journey-node__terminal--caos {
+            background: rgba(220, 38, 38, 0.15);
+            border-color: rgba(220, 38, 38, 0.4);
+            color: #FCA5A5;
+        }
+
+        .journey-node__terminal--primeiro {
+            background: rgba(37, 99, 235, 0.15);
+            border-color: rgba(37, 99, 235, 0.4);
+            color: #93C5FD;
+        }
+
+        .journey-node__terminal--clareza {
+            background: rgba(22, 163, 74, 0.15);
+            border-color: rgba(22, 163, 74, 0.4);
+            color: #86EFAC;
+        }
+
+        .journey-break {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin: 1.5rem 0;
+            margin-left: 42px;
+            padding-left: 1rem;
+        }
+
+        .journey-break__line {
+            flex: 1;
+            height: 1px;
+            background: var(--border);
+        }
+
+        .journey-break__text {
+            font-size: 0.75rem;
+            color: var(--foreground-subtle);
+            white-space: nowrap;
+        }
+
+        /* Pronto Socorro Expandível */
+        .pronto-socorro {
+            margin: 1.5rem 0;
+            margin-left: 42px;
+            padding-left: 1rem;
+        }
+
+        .pronto-socorro__trigger {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            width: 100%;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 0;
+        }
+
+        .pronto-socorro__trigger:hover .pronto-socorro__icon {
+            background: var(--primary);
+            color: var(--primary-foreground);
+            transform: scale(1.1);
+        }
+
+        .pronto-socorro__line {
+            flex: 1;
+            height: 1px;
+            background: var(--border);
+        }
+
+        .pronto-socorro__icon {
+            width: 36px;
+            height: 36px;
+            background: var(--card);
+            border: 2px solid var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            color: var(--primary);
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .pronto-socorro__label {
+            font-size: 0.75rem;
+            color: var(--foreground-subtle);
+            white-space: nowrap;
+            transition: color 0.3s ease;
+        }
+
+        .pronto-socorro__trigger:hover .pronto-socorro__label {
+            color: var(--primary);
+        }
+
+        .pronto-socorro__expand {
+            font-size: 0.625rem;
+            color: var(--foreground-subtle);
+            margin-left: 0.25rem;
+            transition: transform 0.3s ease;
+        }
+
+        .pronto-socorro.active .pronto-socorro__expand {
+            transform: rotate(180deg);
+        }
+
+        .pronto-socorro__salas {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.75rem;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            opacity: 0;
+            margin-top: 0;
+        }
+
+        .pronto-socorro.active .pronto-socorro__salas {
+            max-height: none;
+            opacity: 1;
+            margin-top: 1rem;
+        }
+
+        .pronto-socorro__sala {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .pronto-socorro__sala:hover {
+            border-color: var(--primary);
+            background: var(--primary-subtle);
+        }
+
+        .pronto-socorro__sala-icon {
+            width: 32px;
+            height: 32px;
+            background: var(--primary);
+            color: var(--primary-foreground);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.875rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .pronto-socorro__sala-title {
+            font-size: 0.8125rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+            color: var(--foreground);
+        }
+
+        .pronto-socorro__sala-desc {
+            font-size: 0.6875rem;
+            color: var(--foreground-muted);
+            line-height: 1.4;
+        }
+
+        @media (max-width: 640px) {
+            .pronto-socorro {
+                margin-left: 34px;
+            }
+
+            .pronto-socorro__salas {
+                grid-template-columns: 1fr;
+            }
+
+            .pronto-socorro__icon {
+                width: 32px;
+                height: 32px;
+                font-size: 0.875rem;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .journey-timeline__line {
+                left: 16px;
+            }
+
+            .journey-day__badge {
+                margin-left: 32px;
+                font-size: 0.6875rem;
+                padding: 0.375rem 0.75rem;
+            }
+
+            .journey-node__dot {
+                width: 34px;
+                height: 34px;
+                font-size: 0.5625rem;
+            }
+
+            .journey-node__card {
+                padding: 0.875rem;
+            }
+
+            .journey-node__title {
+                font-size: 0.875rem;
+            }
+
+            .journey-node__method {
+                font-size: 0.75rem;
+            }
+
+            .journey-break {
+                margin-left: 34px;
+            }
+        }
+
+        /* Journey Hero */
+        .journey-hero {
+            padding: 3rem 2rem;
+            background: linear-gradient(135deg, var(--card) 0%, var(--background) 100%);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            margin-bottom: 4rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .journey-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 30% 20%, var(--primary-subtle) 0%, transparent 50%),
+                        radial-gradient(circle at 70% 80%, var(--primary-subtle) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .journey-hero__badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: var(--primary-subtle);
+            border: 1px solid rgba(245, 200, 66, 0.3);
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--primary);
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .journey-hero__flow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+            position: relative;
+            flex-wrap: wrap;
+        }
+
+        .journey-hero__state {
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            position: relative;
+        }
+
+        .journey-hero__state--from {
+            background: var(--muted);
+            border: 1px solid var(--border);
+            color: var(--foreground-muted);
+        }
+
+        .journey-hero__state--to {
+            background: var(--primary);
+            color: var(--primary-foreground);
+            box-shadow: 0 8px 32px var(--primary-glow);
+        }
+
+        .journey-hero__arrow {
+            font-size: 2rem;
+            color: var(--primary);
+            font-weight: 300;
+        }
+
+        .journey-hero__title {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 2rem;
+            font-weight: 600;
+            line-height: 1.3;
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        .journey-hero__title span {
+            color: var(--primary);
+            font-style: italic;
+        }
+
+        .journey-hero__subtitle {
+            font-size: 1rem;
+            color: var(--foreground-muted);
+            max-width: 500px;
+            margin: 0 auto 2rem;
+            line-height: 1.6;
+            position: relative;
+        }
+
+        .journey-hero__date {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem 1.25rem;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            font-size: 0.9375rem;
+            font-weight: 600;
+            position: relative;
+        }
+
+        .journey-hero__link {
+            display: block;
+            margin-top: 1.5rem;
+            font-size: 0.875rem;
+            color: var(--primary);
+            text-decoration: none;
+            position: relative;
+        }
+
+        .journey-hero__link:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 640px) {
+            .journey-hero {
+                padding: 2rem 1.25rem;
+            }
+
+            .journey-hero__flow {
+                gap: 1rem;
+            }
+
+            .journey-hero__state {
+                padding: 0.75rem 1rem;
+                font-size: 0.875rem;
+            }
+
+            .journey-hero__arrow {
+                font-size: 1.5rem;
+            }
+
+            .journey-hero__title {
+                font-size: 1.5rem;
+            }
+        }
+
+        /* ============================================
+           PANEL - Slide-in System
+           ============================================ */
+        .panel-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(4px);
+            z-index: 100;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .panel-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .panel {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 480px;
+            max-width: 100vw;
+            height: 100vh;
+            background: var(--background);
+            border-left: 1px solid var(--border);
+            z-index: 101;
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .panel.active {
+            transform: translateX(0);
+        }
+
+        .panel__header {
+            padding: 1.25rem 1.5rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--card);
+        }
+
+        .panel__title {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 1.125rem;
+            font-weight: 600;
+        }
+
+        .panel__title-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1rem;
+            background: var(--primary-subtle);
+            color: var(--primary);
+        }
+
+        .panel__close {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--foreground-muted);
+            cursor: pointer;
+            font-size: 1.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        .panel__close:hover {
+            background: var(--muted);
+            color: var(--foreground);
+        }
+
+        .panel__body {
+            flex: 1;
+            padding: 1.5rem;
+            overflow-y: auto;
+        }
+
+        .panel__footer {
+            padding: 1rem 1.5rem;
+            border-top: 1px solid var(--border);
+            background: var(--card);
+        }
+
+        .panel__btn {
+            width: 100%;
+            padding: 0.875rem;
+            background: var(--primary);
+            color: var(--primary-foreground);
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 0.9375rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .panel__btn:hover {
+            box-shadow: 0 10px 20px var(--primary-glow);
+            transform: translateY(-2px);
+        }
+
+        /* Form Elements */
+        .form-section {
+            margin-bottom: 2rem;
+        }
+
+        .form-section__title {
+            font-size: 0.6875rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--foreground-subtle);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .form-section__title::before {
+            content: '';
+            width: 3px;
+            height: 12px;
+            background: var(--primary);
+            border-radius: 2px;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 0.8125rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            color: var(--foreground-muted);
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            color: var(--foreground);
+            font-size: 0.875rem;
+            font-family: inherit;
+            transition: all 0.2s;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px var(--primary-subtle);
+        }
+
+        textarea.form-input {
+            min-height: 100px;
+            resize: vertical;
+            line-height: 1.6;
+        }
+
+        /* Phase List */
+        .phase-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.625rem;
+        }
+
+        .phase-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: var(--card);
+            border-radius: 10px;
+            border-left: 3px solid var(--border);
+            transition: all 0.2s;
+        }
+
+        .phase-item--done {
+            border-left-color: var(--foreground-muted);
+            opacity: 0.6;
+        }
+
+        .phase-item--current {
+            border-left-color: var(--primary);
+            background: var(--primary-subtle);
+        }
+
+        .phase-item__number {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: var(--muted);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .phase-item--done .phase-item__number {
+            background: var(--foreground-muted);
+            color: var(--background);
+        }
+
+        .phase-item__text {
+            font-size: 0.875rem;
+            color: var(--foreground-muted);
+        }
+
+        /* Triple P Cards */
+        .triple-p-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.25rem;
+            margin-bottom: 1rem;
+            transition: all 0.2s;
+        }
+
+        .triple-p-card__header {
+            display: flex;
+            align-items: center;
+            gap: 0.625rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+            font-size: 0.9375rem;
+        }
+
+        .triple-p-icon {
+            width: 28px;
+            height: 28px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8125rem;
+            font-weight: 700;
+            background: var(--primary-subtle);
+            color: var(--primary);
+        }
+
+        /* Chat */
+        .chat-messages {
+            display: flex;
+            flex-direction: column;
+            gap: 0.875rem;
+            margin-bottom: 1rem;
+        }
+
+        .chat-msg {
+            display: flex;
+            gap: 0.75rem;
+            max-width: 90%;
+        }
+
+        .chat-msg--bot { align-self: flex-start; }
+        .chat-msg--user {
+            align-self: flex-end;
+            flex-direction: row-reverse;
+        }
+
+        .chat-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.6875rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .chat-msg--bot .chat-avatar {
+            background: var(--primary);
+            color: var(--background);
+        }
+        .chat-msg--user .chat-avatar {
+            background: var(--muted);
+            color: var(--foreground-muted);
+        }
+
+        .chat-bubble {
+            padding: 0.75rem 1rem;
+            border-radius: 14px;
+            font-size: 0.875rem;
+            line-height: 1.5;
+        }
+
+        .chat-msg--bot .chat-bubble {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-bottom-left-radius: 4px;
+            color: var(--foreground-muted);
+        }
+
+        .chat-msg--user .chat-bubble {
+            background: var(--primary);
+            color: var(--primary-foreground);
+            border-bottom-right-radius: 4px;
+        }
+
+        /* Roadmap */
+        .roadmap-item {
+            padding: 1rem;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            margin-bottom: 0.625rem;
+            border-left: 3px solid var(--primary);
+        }
+
+        .roadmap-item__title {
+            font-size: 0.6875rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--foreground-subtle);
+            margin-bottom: 0.25rem;
+        }
+
+        .roadmap-item__text {
+            font-size: 0.875rem;
+            color: var(--foreground-muted);
+        }
+
+        /* System Preview */
+        .system-preview {
+            background: var(--primary-subtle);
+            border: 1px solid rgba(245, 200, 66, 0.2);
+            padding: 1.25rem;
+            border-radius: 12px;
+            margin-top: 1rem;
+        }
+
+        .system-preview__label {
+            font-size: 0.6875rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--foreground-subtle);
+            margin-bottom: 0.5rem;
+        }
+
+        .system-preview__name {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--foreground);
+            margin-bottom: 0.375rem;
+        }
+
+        .system-preview__desc {
+            font-size: 0.875rem;
+            color: var(--foreground-muted);
+        }
+
+        /* Score Box */
+        .score-box {
+            background: var(--primary-subtle);
+            border: 1px solid rgba(245, 200, 66, 0.2);
+            padding: 1.25rem;
+            border-radius: 12px;
+            margin-top: 1.5rem;
+        }
+
+        .score-box__label {
+            font-size: 0.6875rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--foreground-subtle);
+            margin-bottom: 0.25rem;
+        }
+
+        .score-box__value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+
+        .score-box__desc {
+            font-size: 0.875rem;
+            color: var(--foreground-muted);
+        }
+
+        /* Slider */
+        .slider-group {
+            margin-bottom: 1.25rem;
+        }
+
+        .slider-header {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8125rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .slider-header span:first-child {
+            color: var(--foreground-muted);
+        }
+
+        .slider-value {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .slider {
+            width: 100%;
+            height: 6px;
+            border-radius: 3px;
+            background: var(--muted);
+            -webkit-appearance: none;
+            cursor: pointer;
+        }
+
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--primary);
+            box-shadow: 0 2px 8px var(--primary-glow);
+            cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+            .panel {
+                width: 100%;
+            }
+
+            .panel__header {
+                padding: 1rem;
+            }
+
+            .panel__title {
+                font-size: 1rem;
+            }
+
+            .panel__body {
+                padding: 1rem;
+            }
+        }
+
+        /* ============================================
+           CHATBOT - O Auror
+           ============================================ */
+        .chat-widget {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            z-index: 1000;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        .chat-toggle {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--primary);
+            color: var(--primary-foreground);
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.875rem;
+            font-weight: 700;
+            font-family: inherit;
+            box-shadow: 0 4px 20px var(--primary-glow);
+            transition: all 0.3s;
+        }
+
+        .chat-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 30px var(--primary-glow);
+        }
+
+        .chat-toggle--close {
+            font-size: 1.5rem;
+        }
+
+        .chat-window {
+            position: absolute;
+            bottom: 80px;
+            right: 0;
+            width: 380px;
+            max-width: calc(100vw - 48px);
+            height: 500px;
+            max-height: calc(100vh - 120px);
+            background: var(--background);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .chat-window.active {
+            display: flex;
+        }
+
+        .chat-header {
+            padding: 1rem 1.25rem;
+            background: var(--card);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .chat-header__avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--primary);
+            color: var(--primary-foreground);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            font-weight: 700;
+        }
+
+        .chat-header__info {
+            flex: 1;
+        }
+
+        .chat-header__name {
+            font-weight: 600;
+            font-size: 0.9375rem;
+        }
+
+        .chat-header__status {
+            font-size: 0.75rem;
+            color: var(--foreground-muted);
+        }
+
+        .chat-header__close {
+            display: none;
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--foreground-muted);
+            cursor: pointer;
+            font-size: 1.125rem;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            flex-shrink: 0;
+        }
+
+        .chat-header__close:hover {
+            background: var(--muted);
+            color: var(--foreground);
+        }
+
+        @media (max-width: 768px) {
+            .chat-header__close {
+                display: flex;
+            }
+        }
+
+        .chat-messages-container {
+            flex: 1;
+            padding: 1rem;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .chat-message {
+            display: flex;
+            gap: 0.5rem;
+            max-width: 85%;
+        }
+
+        .chat-message--bot {
+            align-self: flex-start;
+        }
+
+        .chat-message--user {
+            align-self: flex-end;
+            flex-direction: row-reverse;
+        }
+
+        .chat-message__avatar {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.625rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .chat-message--bot .chat-message__avatar {
+            background: var(--primary);
+            color: var(--primary-foreground);
+        }
+
+        .chat-message--user .chat-message__avatar {
+            background: var(--muted);
+            color: var(--foreground-muted);
+        }
+
+        .chat-message__bubble {
+            padding: 0.75rem 1rem;
+            border-radius: 12px;
+            font-size: 0.875rem;
+            line-height: 1.5;
+            white-space: pre-wrap;
+        }
+
+        .chat-message--bot .chat-message__bubble {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-bottom-left-radius: 4px;
+            color: var(--foreground);
+        }
+
+        .chat-message--user .chat-message__bubble {
+            background: var(--primary);
+            color: var(--primary-foreground);
+            border-bottom-right-radius: 4px;
+        }
+
+        .chat-message--typing .chat-message__bubble {
+            display: flex;
+            gap: 4px;
+            padding: 0.75rem 1.25rem;
+        }
+
+        .typing-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--foreground-muted);
+            animation: typingBounce 1.4s infinite ease-in-out;
+        }
+
+        .typing-dot:nth-child(1) { animation-delay: 0s; }
+        .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+        .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes typingBounce {
+            0%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-6px); }
+        }
+
+        .chat-input-container {
+            padding: 1rem;
+            background: var(--card);
+            border-top: 1px solid var(--border);
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .chat-input {
+            flex: 1;
+            padding: 0.75rem 1rem;
+            background: var(--background);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            color: var(--foreground);
+            font-size: 0.875rem;
+            font-family: inherit;
+            resize: none;
+            min-height: 44px;
+            max-height: 100px;
+        }
+
+        .chat-input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .chat-input::placeholder {
+            color: var(--foreground-subtle);
+        }
+
+        .chat-send {
+            width: 44px;
+            height: 44px;
+            border-radius: 10px;
+            background: var(--primary);
+            color: var(--primary-foreground);
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.125rem;
+            transition: all 0.2s;
+            flex-shrink: 0;
+        }
+
+        .chat-send:hover:not(:disabled) {
+            transform: scale(1.05);
+        }
+
+        .chat-send:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* Mobile: Telas pequenas (até 480px) */
+        @media (max-width: 480px) {
+            .chat-widget {
+                bottom: 12px;
+                right: 12px;
+            }
+
+            .chat-toggle {
+                width: 52px;
+                height: 52px;
+                font-size: 0.75rem;
+            }
+
+            .chat-window {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                width: 100%;
+                max-width: 100%;
+                height: 100%;
+                max-height: 100%;
+                border-radius: 0;
+                border: none;
+                z-index: 1001;
+            }
+
+            .chat-header {
+                padding: 0.875rem 1rem;
+                padding-top: max(0.875rem, env(safe-area-inset-top));
+            }
+
+            .chat-header__avatar {
+                width: 36px;
+                height: 36px;
+                font-size: 0.875rem;
+            }
+
+            .chat-header__name {
+                font-size: 0.875rem;
+            }
+
+            .chat-header__status {
+                font-size: 0.6875rem;
+            }
+
+            .chat-messages-container {
+                padding: 0.75rem;
+                gap: 0.625rem;
+            }
+
+            .chat-message {
+                max-width: 90%;
+            }
+
+            .chat-message__avatar {
+                width: 24px;
+                height: 24px;
+                font-size: 0.5625rem;
+            }
+
+            .chat-message__bubble {
+                padding: 0.625rem 0.875rem;
+                font-size: 0.8125rem;
+                line-height: 1.45;
+                word-break: break-word;
+            }
+
+            .chat-input-container {
+                padding: 0.75rem;
+                padding-bottom: max(0.75rem, env(safe-area-inset-bottom));
+                gap: 0.5rem;
+            }
+
+            .chat-input {
+                padding: 0.625rem 0.875rem;
+                font-size: 16px; /* Previne zoom no iOS */
+                min-height: 40px;
+            }
+
+            .chat-send {
+                width: 40px;
+                height: 40px;
+                font-size: 1rem;
+            }
+
+            .typing-dot {
+                width: 6px;
+                height: 6px;
+            }
+        }
+
+        /* Mobile: Telas médias (481px - 768px) */
+        @media (min-width: 481px) and (max-width: 768px) {
+            .chat-widget {
+                bottom: 16px;
+                right: 16px;
+            }
+
+            .chat-toggle {
+                width: 54px;
+                height: 54px;
+            }
+
+            .chat-window {
+                position: fixed;
+                bottom: 0;
+                right: 0;
+                left: 0;
+                top: auto;
+                width: 100%;
+                max-width: 100%;
+                height: 70vh;
+                max-height: 70vh;
+                border-radius: 20px 20px 0 0;
+                border-bottom: none;
+            }
+
+            .chat-header {
+                padding: 1rem;
+            }
+
+            .chat-messages-container {
+                padding: 1rem;
+            }
+
+            .chat-input-container {
+                padding: 0.875rem 1rem;
+                padding-bottom: max(0.875rem, env(safe-area-inset-bottom));
+            }
+
+            .chat-input {
+                font-size: 16px; /* Previne zoom no iOS */
+            }
+        }
+
+        /* Landscape mobile */
+        @media (max-height: 500px) and (orientation: landscape) {
+            .chat-window {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                width: 100%;
+                height: 100%;
+                max-height: 100%;
+                border-radius: 0;
+            }
+
+            .chat-header {
+                padding: 0.5rem 1rem;
+            }
+
+            .chat-header__avatar {
+                width: 32px;
+                height: 32px;
+            }
+
+            .chat-messages-container {
+                padding: 0.5rem 1rem;
+            }
+
+            .chat-input-container {
+                padding: 0.5rem 1rem;
+            }
+
+            .chat-input {
+                min-height: 36px;
+                padding: 0.5rem 0.75rem;
+            }
+
+            .chat-send {
+                width: 36px;
+                height: 36px;
+            }
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 2rem 1.5rem;
+            border-top: 1px solid var(--border);
+            margin-top: 3rem;
+        }
+
+        .footer__text {
+            font-size: 0.8125rem;
+            color: var(--foreground-subtle);
+        }
+
+        .footer__brand {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        /* Responsive */
+        @media (max-width: 640px) {
+            .hero__title {
+                font-size: 1.75rem;
+            }
+
+            .hero__subtitle {
+                font-size: 1rem;
+            }
+
+            .section__title {
+                font-size: 1.25rem;
+            }
+
+            .schedule__item {
+                flex-direction: column;
+                gap: 0.25rem;
+            }
+
+            .schedule__time {
+                width: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header__container">
+            <div class="header__logo"><span>[IA]</span> para Negócios</div>
+            <div class="header__badge">Guia Oficial</div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+        <!-- Journey Hero -->
+        <section class="journey-hero">
+            <div class="journey-hero__badge">Sua Jornada de Transformação</div>
+
+            <div class="journey-hero__flow">
+                <div class="journey-hero__state journey-hero__state--from">CAOS</div>
+                <div class="journey-hero__arrow">---></div>
+                <div class="journey-hero__state journey-hero__state--to">CLAREZA PRÁTICA</div>
+            </div>
+
+            <h1 class="journey-hero__title">
+                Guia Completo da<br>
+                <span>Imersão IA para Negócios</span>
+            </h1>
+
+            <p class="journey-hero__subtitle">
+                Saia da imersão sabendo exatamente como desenvolver IA para gerar ROI.
+                Sistema funcionando, não teoria.
+            </p>
+
+            <div class="journey-hero__date">24 e 25 de Janeiro de 2025</div>
+        </section>
+
+        <!-- Jornada Visual Vertical -->
+        <section class="section">
+            <div class="section__header">
+                <div class="section__icon">J</div>
+                <h2 class="section__title">Sua Jornada</h2>
+            </div>
+            <p style="color: var(--foreground-muted); font-size: 0.875rem; margin-bottom: 1.5rem;">Clique em cada etapa para ver os detalhes</p>
+
+            <div class="journey-timeline">
+                <div class="journey-timeline__line"></div>
+
+                <!-- Sábado -->
+                <div class="journey-day">
+                    <div class="journey-day__header">
+                        <div class="journey-day__badge">Sábado</div>
+                        <div class="journey-day__date">24 de Janeiro</div>
+                    </div>
+
+                    <!-- Estado Inicial -->
+                    <div class="journey-node">
+                        <div class="journey-node__dot journey-node__dot--caos">CAOS</div>
+                        <div class="journey-node__terminal journey-node__terminal--caos">Você chega com ideias soltas e confusão sobre IA</div>
+                    </div>
+
+                    <!-- Alan Nicolas -->
+                    <div class="journey-node" onclick="openPanel('design-system')">
+                        <div class="journey-node__dot">AN</div>
+                        <div class="journey-node__card">
+                            <div class="journey-node__time">09h</div>
+                            <div class="journey-node__title">Alan Nicolas</div>
+                            <div class="journey-node__role">CEO Academia Lendária</div>
+                            <div class="journey-node__method">Design System</div>
+                            <div class="journey-node__cta">Clique para ver detalhes</div>
+                        </div>
+                    </div>
+
+                    <!-- Gabriel Marcondes -->
+                    <div class="journey-node" onclick="openPanel('triple-p')">
+                        <div class="journey-node__dot">GM</div>
+                        <div class="journey-node__card">
+                            <div class="journey-node__time">11h</div>
+                            <div class="journey-node__title">Gabriel Marcondes</div>
+                            <div class="journey-node__role">CEO Agência Lendária</div>
+                            <div class="journey-node__method">Método 0,8 / Triple P</div>
+                            <div class="journey-node__cta">Clique para ver detalhes</div>
+                        </div>
+                    </div>
+
+                    <!-- Break Almoço -->
+                    <div class="journey-break">
+                        <div class="journey-break__line"></div>
+                        <div class="journey-break__text">Almoço</div>
+                        <div class="journey-break__line"></div>
+                    </div>
+
+                    <!-- José Amorim E2O -->
+                    <div class="journey-node" onclick="openPanel('e2o')">
+                        <div class="journey-node__dot">JA</div>
+                        <div class="journey-node__card">
+                            <div class="journey-node__time">14h</div>
+                            <div class="journey-node__title">José Amorim</div>
+                            <div class="journey-node__role">Nexialista</div>
+                            <div class="journey-node__method">Método E2O</div>
+                            <div class="journey-node__cta">Clique para ver detalhes</div>
+                        </div>
+                    </div>
+
+                    <!-- Estado Intermediário -->
+                    <div class="journey-node">
+                        <div class="journey-node__dot journey-node__dot--primeiro">1º</div>
+                        <div class="journey-node__terminal journey-node__terminal--primeiro">Primeiro sistema criado</div>
+                    </div>
+
+                    <!-- Pronto Socorro -->
+                    <div class="pronto-socorro" id="prontoSocorroSabado">
+                        <button class="pronto-socorro__trigger" onclick="toggleProntoSocorro('prontoSocorroSabado')">
+                            <div class="pronto-socorro__line"></div>
+                            <div class="pronto-socorro__icon">+</div>
+                            <span class="pronto-socorro__label">19h - Pronto Socorro - 4 salas especializadas <span class="pronto-socorro__expand">▼</span></span>
+                            <div class="pronto-socorro__line"></div>
+                        </button>
+                        <div class="pronto-socorro__salas">
+                            <div class="pronto-socorro__sala">
+                                <div class="pronto-socorro__sala-icon">D</div>
+                                <div class="pronto-socorro__sala-title">Organização de Informações</div>
+                                <div class="pronto-socorro__sala-desc">Documentação e dados - estruture seu conhecimento</div>
+                            </div>
+                            <div class="pronto-socorro__sala">
+                                <div class="pronto-socorro__sala-icon">UX</div>
+                                <div class="pronto-socorro__sala-title">Interface e Experiência</div>
+                                <div class="pronto-socorro__sala-desc">Design - crie interfaces que seus usuários amam</div>
+                            </div>
+                            <div class="pronto-socorro__sala">
+                                <div class="pronto-socorro__sala-icon">A</div>
+                                <div class="pronto-socorro__sala-title">Conexão entre Sistemas</div>
+                                <div class="pronto-socorro__sala-desc">Automação e integrações - faça tudo funcionar junto</div>
+                            </div>
+                            <div class="pronto-socorro__sala">
+                                <div class="pronto-socorro__sala-icon">P</div>
+                                <div class="pronto-socorro__sala-title">Comunicação com IA</div>
+                                <div class="pronto-socorro__sala-desc">Engenharia de prompt - extraia o máximo da IA</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Domingo -->
+                <div class="journey-day">
+                    <div class="journey-day__header">
+                        <div class="journey-day__badge">Domingo</div>
+                        <div class="journey-day__date">25 de Janeiro</div>
+                    </div>
+
+                    <!-- José Amorim Nexorama -->
+                    <div class="journey-node" onclick="openPanel('nexorama')">
+                        <div class="journey-node__dot">JA</div>
+                        <div class="journey-node__card">
+                            <div class="journey-node__time">09h</div>
+                            <div class="journey-node__title">José Amorim</div>
+                            <div class="journey-node__role">Nexialista</div>
+                            <div class="journey-node__method">Método Nexorama</div>
+                            <div class="journey-node__cta">Clique para ver detalhes</div>
+                        </div>
+                    </div>
+
+                    <!-- Break Almoço -->
+                    <div class="journey-break">
+                        <div class="journey-break__line"></div>
+                        <div class="journey-break__text">Almoço</div>
+                        <div class="journey-break__line"></div>
+                    </div>
+
+                    <!-- Gabriel Marcondes Continuidade -->
+                    <div class="journey-node" onclick="openPanel('continuidade')">
+                        <div class="journey-node__dot">GM</div>
+                        <div class="journey-node__card">
+                            <div class="journey-node__time">13h</div>
+                            <div class="journey-node__title">Gabriel Marcondes</div>
+                            <div class="journey-node__role">CEO Agência Lendária</div>
+                            <div class="journey-node__method">Continuidade</div>
+                            <div class="journey-node__cta">Clique para ver detalhes</div>
+                        </div>
+                    </div>
+
+                    <!-- Break Coffee -->
+                    <div class="journey-break">
+                        <div class="journey-break__line"></div>
+                        <div class="journey-break__text">Coffee Break</div>
+                        <div class="journey-break__line"></div>
+                    </div>
+
+                    <!-- Alan Nicolas Encerramento -->
+                    <div class="journey-node" onclick="openPanel('encerramento')">
+                        <div class="journey-node__dot">AN</div>
+                        <div class="journey-node__card">
+                            <div class="journey-node__time">16h30</div>
+                            <div class="journey-node__title">Alan Nicolas</div>
+                            <div class="journey-node__role">CEO Academia Lendária</div>
+                            <div class="journey-node__method">Encerramento</div>
+                            <div class="journey-node__cta">Clique para ver detalhes</div>
+                        </div>
+                    </div>
+
+                    <!-- Estado Final -->
+                    <div class="journey-node">
+                        <div class="journey-node__dot journey-node__dot--clareza">FIM</div>
+                        <div class="journey-node__terminal journey-node__terminal--clareza">CLAREZA PRÁTICA - Sistema funcionando</div>
+                    </div>
+
+                    <!-- Pronto Socorro Final -->
+                    <div class="pronto-socorro" id="prontoSocorroDomingo">
+                        <button class="pronto-socorro__trigger" onclick="toggleProntoSocorro('prontoSocorroDomingo')">
+                            <div class="pronto-socorro__line"></div>
+                            <div class="pronto-socorro__icon">+</div>
+                            <span class="pronto-socorro__label">19h - Pronto Socorro + Networking - 4 salas especializadas <span class="pronto-socorro__expand">▼</span></span>
+                            <div class="pronto-socorro__line"></div>
+                        </button>
+                        <div class="pronto-socorro__salas">
+                            <div class="pronto-socorro__sala">
+                                <div class="pronto-socorro__sala-icon">D</div>
+                                <div class="pronto-socorro__sala-title">Organização de Informações</div>
+                                <div class="pronto-socorro__sala-desc">Documentação e dados - estruture seu conhecimento</div>
+                            </div>
+                            <div class="pronto-socorro__sala">
+                                <div class="pronto-socorro__sala-icon">UX</div>
+                                <div class="pronto-socorro__sala-title">Interface e Experiência</div>
+                                <div class="pronto-socorro__sala-desc">Design - crie interfaces que seus usuários amam</div>
+                            </div>
+                            <div class="pronto-socorro__sala">
+                                <div class="pronto-socorro__sala-icon">A</div>
+                                <div class="pronto-socorro__sala-title">Conexão entre Sistemas</div>
+                                <div class="pronto-socorro__sala-desc">Automação e integrações - faça tudo funcionar junto</div>
+                            </div>
+                            <div class="pronto-socorro__sala">
+                                <div class="pronto-socorro__sala-icon">P</div>
+                                <div class="pronto-socorro__sala-title">Comunicação com IA</div>
+                                <div class="pronto-socorro__sala-desc">Engenharia de prompt - extraia o máximo da IA</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- O que voce precisa saber -->
+        <section class="section">
+            <div class="section__header">
+                <div class="section__icon">!</div>
+                <h2 class="section__title">Antes de tudo</h2>
+            </div>
+
+            <div class="alert alert--warning">
+                <div class="alert__title">IMPORTANTE: Isso NÃO é uma palestra</div>
+                <div class="alert__text">
+                    A Imersão IA para Negócios é 100% prática. Você vai CONSTRUIR seu sistema de IA junto com os mentores em tempo real.
+                    Por isso, <strong>acesse pelo computador</strong> para ter a melhor experiência.
+                </div>
+            </div>
+
+            <div class="grid grid--2">
+                <div class="info-card">
+                    <div class="info-card__title">Plataforma</div>
+                    <div class="info-card__value">Zoom</div>
+                    <div class="info-card__desc">Link enviado por e-mail e WhatsApp</div>
+                </div>
+                <div class="info-card">
+                    <div class="info-card__title">Gravação</div>
+                    <div class="info-card__value">Disponível por 2 semanas</div>
+                    <div class="info-card__desc">Mas a experiência ao vivo é insubstituível</div>
+                </div>
+                <div class="info-card">
+                    <div class="info-card__title">Fuso Horário</div>
+                    <div class="info-card__value">Horário de Brasília</div>
+                    <div class="info-card__desc">Todos os horários são em BRT</div>
+                </div>
+                <div class="info-card">
+                    <div class="info-card__title">Grupo Exclusivo</div>
+                    <div class="info-card__value">WhatsApp</div>
+                    <div class="info-card__desc">Você já está no grupo dos compradores</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Setup Ideal -->
+        <section class="section">
+            <div class="section__header">
+                <div class="section__icon">PC</div>
+                <h2 class="section__title">Setup Ideal</h2>
+            </div>
+
+            <div class="info-card info-card--highlight">
+                <div class="info-card__title">Configuração Recomendada</div>
+                <div class="info-card__value">Computador + Segunda Tela (opcional)</div>
+                <div class="info-card__desc">
+                    Assista o Zoom em uma tela e preencha o sistema na outra.
+                    Se tiver apenas um computador, funciona perfeitamente - basta alternar entre janelas.
+                </div>
+            </div>
+
+            <div class="alert alert--info">
+                <div class="alert__title">E pelo celular?</div>
+                <div class="alert__text">
+                    Pode assistir, mas a experiência cai 95%. Você não conseguirá preencher o sistema junto com os mentores,
+                    e a Imersão perde o sentido. Se não tiver computador, use o celular para o Zoom e pegue o replay depois para fazer no PC.
+                </div>
+            </div>
+        </section>
+
+        <!-- O que trazer -->
+        <section class="section">
+            <div class="section__header">
+                <div class="section__icon">+</div>
+                <h2 class="section__title">O que trazer</h2>
+            </div>
+
+            <div class="checklist">
+                <div class="checklist__item">
+                    <div class="checklist__icon">1</div>
+                    <div class="checklist__text">
+                        <strong>Banco de ideias.</strong> Traga possibilidades soltas, ideias de sistemas que gostaria de criar.
+                        Vamos definir JUNTOS qual vale a pena durante a imersão.
+                    </div>
+                </div>
+                <div class="checklist__item">
+                    <div class="checklist__icon">2</div>
+                    <div class="checklist__text">
+                        <strong>Computador com internet.</strong> Não precisa instalar nada antes.
+                        Usaremos o Google AI Studio (gratuito) e nosso sistema próprio.
+                    </div>
+                </div>
+                <div class="checklist__item">
+                    <div class="checklist__icon">3</div>
+                    <div class="checklist__text">
+                        <strong>Disposição para construir.</strong> Você vai sair com SEU sistema funcionando,
+                        não um exemplo genérico. O resultado depende do seu engajamento.
+                    </div>
+                </div>
+            </div>
+
+            <div class="alert alert--info" style="margin-top: 1.5rem;">
+                <div class="alert__title">Nível técnico necessário</div>
+                <div class="alert__text">
+                    Saber usar o computador, fazer login e acessar sites. Só isso.
+                    Não precisa saber programar, usar ferramentas de automação ou ter experiência prévia com IA.
+                </div>
+            </div>
+        </section>
+
+        <!-- Cronograma -->
+        <section class="section">
+            <div class="section__header">
+                <div class="section__icon">H</div>
+                <h2 class="section__title">Cronograma Completo</h2>
+            </div>
+
+            <div class="schedule">
+                <!-- Sábado -->
+                <div class="schedule__day">
+                    <div class="schedule__day-header">
+                        <div class="schedule__day-badge">Sábado</div>
+                        <div class="schedule__day-title">24 de Janeiro</div>
+                    </div>
+                    <div class="schedule__items">
+                        <div class="schedule__item">
+                            <div class="schedule__time">09h</div>
+                            <div class="schedule__event">
+                                <div class="schedule__event-title">Design System</div>
+                                <div class="schedule__event-desc">Alan Nicolas - CEO Academia Lendária</div>
+                            </div>
+                        </div>
+                        <div class="schedule__item">
+                            <div class="schedule__time">11h</div>
+                            <div class="schedule__event">
+                                <div class="schedule__event-title">Método 0,8 / Triple P</div>
+                                <div class="schedule__event-desc">Gabriel Marcondes - CEO Agência Lendária</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="schedule__break">Almoço - 1h30 de intervalo</div>
+                    <div class="schedule__items">
+                        <div class="schedule__item">
+                            <div class="schedule__time">14h</div>
+                            <div class="schedule__event">
+                                <div class="schedule__event-title">Método E2O</div>
+                                <div class="schedule__event-desc">José Amorim - Nexialista</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="schedule__break">Coffee Break - 16h às 17h30</div>
+                    <div class="schedule__items">
+                        <div class="schedule__item">
+                            <div class="schedule__time">19h</div>
+                            <div class="schedule__event">
+                                <div class="schedule__event-title">Pronto Socorro (opcional)</div>
+                                <div class="schedule__event-desc">Tire dúvidas com especialistas - Salas por nicho</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Domingo -->
+                <div class="schedule__day">
+                    <div class="schedule__day-header">
+                        <div class="schedule__day-badge">Domingo</div>
+                        <div class="schedule__day-title">25 de Janeiro</div>
+                    </div>
+                    <div class="schedule__items">
+                        <div class="schedule__item">
+                            <div class="schedule__time">09h</div>
+                            <div class="schedule__event">
+                                <div class="schedule__event-title">Método Nexorama</div>
+                                <div class="schedule__event-desc">José Amorim - Nexialista</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="schedule__break">Almoço - 1h30 de intervalo</div>
+                    <div class="schedule__items">
+                        <div class="schedule__item">
+                            <div class="schedule__time">13h</div>
+                            <div class="schedule__event">
+                                <div class="schedule__event-title">Continuidade</div>
+                                <div class="schedule__event-desc">Gabriel Marcondes - CEO Agência Lendária</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="schedule__break">Coffee Break - 16h às 17h30</div>
+                    <div class="schedule__items">
+                        <div class="schedule__item">
+                            <div class="schedule__time">16h30</div>
+                            <div class="schedule__event">
+                                <div class="schedule__event-title">Encerramento</div>
+                                <div class="schedule__event-desc">Alan Nicolas - CEO Academia Lendária</div>
+                            </div>
+                        </div>
+                        <div class="schedule__item">
+                            <div class="schedule__time">19h</div>
+                            <div class="schedule__event">
+                                <div class="schedule__event-title">Pronto Socorro + Networking (opcional)</div>
+                                <div class="schedule__event-desc">Conexões e networking com participantes</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- O que voce vai sair -->
+        <section class="section">
+            <div class="section__header">
+                <div class="section__icon">*</div>
+                <h2 class="section__title">O que você vai construir</h2>
+            </div>
+
+            <div class="deliverable">
+                <div class="deliverable__check">ok</div>
+                <div class="deliverable__text">Design System documentado da sua marca/negócio</div>
+            </div>
+            <div class="deliverable">
+                <div class="deliverable__check">ok</div>
+                <div class="deliverable__text">Diagnóstico Triple P preenchido (Dor, Bolso, Prioridade)</div>
+            </div>
+            <div class="deliverable">
+                <div class="deliverable__check">ok</div>
+                <div class="deliverable__text">Mapa E2O completo do seu sistema</div>
+            </div>
+            <div class="deliverable">
+                <div class="deliverable__check">ok</div>
+                <div class="deliverable__text">Seu sistema de IA funcionando</div>
+            </div>
+            <div class="deliverable">
+                <div class="deliverable__check">ok</div>
+                <div class="deliverable__text">Roadmap de 90 dias para continuar evoluindo</div>
+            </div>
+            <div class="deliverable">
+                <div class="deliverable__check">ok</div>
+                <div class="deliverable__text">Certificado de conclusão</div>
+            </div>
+
+            <div class="alert alert--info" style="margin-top: 1.5rem;">
+                <div class="alert__title">Tudo fica salvo no sistema</div>
+                <div class="alert__text">
+                    Não há templates para baixar porque tudo que você construir fica salvo automaticamente no sistema.
+                    Você acessa quando quiser.
+                </div>
+            </div>
+        </section>
+
+        <!-- Suporte -->
+        <section class="section">
+            <div class="section__header">
+                <div class="section__icon">?</div>
+                <h2 class="section__title">Suporte e Dúvidas</h2>
+            </div>
+
+            <div class="grid grid--2">
+                <div class="info-card">
+                    <div class="info-card__title">Durante a Imersão</div>
+                    <div class="info-card__value">Chat ao vivo</div>
+                    <div class="info-card__desc">Tire dúvidas em tempo real durante as sessões</div>
+                </div>
+                <div class="info-card">
+                    <div class="info-card__title">Pronto Socorro</div>
+                    <div class="info-card__value">Salas por nicho</div>
+                    <div class="info-card__desc">Especialistas em negócios, automação e dados</div>
+                </div>
+            </div>
+
+            <div class="alert alert--warning" style="margin-top: 1.5rem;">
+                <div class="alert__title">IMPORTANTE</div>
+                <div class="alert__text">
+                    O suporte é exclusivo durante o evento. Após a imersão, não há canal de suporte.
+                    Aproveite ao máximo os momentos de Pronto Socorro para tirar TODAS as suas dúvidas.
+                </div>
+            </div>
+        </section>
+
+        <!-- O que NÃO é -->
+        <section class="section">
+            <div class="section__header">
+                <div class="section__icon">X</div>
+                <h2 class="section__title">O que a Imersão NÃO é</h2>
+            </div>
+
+            <div class="info-card">
+                <div class="not-list">
+                    <div class="not-list__item">
+                        <span class="not-list__icon">x</span>
+                        <span>Palestra inspiracional ou motivacional</span>
+                    </div>
+                    <div class="not-list__item">
+                        <span class="not-list__icon">x</span>
+                        <span>Curso de como vender ou prospectar clientes</span>
+                    </div>
+                    <div class="not-list__item">
+                        <span class="not-list__icon">x</span>
+                        <span>Treinamento de comunicação ou oratória</span>
+                    </div>
+                    <div class="not-list__item">
+                        <span class="not-list__icon">x</span>
+                        <span>Teoria sobre IA sem aplicação prática</span>
+                    </div>
+                    <div class="not-list__item">
+                        <span class="not-list__icon">x</span>
+                        <span>Solução para problemas de timidez ou bloqueios pessoais</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="alert alert--info" style="margin-top: 1.5rem;">
+                <div class="alert__title">O que a Imersão É</div>
+                <div class="alert__text">
+                    Uma experiência 100% prática onde você constrói, em tempo real, um sistema de IA personalizado para seu negócio.
+                    Você sai sabendo exatamente como desenvolver IA para gerar ROI.
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ -->
+        <section class="section">
+            <div class="section__header">
+                <div class="section__icon">?</div>
+                <h2 class="section__title">Perguntas Frequentes</h2>
+            </div>
+
+            <div class="faq">
+                <div class="faq__item">
+                    <div class="faq__question" onclick="toggleFaq(this)">
+                        Preciso ligar a câmera?
+                        <span class="faq__toggle">+</span>
+                    </div>
+                    <div class="faq__answer">
+                        Não é obrigatório, mas é preferível para deixar o ambiente mais dinâmico. Fica a seu critério.
+                    </div>
+                </div>
+                <div class="faq__item">
+                    <div class="faq__question" onclick="toggleFaq(this)">
+                        Preciso instalar algum programa antes?
+                        <span class="faq__toggle">+</span>
+                    </div>
+                    <div class="faq__answer">
+                        Não. Usaremos nosso sistema próprio (acesso via navegador) e o Google AI Studio, que é gratuito.
+                        Basta ter internet e um computador.
+                    </div>
+                </div>
+                <div class="faq__item">
+                    <div class="faq__question" onclick="toggleFaq(this)">
+                        Por quanto tempo terei acesso à gravação?
+                        <span class="faq__toggle">+</span>
+                    </div>
+                    <div class="faq__answer">
+                        2 semanas após o evento. Mas a experiência ao vivo é insubstituível -
+                        a gravação serve mais para revisão do que para substituir a participação.
+                    </div>
+                </div>
+                <div class="faq__item">
+                    <div class="faq__question" onclick="toggleFaq(this)">
+                        Como ganho o certificado?
+                        <span class="faq__toggle">+</span>
+                    </div>
+                    <div class="faq__answer">
+                        Entregou seu sistema no final da imersão, ganha o certificado.
+                        Não há cobrança de presença mínima, apenas a entrega do projeto.
+                    </div>
+                </div>
+                <div class="faq__item">
+                    <div class="faq__question" onclick="toggleFaq(this)">
+                        O Pronto Socorro é obrigatório?
+                        <span class="faq__toggle">+</span>
+                    </div>
+                    <div class="faq__answer">
+                        Não, é opcional. Recomendamos fortemente que participe se tiver qualquer dúvida.
+                        É sua chance de ter acesso direto a especialistas em negócios, automação e dados.
+                    </div>
+                </div>
+                <div class="faq__item">
+                    <div class="faq__question" onclick="toggleFaq(this)">
+                        Já tenho uma ideia definida. Devo trazer?
+                        <span class="faq__toggle">+</span>
+                    </div>
+                    <div class="faq__answer">
+                        Traga um banco de possibilidades - ideias soltas. Durante a imersão, vamos definir juntos
+                        qual faz mais sentido desenvolver com base no método Triple P.
+                    </div>
+                </div>
+                <div class="faq__item">
+                    <div class="faq__question" onclick="toggleFaq(this)">
+                        Há suporte após a imersão?
+                        <span class="faq__toggle">+</span>
+                    </div>
+                    <div class="faq__answer">
+                        Não. O suporte é exclusivo durante o evento. Por isso, aproveite ao máximo os momentos
+                        de Pronto Socorro. Para quem desejar continuidade, apresentaremos a Formação Lendária.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Próximos Passos -->
+        <section class="section">
+            <div class="section__header">
+                <div class="section__icon">></div>
+                <h2 class="section__title">Próximos Passos</h2>
+            </div>
+
+            <div class="checklist">
+                <div class="checklist__item">
+                    <div class="checklist__icon">ok</div>
+                    <div class="checklist__text">
+                        <strong>Formulário preenchido.</strong> Você já respondeu ao formulário pós-compra. Se não respondeu,
+                        verifique seu e-mail.
+                    </div>
+                </div>
+                <div class="checklist__item">
+                    <div class="checklist__icon">ok</div>
+                    <div class="checklist__text">
+                        <strong>Grupo do WhatsApp.</strong> Você já está no grupo exclusivo. Fique atento aos avisos.
+                    </div>
+                </div>
+                <div class="checklist__item">
+                    <div class="checklist__icon">...</div>
+                    <div class="checklist__text">
+                        <strong>Aguarde o link do Zoom.</strong> Será enviado por e-mail e WhatsApp antes do evento.
+                    </div>
+                </div>
+                <div class="checklist__item">
+                    <div class="checklist__icon">!</div>
+                    <div class="checklist__text">
+                        <strong>Prepare seu banco de ideias.</strong> Anote possibilidades de sistemas que gostaria de criar.
+                        Vamos escolher juntos.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Panel Overlay -->
+    <div class="panel-overlay" onclick="closePanel()"></div>
+
+    <!-- Panel: Design System -->
+    <div class="panel" id="panel-design-system">
+        <div class="panel__header">
+            <div class="panel__title">
+                <div class="panel__title-icon">AN</div>
+                Design System
+            </div>
+            <button class="panel__close" onclick="closePanel()">X</button>
+        </div>
+        <div class="panel__body">
+            <div class="form-section">
+                <div class="form-section__title">O que voce vai aprender</div>
+                <p style="color: var(--foreground-muted); font-size: 0.875rem; line-height: 1.7;">
+                    Alan Nicolas vai mostrar como criar a identidade visual da sua marca de forma que a IA consiga replicar perfeitamente seu estilo em qualquer material.
+                </p>
+            </div>
+
+            <div class="form-section">
+                <div class="form-section__title">Elementos que voce vai definir</div>
+                <div class="phase-list">
+                    <div class="phase-item">
+                        <div class="phase-item__number">1</div>
+                        <div class="phase-item__text">Paleta de cores primarias e secundarias</div>
+                    </div>
+                    <div class="phase-item">
+                        <div class="phase-item__number">2</div>
+                        <div class="phase-item__text">Tipografia (fontes para titulos e textos)</div>
+                    </div>
+                    <div class="phase-item">
+                        <div class="phase-item__number">3</div>
+                        <div class="phase-item__text">Tom de voz e personalidade da marca</div>
+                    </div>
+                    <div class="phase-item">
+                        <div class="phase-item__number">4</div>
+                        <div class="phase-item__text">Elementos visuais consistentes</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="system-preview">
+                <div class="system-preview__label">Resultado</div>
+                <div class="system-preview__name">Sua marca documentada</div>
+                <div class="system-preview__desc">Pronta para a IA replicar seu estilo em qualquer criacao</div>
+            </div>
+        </div>
+        <div class="panel__footer">
+            <button class="panel__btn" onclick="closePanel()">Voltar para a jornada</button>
+        </div>
+    </div>
+
+    <!-- Panel: Triple P -->
+    <div class="panel" id="panel-triple-p">
+        <div class="panel__header">
+            <div class="panel__title">
+                <div class="panel__title-icon">GM</div>
+                Triple P / Metodo 0,8
+            </div>
+            <button class="panel__close" onclick="closePanel()">X</button>
+        </div>
+        <div class="panel__body">
+            <div class="form-section">
+                <div class="form-section__title">O que voce vai aprender</div>
+                <p style="color: var(--foreground-muted); font-size: 0.875rem; line-height: 1.7;">
+                    Gabriel Marcondes vai ensinar a priorizar ONDE usar IA no seu negocio usando o metodo Triple P (Pain, Pocket, Priority).
+                </p>
+            </div>
+
+            <div class="triple-p-card">
+                <div class="triple-p-card__header">
+                    <span class="triple-p-icon">!</span>
+                    Pain (Dor)
+                </div>
+                <p style="color: var(--foreground-muted); font-size: 0.875rem;">
+                    Qual problema te causa mais dor de cabeca no dia a dia? Onde voce perde mais tempo?
+                </p>
+            </div>
+
+            <div class="triple-p-card">
+                <div class="triple-p-card__header">
+                    <span class="triple-p-icon">$</span>
+                    Pocket (Bolso)
+                </div>
+                <p style="color: var(--foreground-muted); font-size: 0.875rem;">
+                    Quanto essa dor custa para voce? Em tempo, dinheiro, oportunidades perdidas?
+                </p>
+            </div>
+
+            <div class="triple-p-card">
+                <div class="triple-p-card__header">
+                    <span class="triple-p-icon">*</span>
+                    Priority (Prioridade)
+                </div>
+                <p style="color: var(--foreground-muted); font-size: 0.875rem;">
+                    Qual a urgencia de resolver isso? O que acontece se nao resolver em 30 dias?
+                </p>
+            </div>
+
+            <div class="score-box">
+                <div class="score-box__label">Objetivo</div>
+                <div class="score-box__value">Clareza Total</div>
+                <div class="score-box__desc">Voce vai saber exatamente ONDE aplicar IA primeiro</div>
+            </div>
+        </div>
+        <div class="panel__footer">
+            <button class="panel__btn" onclick="closePanel()">Voltar para a jornada</button>
+        </div>
+    </div>
+
+    <!-- Panel: E2O -->
+    <div class="panel" id="panel-e2o">
+        <div class="panel__header">
+            <div class="panel__title">
+                <div class="panel__title-icon">JA</div>
+                Metodo E2O
+            </div>
+            <button class="panel__close" onclick="closePanel()">X</button>
+        </div>
+        <div class="panel__body">
+            <div class="form-section">
+                <div class="form-section__title">O que voce vai aprender</div>
+                <p style="color: var(--foreground-muted); font-size: 0.875rem; line-height: 1.7;">
+                    Jose Amorim vai ensinar a transformar caos em sistema usando o metodo E2O: do Especialista para Orquestracao.
+                </p>
+            </div>
+
+            <div class="form-section">
+                <div class="form-section__title">As 6 Fases do E2O</div>
+                <div class="phase-list">
+                    <div class="phase-item phase-item--current">
+                        <div class="phase-item__number">1</div>
+                        <div class="phase-item__text">Ingestao - Capturar conteudo bruto</div>
+                    </div>
+                    <div class="phase-item">
+                        <div class="phase-item__number">2</div>
+                        <div class="phase-item__text">Decomposicao - Acao + Objeto + Condicao</div>
+                    </div>
+                    <div class="phase-item">
+                        <div class="phase-item__number">3</div>
+                        <div class="phase-item__text">Arquitetura - Definir fluxo logico</div>
+                    </div>
+                    <div class="phase-item">
+                        <div class="phase-item__number">4</div>
+                        <div class="phase-item__text">Friccao - Simplificar ao maximo</div>
+                    </div>
+                    <div class="phase-item">
+                        <div class="phase-item__number">5</div>
+                        <div class="phase-item__text">Orquestracao - IA constroi o sistema</div>
+                    </div>
+                    <div class="phase-item">
+                        <div class="phase-item__number">6</div>
+                        <div class="phase-item__text">Construcao - Sistema pronto e funcionando</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="system-preview">
+                <div class="system-preview__label">Resultado</div>
+                <div class="system-preview__name">Seu primeiro sistema</div>
+                <div class="system-preview__desc">Mapa completo de como a IA vai trabalhar para voce</div>
+            </div>
+        </div>
+        <div class="panel__footer">
+            <button class="panel__btn" onclick="closePanel()">Voltar para a jornada</button>
+        </div>
+    </div>
+
+    <!-- Panel: Nexorama -->
+    <div class="panel" id="panel-nexorama">
+        <div class="panel__header">
+            <div class="panel__title">
+                <div class="panel__title-icon">JA</div>
+                Nexorama
+            </div>
+            <button class="panel__close" onclick="closePanel()">X</button>
+        </div>
+        <div class="panel__body">
+            <div class="form-section">
+                <div class="form-section__title">O que voce vai aprender</div>
+                <p style="color: var(--foreground-muted); font-size: 0.875rem; line-height: 1.7;">
+                    Jose Amorim vai mostrar como a IA constroi seu sistema em tempo real atraves de uma conversa guiada.
+                </p>
+            </div>
+
+            <div class="form-section">
+                <div class="form-section__title">Como funciona</div>
+                <div class="chat-messages">
+                    <div class="chat-msg chat-msg--bot">
+                        <div class="chat-avatar">IA</div>
+                        <div class="chat-bubble">Qual o perfil ideal do seu cliente?</div>
+                    </div>
+                    <div class="chat-msg chat-msg--user">
+                        <div class="chat-avatar">VC</div>
+                        <div class="chat-bubble">PMEs com 10-50 funcionarios</div>
+                    </div>
+                    <div class="chat-msg chat-msg--bot">
+                        <div class="chat-avatar">IA</div>
+                        <div class="chat-bubble">Sistema montado! 3 fluxos de qualificacao criados.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="system-preview">
+                <div class="system-preview__label">Resultado</div>
+                <div class="system-preview__name">Seu sistema funcionando</div>
+                <div class="system-preview__desc">IA personalizada para seu negocio, pronta para usar</div>
+            </div>
+        </div>
+        <div class="panel__footer">
+            <button class="panel__btn" onclick="closePanel()">Voltar para a jornada</button>
+        </div>
+    </div>
+
+    <!-- Panel: Continuidade -->
+    <div class="panel" id="panel-continuidade">
+        <div class="panel__header">
+            <div class="panel__title">
+                <div class="panel__title-icon">GM</div>
+                Continuidade
+            </div>
+            <button class="panel__close" onclick="closePanel()">X</button>
+        </div>
+        <div class="panel__body">
+            <div class="form-section">
+                <div class="form-section__title">O que voce vai aprender</div>
+                <p style="color: var(--foreground-muted); font-size: 0.875rem; line-height: 1.7;">
+                    Gabriel Marcondes vai mostrar como garantir que seu sistema evolua e gere resultados consistentes apos a imersao.
+                </p>
+            </div>
+
+            <div class="form-section">
+                <div class="form-section__title">Roadmap 90 Dias</div>
+                <div class="roadmap-item">
+                    <div class="roadmap-item__title">Semana 1-2</div>
+                    <div class="roadmap-item__text">Deploy do sistema + primeiros ajustes</div>
+                </div>
+                <div class="roadmap-item">
+                    <div class="roadmap-item__title">Semana 3-4</div>
+                    <div class="roadmap-item__text">Otimizar baseado nos primeiros dados</div>
+                </div>
+                <div class="roadmap-item">
+                    <div class="roadmap-item__title">Mes 2</div>
+                    <div class="roadmap-item__text">Escalar volume e adicionar automacoes</div>
+                </div>
+                <div class="roadmap-item">
+                    <div class="roadmap-item__title">Mes 3</div>
+                    <div class="roadmap-item__text">Integrar com outras areas do negocio</div>
+                </div>
+            </div>
+
+            <div class="system-preview">
+                <div class="system-preview__label">Resultado</div>
+                <div class="system-preview__name">Plano de acao claro</div>
+                <div class="system-preview__desc">O que fazer na segunda-feira apos a imersao</div>
+            </div>
+        </div>
+        <div class="panel__footer">
+            <button class="panel__btn" onclick="closePanel()">Voltar para a jornada</button>
+        </div>
+    </div>
+
+    <!-- Panel: Encerramento -->
+    <div class="panel" id="panel-encerramento">
+        <div class="panel__header">
+            <div class="panel__title">
+                <div class="panel__title-icon">AN</div>
+                Encerramento
+            </div>
+            <button class="panel__close" onclick="closePanel()">X</button>
+        </div>
+        <div class="panel__body">
+            <div class="form-section">
+                <div class="form-section__title">O que acontece</div>
+                <p style="color: var(--foreground-muted); font-size: 0.875rem; line-height: 1.7;">
+                    Alan Nicolas fecha a imersao consolidando sua jornada e preparando voce para os proximos passos.
+                </p>
+            </div>
+
+            <div class="form-section">
+                <div class="form-section__title">Voce sai com</div>
+                <div class="phase-list">
+                    <div class="phase-item phase-item--current">
+                        <div class="phase-item__number">1</div>
+                        <div class="phase-item__text">Sistema de IA funcionando</div>
+                    </div>
+                    <div class="phase-item phase-item--current">
+                        <div class="phase-item__number">2</div>
+                        <div class="phase-item__text">Roadmap de 90 dias</div>
+                    </div>
+                    <div class="phase-item phase-item--current">
+                        <div class="phase-item__number">3</div>
+                        <div class="phase-item__text">Certificado de conclusao</div>
+                    </div>
+                    <div class="phase-item phase-item--current">
+                        <div class="phase-item__number">4</div>
+                        <div class="phase-item__text">Clareza sobre proximos passos</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="system-preview">
+                <div class="system-preview__label">Transformacao</div>
+                <div class="system-preview__name">Do caos a clareza pratica</div>
+                <div class="system-preview__desc">Voce sabe exatamente como usar IA para gerar ROI</div>
+            </div>
+        </div>
+        <div class="panel__footer">
+            <button class="panel__btn" onclick="closePanel()">Voltar para a jornada</button>
+        </div>
+    </div>
+
+    <!-- Chat Widget - O Auror -->
+    <div class="chat-widget" id="chatWidget">
+        <div class="chat-window" id="chatWindow">
+            <div class="chat-header">
+                <div class="chat-header__avatar">A</div>
+                <div class="chat-header__info">
+                    <div class="chat-header__name">O Auror</div>
+                    <div class="chat-header__status">Assistente da Imersao</div>
+                </div>
+                <button class="chat-header__close" onclick="toggleChat()">X</button>
+            </div>
+            <div class="chat-messages-container" id="chatMessages">
+                <div class="chat-message chat-message--bot">
+                    <div class="chat-message__avatar">A</div>
+                    <div class="chat-message__bubble">Ola! Sou O Auror, criado especialmente para quem tem preguica de ler. Tenho todas as informacoes da Imersao IA para Negocios na ponta da lingua. Pode perguntar qualquer coisa!</div>
+                </div>
+            </div>
+            <div class="chat-input-container">
+                <textarea
+                    class="chat-input"
+                    id="chatInput"
+                    placeholder="Digite sua duvida..."
+                    rows="1"
+                ></textarea>
+                <button class="chat-send" id="chatSend" onclick="sendMessage()">></button>
+            </div>
+        </div>
+        <button class="chat-toggle" id="chatToggle" onclick="toggleChat()">IA+</button>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p class="footer__text">
+            <span class="footer__brand">Academia Lendária</span> - Imersão IA para Negócios
+        </p>
+    </footer>
+
+    <script>
+        function toggleFaq(element) {
+            const item = element.parentElement;
+            item.classList.toggle('active');
+        }
+
+        function toggleProntoSocorro(id) {
+            const element = document.getElementById(id);
+            const icon = element.querySelector('.pronto-socorro__icon');
+            element.classList.toggle('active');
+            icon.textContent = element.classList.contains('active') ? '-' : '+';
+        }
+
+        let activePanel = null;
+
+        function openPanel(id) {
+            closePanel();
+            const panel = document.getElementById('panel-' + id);
+            const overlay = document.querySelector('.panel-overlay');
+            if (panel) {
+                panel.classList.add('active');
+                overlay.classList.add('active');
+                activePanel = id;
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        function closePanel() {
+            document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+            document.querySelector('.panel-overlay').classList.remove('active');
+            activePanel = null;
+            document.body.style.overflow = '';
+        }
+
+        // Close on escape
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closePanel();
+        });
+
+        // ============================================
+        // CHATBOT - O Auror
+        // ============================================
+        let chatHistory = [];
+        let isTyping = false;
+
+        function toggleChat() {
+            const chatWindow = document.getElementById('chatWindow');
+            const chatToggle = document.getElementById('chatToggle');
+            const isOpen = chatWindow.classList.toggle('active');
+
+            if (isOpen) {
+                chatToggle.innerHTML = 'X';
+                chatToggle.classList.add('chat-toggle--close');
+                document.getElementById('chatInput').focus();
+            } else {
+                chatToggle.innerHTML = 'IA+';
+                chatToggle.classList.remove('chat-toggle--close');
+            }
+        }
+
+        function addMessage(content, role) {
+            const messagesContainer = document.getElementById('chatMessages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `chat-message chat-message--${role === 'user' ? 'user' : 'bot'}`;
+
+            messageDiv.innerHTML = `
+                <div class="chat-message__avatar">${role === 'user' ? 'VC' : 'A'}</div>
+                <div class="chat-message__bubble">${escapeHtml(content)}</div>
+            `;
+
+            messagesContainer.appendChild(messageDiv);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        function showTyping() {
+            const messagesContainer = document.getElementById('chatMessages');
+            const typingDiv = document.createElement('div');
+            typingDiv.className = 'chat-message chat-message--bot chat-message--typing';
+            typingDiv.id = 'typingIndicator';
+
+            typingDiv.innerHTML = `
+                <div class="chat-message__avatar">A</div>
+                <div class="chat-message__bubble">
+                    <div class="typing-dot"></div>
+                    <div class="typing-dot"></div>
+                    <div class="typing-dot"></div>
+                </div>
+            `;
+
+            messagesContainer.appendChild(typingDiv);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        function hideTyping() {
+            const typingIndicator = document.getElementById('typingIndicator');
+            if (typingIndicator) {
+                typingIndicator.remove();
+            }
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        async function sendMessage() {
+            const input = document.getElementById('chatInput');
+            const sendBtn = document.getElementById('chatSend');
+            const message = input.value.trim();
+
+            if (!message || isTyping) return;
+
+            // Add user message
+            addMessage(message, 'user');
+            chatHistory.push({ role: 'user', content: message });
+
+            // Clear input
+            input.value = '';
+            input.style.height = 'auto';
+
+            // Disable input while processing
+            isTyping = true;
+            sendBtn.disabled = true;
+            showTyping();
+
+            try {
+                const response = await fetch('/api/chat', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        message: message,
+                        history: chatHistory.slice(-10)
+                    })
+                });
+
+                hideTyping();
+
+                if (!response.ok) {
+                    throw new Error('Falha ao obter resposta');
+                }
+
+                const data = await response.json();
+                addMessage(data.message, 'assistant');
+                chatHistory.push({ role: 'assistant', content: data.message });
+
+            } catch (error) {
+                hideTyping();
+                addMessage('Desculpe, ocorreu um erro. Tente novamente em alguns segundos.', 'assistant');
+                console.error('Chat error:', error);
+            } finally {
+                isTyping = false;
+                sendBtn.disabled = false;
+            }
+        }
+
+        // Handle Enter key
+        document.getElementById('chatInput').addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                sendMessage();
+            }
+        });
+
+        // Auto-resize textarea
+        document.getElementById('chatInput').addEventListener('input', function() {
+            this.style.height = 'auto';
+            this.style.height = Math.min(this.scrollHeight, 100) + 'px';
+        });
+    </script>
+</body>
+</html>
