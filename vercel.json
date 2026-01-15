@@ -1,13 +1,7 @@
 {
   "rewrites": [
     {
-      "source": "/(.*)",
-      "has": [
-        {
-          "type": "host",
-          "value": "imersaoia.academialendaria.ai"
-        }
-      ],
+      "source": "/",
       "destination": "/landing-v3.html"
     }
   ]
