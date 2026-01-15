@@ -122,6 +122,15 @@
         }
 
         /* ============================================
+           MOTION ONE - Initial States
+           ============================================ */
+        .hero__pretitle,
+        .hero__title,
+        .hero__subtitle {
+            opacity: 0;
+        }
+
+        /* ============================================
            ATOMIC: BUTTONS
            ============================================ */
         .btn {
@@ -2562,6 +2571,23 @@
             background: var(--color-bg-elevated);
         }
 
+        .pricing__lote--encerrado {
+            opacity: 0.4;
+            pointer-events: none;
+        }
+
+        .pricing__lote--encerrado .pricing__lote-badge {
+            background: var(--color-text-subtle);
+            color: var(--color-bg);
+            border-color: var(--color-text-subtle);
+        }
+
+        .pricing__lote-btn--disabled {
+            background: var(--color-text-subtle);
+            color: var(--color-bg);
+            cursor: not-allowed;
+        }
+
         .pricing__lote-badge {
             position: absolute;
             top: -12px;
@@ -2989,10 +3015,9 @@
                     Acesse o link abaixo, abra uma conversa com a IA e faça igual a demonstração aqui embaixo.
                     Veja com seus próprios olhos.
                 </p>
-                <a href="https://aistudio.google.com/app" target="_blank" class="btn btn--ghost btn--locked" id="btn-aistudio" onclick="return !this.classList.contains('btn--locked')">
-                    <span class="btn__lock">🔒</span> Abrir Google AI Studio →
+                <a href="https://aistudio.google.com/app" target="_blank" class="btn btn--ghost" id="btn-aistudio">
+                    Abrir Google AI Studio →
                 </a>
-                <p class="honesty-box__hint" id="hint-aistudio">Assista a demo abaixo para desbloquear</p>
             </div>
 
             <!-- Vibe Coding Animation -->
@@ -3818,12 +3843,22 @@
 
                 <!-- Lotes -->
                 <div class="pricing__lotes">
-                    <!-- Lote 01 - Ativo -->
-                    <div class="pricing__lote pricing__lote--active">
-                        <div class="pricing__lote-badge">Lote 01</div>
+                    <!-- Lote 01 - Encerrado -->
+                    <div class="pricing__lote pricing__lote--encerrado">
+                        <div class="pricing__lote-badge">Lote 01 - Encerrado</div>
                         <div class="pricing__lote-info">
-                            <div class="pricing__lote-price">12x de <span>R$ 34,80</span></div>
-                            <div class="pricing__lote-cash">ou R$ 348 à vista</div>
+                            <div class="pricing__lote-price"><s>12x de R$ 34,80</s></div>
+                            <div class="pricing__lote-cash"><s>ou R$ 348 à vista</s></div>
+                        </div>
+                        <span class="pricing__lote-btn pricing__lote-btn--disabled">Encerrado</span>
+                    </div>
+
+                    <!-- Lote 02 - Ativo -->
+                    <div class="pricing__lote pricing__lote--active">
+                        <div class="pricing__lote-badge">Lote 02 - 15 a 19/Jan</div>
+                        <div class="pricing__lote-info">
+                            <div class="pricing__lote-price">12x de <span>R$ 38,80</span></div>
+                            <div class="pricing__lote-cash">ou R$ 388 à vista</div>
                         </div>
                         <a href="https://checkout.pagtrust.com.br/ck3dd8ac36?funnel=fn7e41919e&sck=cartadevendas&ra=false" class="pricing__lote-btn">Garantir meu Lugar</a>
                     </div>
@@ -3833,19 +3868,9 @@
                         Esta oferta encerra em <span id="countdown-timer">00 Dias : 00 Hrs : 00 Min : 00 Seg</span>
                     </div>
 
-                    <!-- Lote 02 -->
-                    <div class="pricing__lote">
-                        <div class="pricing__lote-badge">Lote 02</div>
-                        <div class="pricing__lote-info">
-                            <div class="pricing__lote-price">12x de <span>R$ 38,80</span></div>
-                            <div class="pricing__lote-cash">ou R$ 388 à vista</div>
-                        </div>
-                        <span class="pricing__lote-btn">Garantir meu Lugar</span>
-                    </div>
-
                     <!-- Lote 03 -->
                     <div class="pricing__lote">
-                        <div class="pricing__lote-badge">Lote 03</div>
+                        <div class="pricing__lote-badge">Lote 03 - 20 a 23/Jan</div>
                         <div class="pricing__lote-info">
                             <div class="pricing__lote-price">12x de <span>R$ 42,80</span></div>
                             <div class="pricing__lote-cash">ou R$ 428 à vista</div>
@@ -4333,16 +4358,7 @@
         }
 
         function unlockAiStudioButton() {
-            const btn = document.getElementById('btn-aistudio');
-            const hint = document.getElementById('hint-aistudio');
-            if (btn) {
-                btn.classList.remove('btn--locked');
-                btn.innerHTML = 'Abrir Google AI Studio →';
-            }
-            if (hint) {
-                hint.textContent = '✓ Demo assistida! Agora teste você mesmo';
-                hint.style.color = 'var(--color-accent)';
-            }
+            // Button is already unlocked - function kept for compatibility
         }
 
         function addMessage(type, text) {
@@ -4775,23 +4791,25 @@
                     link.href = checkoutAluno;
                 });
 
-                // Atualizar preços na seção de pricing
-                const priceElements = document.querySelectorAll('.pricing__lote-price');
-                const cashElements = document.querySelectorAll('.pricing__lote-cash');
-
-                priceElements.forEach(el => {
-                    el.innerHTML = '12x de <span>R$ 24,00</span>';
-                });
-
-                cashElements.forEach(el => {
-                    el.textContent = 'ou R$ 288 à vista';
-                });
-
-                // Esconder lotes 2 e 3, mostrar só o ativo
+                // Atualizar preços na seção de pricing para alunos
                 const lotes = document.querySelectorAll('.pricing__lote');
-                lotes.forEach((lote, index) => {
-                    if (index > 0) lote.style.display = 'none';
-                });
+
+                // Lote 01 - Encerrado (já encerrado, manter igual)
+                // Lote 02 - Ativo: R$ 328 (12x R$ 32,80)
+                if (lotes[1]) {
+                    const price2 = lotes[1].querySelector('.pricing__lote-price');
+                    const cash2 = lotes[1].querySelector('.pricing__lote-cash');
+                    if (price2) price2.innerHTML = '12x de <span>R$ 32,80</span>';
+                    if (cash2) cash2.textContent = 'ou R$ 328 à vista';
+                }
+
+                // Lote 03: R$ 368 (12x R$ 36,80)
+                if (lotes[2]) {
+                    const price3 = lotes[2].querySelector('.pricing__lote-price');
+                    const cash3 = lotes[2].querySelector('.pricing__lote-cash');
+                    if (price3) price3.innerHTML = '12x de <span>R$ 36,80</span>';
+                    if (cash3) cash3.textContent = 'ou R$ 368 à vista';
+                }
 
                 // Adicionar badge de aluno
                 const pricingHeader = document.querySelector('.pricing__header');
@@ -4804,6 +4822,65 @@
                 }
             }
         })();
+    </script>
+
+    <!-- Motion One - Scroll Animations -->
+    <script src="https://cdn.jsdelivr.net/npm/motion@11.17.0/dist/motion.min.js"></script>
+    <script>
+        // Motion One - Scroll-triggered animations
+        document.addEventListener('DOMContentLoaded', () => {
+            const { animate, scroll, inView } = Motion;
+
+            // Animate sections on scroll
+            const sections = document.querySelectorAll('section');
+            sections.forEach(section => {
+                inView(section, () => {
+                    animate(section,
+                        { opacity: [0, 1], y: [30, 0] },
+                        { duration: 0.6, easing: 'ease-out' }
+                    );
+                }, { amount: 0.2 });
+            });
+
+            // Animate cards with stagger effect
+            const cardGroups = document.querySelectorAll('.timeline__nodes, .pricing__lotes, .experts-grid');
+            cardGroups.forEach(group => {
+                const cards = group.children;
+                inView(group, () => {
+                    Array.from(cards).forEach((card, i) => {
+                        animate(card,
+                            { opacity: [0, 1], y: [20, 0] },
+                            { duration: 0.5, delay: i * 0.1, easing: 'ease-out' }
+                        );
+                    });
+                }, { amount: 0.3 });
+            });
+
+            // Hero entrance animation
+            const hero = document.querySelector('.hero');
+            if (hero) {
+                animate(hero.querySelector('.hero__pretitle'),
+                    { opacity: [0, 1], y: [-20, 0] },
+                    { duration: 0.5, delay: 0.1 }
+                );
+                animate(hero.querySelector('.hero__title'),
+                    { opacity: [0, 1], y: [-20, 0] },
+                    { duration: 0.5, delay: 0.2 }
+                );
+                animate(hero.querySelector('.hero__subtitle'),
+                    { opacity: [0, 1], y: [-20, 0] },
+                    { duration: 0.5, delay: 0.3 }
+                );
+            }
+
+            // Parallax effect on scroll for accent elements
+            const accentElements = document.querySelectorAll('.card--highlight, .pricing__lote--active');
+            accentElements.forEach(el => {
+                scroll(animate(el, {
+                    boxShadow: ['0 0 30px rgba(245, 200, 66, 0.1)', '0 0 60px rgba(245, 200, 66, 0.25)']
+                }), { target: el, offset: ['start end', 'end start'] });
+            });
+        });
     </script>
 </body>
 </html>
