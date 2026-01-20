@@ -1557,7 +1557,7 @@
         }
 
         /* ============================================
-           CHATBOT - O Auror
+           CHATBOT - Aurora
            ============================================ */
         .chat-widget {
             position: fixed;
@@ -1568,21 +1568,27 @@
         }
 
         .chat-toggle {
-            width: 60px;
-            height: 60px;
+            width: 64px;
+            height: 64px;
             border-radius: 50%;
-            background: var(--primary);
+            background: linear-gradient(135deg, var(--primary) 0%, #8B5CF6 100%);
             color: var(--primary-foreground);
             border: none;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 0.875rem;
+            font-size: 1.75rem;
             font-weight: 700;
             font-family: inherit;
-            box-shadow: 0 4px 20px var(--primary-glow);
+            box-shadow: 0 4px 20px var(--primary-glow), 0 0 0 4px rgba(139, 92, 246, 0.2);
             transition: all 0.3s;
+            animation: pulse-chat 2s infinite;
+        }
+
+        @keyframes pulse-chat {
+            0%, 100% { box-shadow: 0 4px 20px var(--primary-glow), 0 0 0 4px rgba(139, 92, 246, 0.2); }
+            50% { box-shadow: 0 4px 25px var(--primary-glow), 0 0 0 8px rgba(139, 92, 246, 0.1); }
         }
 
         .chat-toggle:hover {
@@ -3028,21 +3034,21 @@
         </div>
     </div>
 
-    <!-- Chat Widget - O Auror -->
+    <!-- Chat Widget - Aurora -->
     <div class="chat-widget" id="chatWidget">
         <div class="chat-window" id="chatWindow">
             <div class="chat-header">
-                <div class="chat-header__avatar">A</div>
+                <div class="chat-header__avatar">💬</div>
                 <div class="chat-header__info">
-                    <div class="chat-header__name">O Auror</div>
+                    <div class="chat-header__name">Aurora</div>
                     <div class="chat-header__status">Assistente da Imersao</div>
                 </div>
                 <button class="chat-header__close" onclick="toggleChat()">X</button>
             </div>
             <div class="chat-messages-container" id="chatMessages">
                 <div class="chat-message chat-message--bot">
-                    <div class="chat-message__avatar">A</div>
-                    <div class="chat-message__bubble">Ola! Sou O Auror, criado especialmente para quem tem preguica de ler. Tenho todas as informacoes da Imersao IA para Negocios na ponta da lingua. Pode perguntar qualquer coisa!</div>
+                    <div class="chat-message__avatar">🤖</div>
+                    <div class="chat-message__bubble">Ola! Sou a Aurora, assistente da Imersao IA para Negocios. Fui criada especialmente para quem tem preguica de ler. Tenho todas as informacoes na ponta da lingua. Pode perguntar qualquer coisa!</div>
                 </div>
             </div>
             <div class="chat-input-container">
@@ -3055,7 +3061,7 @@
                 <button class="chat-send" id="chatSend" onclick="sendMessage()">></button>
             </div>
         </div>
-        <button class="chat-toggle" id="chatToggle" onclick="toggleChat()">IA+</button>
+        <button class="chat-toggle" id="chatToggle" onclick="toggleChat()" title="Fale com a Aurora - Assistente IA">💬</button>
     </div>
 
     <!-- Footer -->
@@ -3105,7 +3111,7 @@
         });
 
         // ============================================
-        // CHATBOT - O Auror
+        // CHATBOT - Aurora
         // ============================================
         let chatHistory = [];
         let isTyping = false;
@@ -3116,11 +3122,11 @@
             const isOpen = chatWindow.classList.toggle('active');
 
             if (isOpen) {
-                chatToggle.innerHTML = 'X';
+                chatToggle.innerHTML = '✕';
                 chatToggle.classList.add('chat-toggle--close');
                 document.getElementById('chatInput').focus();
             } else {
-                chatToggle.innerHTML = 'IA+';
+                chatToggle.innerHTML = '💬';
                 chatToggle.classList.remove('chat-toggle--close');
             }
         }
@@ -3131,7 +3137,7 @@
             messageDiv.className = `chat-message chat-message--${role === 'user' ? 'user' : 'bot'}`;
 
             messageDiv.innerHTML = `
-                <div class="chat-message__avatar">${role === 'user' ? 'VC' : 'A'}</div>
+                <div class="chat-message__avatar">${role === 'user' ? '👤' : '🤖'}</div>
                 <div class="chat-message__bubble">${escapeHtml(content)}</div>
             `;
 
@@ -3146,7 +3152,7 @@
             typingDiv.id = 'typingIndicator';
 
             typingDiv.innerHTML = `
-                <div class="chat-message__avatar">A</div>
+                <div class="chat-message__avatar">🤖</div>
                 <div class="chat-message__bubble">
                     <div class="typing-dot"></div>
                     <div class="typing-dot"></div>
